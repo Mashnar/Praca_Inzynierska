@@ -11,7 +11,7 @@ class HomepageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      *
-     * Jest to controller renderujący widok głownej strony
+     * Jest to controller renderujący widok głownej strony. Test
      */
     public function index(): Response
     {
