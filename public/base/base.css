@@ -1,0 +1,50 @@
+.container {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 100%;
+}
+
+.header {
+    background: #2fff00;
+    padding: 1rem;
+}
+
+.content {
+    background: #ffffff;
+    color: #444;
+    padding: 1rem;
+}
+
+.footer {
+    background: #5900ff;
+    padding: 1rem;
+}
+
+
+html {
+    max-width: 100%;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0 auto;
+
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+/**
+
+1. Jeśli pojawi się jakiś element szerszy to nie pojawi się pasek do scrollowania u dołu, bo max ekranu jest używane i więcej się nie da
+2. Usunie te brzydkie odstępy od góry i dołu oraz boków
+3. Elementy będą dostosowywały swoją szerokość/wysokość do ramki związanej z obramowaniem, a nie z treścią. Unikasz w ten sposób problemu że coś ma szerokość/wysokość nie taką jak wpisałeś i np ucina obramowanie z lewej/prawej
+ */

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="Szymon Frączyk">
+
+    <link href="{{ asset('base/base.css') }}" rel="stylesheet">
+    {# Tutaj będziemy dodawać dodatkowe css #}
+    {% block head %}
+
+    {% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="header">
+
+            {% include 'base/header.html.twig' %}
+
+    </div>
+    <div class="content">
+        {% block content %}
+
+
+        {% endblock %}
+    </div>
+    <div class="footer">
+
+            {% include 'base/footer.html.twig' %}
+
+    </div>
+</div>
+</body>
+</html>
