@@ -3,7 +3,7 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 300px 300px;
     grid-gap: 30px;
-    padding:51px;
+    padding: 51px;
 
 }
 
@@ -11,15 +11,22 @@
     background-size: 200px 200px;
     background-repeat: no-repeat;
     background-position: center center;
+    border: solid white;
 
 
 }
-.chart{
+
+.chart {
     background-image: url("chart.svg");
 }
-.schedule{
+
+.schedule {
     background-image: url("timetable.svg");
 }
-.building{
-    background-image: url("building.svg");
+
+.building {
+    background-image: url("20967583211554892228.svg");
+}
+.news{
+    background-image: url("news.svg");
 }
