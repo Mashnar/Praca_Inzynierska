@@ -8,5 +8,18 @@
 }
 
 .main_content_box {
-    background: #222;
+    background-size: 200px 200px;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+
+}
+.chart{
+    background-image: url("chart.svg");
+}
+.schedule{
+    background-image: url("timetable.svg");
+}
+.building{
+    background-image: url("building.svg");
 }
