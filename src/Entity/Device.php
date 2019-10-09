@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -38,6 +40,16 @@ class Device
      * @ORM\Column(type="boolean")
      */
     private $active;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DataMain", mappedBy="device")
+     */
+    private $DataMains;
+
+    public function __construct()
+    {
+        $this->DataMains = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -92,5 +104,37 @@ class Device
 
         return $this;
     }
+
+    /**
+     * @return Collection|DataMain[]
+     */
+    public function getDataMains(): Collection
+    {
+        return $this->DataMains;
+    }
+
+    public function addDataMain(DataMain $dataMain): self
+    {
+        if (!$this->DataMains->contains($dataMain)) {
+            $this->DataMains[] = $dataMain;
+            $dataMain->setDevice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDataMain(DataMain $dataMain): self
+    {
+        if ($this->DataMains->contains($dataMain)) {
+            $this->DataMains->removeElement($dataMain);
+            // set the owning side to null (unless already changed)
+            if ($dataMain->getDevice() === $this) {
+                $dataMain->setDevice(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 }
