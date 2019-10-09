@@ -11,22 +11,29 @@
     background-size: 200px 200px;
     background-repeat: no-repeat;
     background-position: center center;
-    border: solid white;
 
 
 }
 
 .chart {
-    background-image: url("chart.svg");
+    background-image: url("charts.svg");
 }
 
 .schedule {
-    background-image: url("timetable.svg");
+    background-image: url("schedule.svg");
 }
 
 .building {
-    background-image: url("20967583211554892228.svg");
+    background-image: url("university.svg");
 }
 .news{
-    background-image: url("news.svg");
+    background-image: url("newspaper.svg");
+}
+
+.weather {
+    background-image: url("weather.svg");
+}
+
+.consultation {
+    background-image: url("consulting.svg");
 }
