@@ -25,19 +25,51 @@ class DataMain
     private $device;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $temperature;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $humidity;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $pressure;
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $pm25;
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $pm10;
+
+
+    public function getPm25()
+    {
+        return $this->pm25;
+    }
+
+
+    public function setPm25($pm25): void
+    {
+        $this->pm25 = $pm25;
+    }
+
+
+    public function getPm10()
+    {
+        return $this->pm10;
+    }
+
+
+    public function setPm10($pm10): void
+    {
+        $this->pm10 = $pm10;
+    }
 
     public function getId(): ?int
     {
