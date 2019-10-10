@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DeviceRepository")
@@ -23,21 +24,47 @@ class Device
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 30,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\Type("string")
+     *
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *     min = 2,
+     *     max = 255,
+     *     minMessage = "Your first name must be at least {{ limit }} characters long",
+     *     maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=16)
+     * @Assert\NotNull
+     * @Assert\Ip
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 16,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $ip_address;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotNull
+     * @Assert\Type("bool")
      */
     private $active;
 
