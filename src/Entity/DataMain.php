@@ -28,24 +28,29 @@ class DataMain
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $temperature;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $humidity;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $pressure;
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $pm25;
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $pm10;
 

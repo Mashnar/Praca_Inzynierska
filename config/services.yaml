@@ -25,7 +25,6 @@ services:
     App\Service\DeviceService:
       arguments:
         $entityManager: '@doctrine.orm.default_entity_manager'
-        $validator: '@debug.validator'
 
 
   # add more service definitions when explicit configuration is needed

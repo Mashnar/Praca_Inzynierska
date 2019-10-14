@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Error;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class TemperatureService
@@ -21,18 +20,19 @@ class TemperatureService
 
     /** @var EntityManagerInterface */
     private $entityManager;
-    /** @var ValidatorInterface */
-    private $validator;
+    /** @var ValidationService */
+    private $validationService;
+
 
     /**
      * TemperatureService constructor.
      * @param EntityManagerInterface $entityManager
-     * @param ValidatorInterface $validator
+     * @param ValidationService $validationService
      */
-    public function __construct(EntityManagerInterface $entityManager, ValidatorInterface $validator)
+    public function __construct(EntityManagerInterface $entityManager, ValidationService $validationService)
     {
         $this->entityManager = $entityManager;
-        $this->validator = $validator;
+        $this->validationService = $validationService;
     }
 
     /**
@@ -42,29 +42,32 @@ class TemperatureService
     public function saveTemperature($data): Response
     {
         $this->entityManager->beginTransaction();
-        $device = $this->entityManager->getRepository(Device::class)->find($data['device_id']);
-        if (!$device) {
-            return new Response("Nie znaleziono twojego urządzenia",
+        //Jesli nie istnieje taki klucz w tablicy, to zwracamy Response ze nie ma odpowiedniego pola
+        if (!(array_key_exists('device_name', $data))) {
+            return new Response('Skontaktuj się z administratorem, problem z nazewnictwem',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
         }
+        //Tutaj juz wiemy, ze dobrze mamy pole
+        $device = $this->entityManager->getRepository(Device::class)->findDeviceByName($data['device_name']);
+
+
+
+        if (!$device) {
+            return new Response('Nie znaleziono twojego urządzenia',
+                RESPONSE::HTTP_NOT_ACCEPTABLE);
+        }
+
+
         try {
-            $temperature = new DataMain();
-            $temperature->setTemperature($data['temperature']);
-            $temperature->setPressure($data['pressure']);
-            $temperature->setHumidity($data['humidity']);
-            $temperature->setDevice($device);
+            $temperature = $this->createObjectTemperature($data, $device);
         } catch (Error | Exception $e) {
-            return new Response("Skontaktuj się z administratore,problem z nazwenictwem",
+            return new Response('Skontaktuj się z administratorem, problem z nazewnictwem',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
 
         }
-        //Walidujemy nasz obiekt
-        $errors = $this->validator->validate($temperature);
-        //Jesli sa errory, zwracamy echo i konczymy dzialanie skryptu
-        if (count($errors) > 0) {
-            return new Response((string)$errors,
-                RESPONSE::HTTP_NOT_ACCEPTABLE);
-        }
+        //waliduje obiekt
+        $this->validationService->validate($temperature);
+
 
         try {
             $this->entityManager->persist($temperature);
@@ -72,10 +75,27 @@ class TemperatureService
             $this->entityManager->commit();
         } catch (Error | Exception $e) {
             $this->entityManager->rollback();
-            return new Response("Problem z bazą danych, skontaktuj się z administratorem",
+            return new Response('Problem z bazą danych, skontaktuj się z administratorem',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
         }
 
-        return new Response("Dodane", Response::HTTP_OK);
+        return new Response('Dodane', Response::HTTP_OK);
+    }
+
+
+    /**
+     * Funkcja tworząca obiekt z temperaturą
+     * @param $data
+     * @param $device
+     * @return DataMain
+     */
+    protected function createObjectTemperature($data, $device): DataMain
+    {
+        $temperature = new DataMain();
+        $temperature->setTemperature($data['temperature']);
+        $temperature->setPressure($data['pressure']);
+        $temperature->setHumidity($data['humidity']);
+        $temperature->setDevice($device);
+        return $temperature;
     }
 }

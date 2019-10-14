@@ -47,4 +47,17 @@ class DeviceRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    /**
+     * Funkcja zwracajaca po nazwie obiekt klasy Device
+     * @param string $value
+     * @return Device|null
+     */
+    public function findDeviceByName(string $value): ?Device
+    {
+        return $this->findOneBy(['name' => $value]);
+
+
+    }
 }
