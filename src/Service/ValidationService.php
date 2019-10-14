@@ -21,7 +21,7 @@ class ValidationService
 
     /** Funkcja walidująca nasz obiekt
      * @param $object
-     * @return string|Response
+     * @return bool|Response
      */
     public function validate($object): ?string
     {
@@ -39,4 +39,21 @@ class ValidationService
         }
         return true;
     }
+
+
+    /**Funkcja sprawdza nazwe zmiennej device_name, jesli nie istnieje, to zwracamy false, jesli istnieje true
+     * @param $data
+     * @return bool
+     */
+    public function checkVariableName($data): bool
+    {
+        //Jesli nie istnieje taki klucz w tablicy, to zwracamy false ze nie ma odpowiedniego pola
+        if (!(array_key_exists('device_name', $data))) {
+            return false;
+        }
+        return true;
+    }
+
+
+
 }

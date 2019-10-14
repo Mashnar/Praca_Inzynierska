@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\DeviceService;
+use App\Service\PollutionService;
 use App\Service\TemperatureService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,6 +44,18 @@ class MicroControllerController extends AbstractController
         //Jesli nasz serwis nie zwroci zadnego błędu, zwracamy status ok
 
 
+    }
+
+
+    /** Funkcja sluząca do zapisu danych o pyle do bazy danych(pm10,pm25)
+     * @param Request $request
+     * @param PollutionService $pollutionService
+     * @Route("/api/save_pollution", name="save_pollution")
+     * @return Response
+     */
+    public function pollution(Request $request, PollutionService $pollutionService): Response
+    {
+        return $pollutionService->savePollution($request->request->all());
     }
 
 }

@@ -4,7 +4,6 @@
 namespace App\Service;
 
 use App\Entity\Device;
-use Doctrine\ORM\EntityManagerInterface;
 use Error;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,19 +17,19 @@ use Symfony\Component\HttpFoundation\Response;
 class DeviceService
 {
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    /**@var $entityService */
+    private $entityService;
     /** @var ValidationService */
     private $validationService;
 
     /**
      * DeviceService constructor.
-     * @param EntityManagerInterface $entityManager
+     * @param EntityService $entityService
      * @param ValidationService $validationService
      */
-    public function __construct(EntityManagerInterface $entityManager, ValidationService $validationService)
+    public function __construct(EntityService $entityService, ValidationService $validationService)
     {
-        $this->entityManager = $entityManager;
+        $this->entityService = $entityService;
         $this->validationService = $validationService;
     }
 
@@ -42,7 +41,7 @@ class DeviceService
     {
 
         //Rozpoczynam transakcję
-        $this->entityManager->beginTransaction();
+        $this->entityService->beginTransaction();
         //Pierwszy try catch, wychwyca zle nazwy pól przesyłanych POST
         try {
             $device = $this->createDeviceObject($data);
@@ -56,11 +55,9 @@ class DeviceService
         //Jesli jakiekolwiek problemy z wgrywaniem dnaych, tez umieszczamy w try catch i zwracamy aby sie skontaktowac
         //z administratorem, nie chce aby żadne komunikaty byly zwracane
         try {
-            $this->entityManager->persist($device);
-            $this->entityManager->flush();
-            $this->entityManager->commit();
+            $this->entityService->persistAndCommit($device);
         } catch (Error | Exception  $e) {
-            $this->entityManager->rollback();
+            $this->entityService->rollback();
 
             return new Response('Problem z bazą danych, skontaktuj się z administratorem',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);

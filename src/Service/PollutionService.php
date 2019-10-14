@@ -3,20 +3,16 @@
 
 namespace App\Service;
 
+
 use App\Entity\DataMain;
+use Doctrine\ORM\EntityManagerInterface;
 use Error;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Class TemperatureService
- * @package App\Service
- * Klasa służąca do zarządzania temperaturą w systemie.
- */
-class TemperatureService
+class PollutionService
 {
-
-    /** @var $entityService */
+    /** @var EntityManagerInterface */
     private $entityService;
     /** @var ValidationService */
     private $validationService;
@@ -33,22 +29,23 @@ class TemperatureService
         $this->validationService = $validationService;
     }
 
-    /**
-     * @param $data [array] Tablica z danymi na temat temperatury
+
+    /** Funkcja do zapisywania pyłu zawieszonego
+     * @param $data
      * @return Response
      */
-    public function saveTemperature($data): Response
+    public function savePollution($data): Response
     {
+        //rozpoczynamy transakcje
         $this->entityService->beginTransaction();
-        //Jesli nie ma odpowiedniej zmiennej, zwracamy response
+
         if (!($this->validationService->checkVariableName($data))) {
             return new Response('Skontaktuj się z administratorem',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
         }
-        //Tutaj juz wiemy, ze dobrze mamy pole
+        //Tutaj juz wiemy, ze dobrze mamy pole, wiec  bierzemy urzadzenie
+
         $device = $this->entityService->getDevice($data['device_name']);
-
-
         if (!$device) {
             return new Response('Nie znaleziono twojego urządzenia',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
@@ -57,43 +54,42 @@ class TemperatureService
 
         try {
             //Tworze obiekt temperatury
-            $temperature = $this->createObjectTemperature($data, $device);
+            $pollution = $this->createPollutionObject($data, $device);
         } catch (Error | Exception $e) {
             return new Response('Skontaktuj się z administratorem',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
 
         }
-        //waliduje obiekt
-        $this->validationService->validate($temperature);
+
+
+        $this->validationService->validate($pollution);
 
 
         try {
-            $this->entityService->persistAndCommit($temperature);
-        } catch (Error | Exception $e) {
+            $this->entityService->persistAndCommit($pollution);
+        } catch (Error | Exception  $e) {
             $this->entityService->rollback();
-            return new Response('Problem z bazą danych',
+            return new Response('Problem z bazą danych, skontaktuj się z administratorem',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
-        }
 
+        }
+        //Jesli wszystko odbędzie sie pozytywnie, zwracamy true
         return new Response('Dodane', Response::HTTP_OK);
+
+
     }
 
-
-    /**
-     * Funkcja tworząca obiekt z temperaturą
+    /**Funkcja tworząca obiekt dla pyłu zawieszonego
      * @param $data
      * @param $device
      * @return DataMain
      */
-    protected function createObjectTemperature($data, $device): DataMain
+    protected function createPollutionObject($data, $device): DataMain
     {
-        $temperature = new DataMain();
-        $temperature->setTemperature($data['temperature']);
-        $temperature->setPressure($data['pressure']);
-        $temperature->setHumidity($data['humidity']);
-        $temperature->setDevice($device);
-        return $temperature;
+        $pollution = new DataMain();
+        $pollution->setPm10($data['pm10']);
+        $pollution->setPm25($data['pm25']);
+        $pollution->setDevice($device);
+        return $pollution;
     }
-
-
 }
