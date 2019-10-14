@@ -15,14 +15,14 @@ class MicroControllerController extends AbstractController
     /**
      * @Route("/api/save_temperature", name="save_temperature")
      * @param Request $request
+     * @param TemperatureService $temperatureService
      * @return Response
      */
-    public function temperature(Request $request): Response
+    public function temperature(Request $request, TemperatureService $temperatureService): Response
     {
 
-        $temp = new TemperatureService();
-        $temp->saveTemperature($request->request->all());
-        return new Response(Response::HTTP_OK);
+        return $temperatureService->saveTemperature($request->request->all());
+
 
 
     }
@@ -38,9 +38,10 @@ class MicroControllerController extends AbstractController
      */
     public function device(Request $request, DeviceService $deviceService): Response
     {
-        $deviceService->saveFirstAccessDevice($request->request->all());
+
+        return $deviceService->saveFirstAccessDevice($request->request->all());
         //Jesli nasz serwis nie zwroci zadnego błędu, zwracamy status ok
-        return new Response(Response::HTTP_OK);
+
 
     }
 

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DataMainRepository")
@@ -21,6 +22,7 @@ class DataMain
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Device", inversedBy="DataMains")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull
      */
     private $device;
 
