@@ -28,24 +28,29 @@ class DataMain
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $temperature;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $humidity;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $pressure;
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $pm25;
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Type("float")
      */
     private $pm10;
 
@@ -56,9 +61,11 @@ class DataMain
     }
 
 
-    public function setPm25($pm25): void
+    public function setPm25(float $pm25): self
     {
         $this->pm25 = $pm25;
+
+        return $this;
     }
 
 
@@ -68,9 +75,11 @@ class DataMain
     }
 
 
-    public function setPm10($pm10): void
+    public function setPm10(float $pm10): self
     {
         $this->pm10 = $pm10;
+
+        return $this;
     }
 
     public function getId(): ?int
