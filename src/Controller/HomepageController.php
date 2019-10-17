@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Facebook\Facebook;
+use App\Service\FacebookService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpClient\HttpClient;
@@ -35,7 +35,7 @@ class HomepageController extends AbstractController
      *
      * @throws TransportExceptionInterface
      */
-    public function scrap()
+    public function scrap(): Response
     {
         $client = HttpClient::create();
         try {
@@ -65,37 +65,37 @@ class HomepageController extends AbstractController
 
     /**
      * @Route("/fb", name="fb")
+     * @param FacebookService $facebookService
      * @return Response
      *
      */
-    public function facebook()
+    public function facebook(FacebookService $facebookService): Response
     {
 
-        $fb = new Facebook([
-            'app_id' => '{802717966793299}',
-            'app_secret' => '{cf8413336573f8b5ac41aebb8909999d}',
-            'default_graph_version' => 'v2.10',
-            //'default_access_token' => '{access-token}', // optional
-        ]);
-        try {
-            // Returns a `FacebookFacebookResponse` object
-            $response = $fb->get(
-                '/me/feed',
-                '{access-token}'
-            );
-        } catch (FacebookExceptionsFacebookResponseException $e) {
-            echo 'Graph returned an error: ' . $e->getMessage();
-            exit;
-        } catch (FacebookExceptionsFacebookSDKException $e) {
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            exit;
-        }
-        $graphNode = $response->getGraphNode();
 
-
-        echo $accessToken;
         return new Response();
     }
+
+    /**
+     * @Route("/wp", name="wp")
+     * @param FacebookService $facebookService
+     * @return Response
+     *
+     */
+    public function wp(): Response
+    {
+        $client = HttpClient::create();
+        try {
+            $response = $client->request('GET', 'http://localhost/wordpress/wp-json/wp/v2/posts');
+        } catch (TransportExceptionInterface $e) {
+            throw $e;
+        }
+
+
+        return New Response();
+
+    }
+
 
 
 }
