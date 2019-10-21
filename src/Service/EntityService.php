@@ -55,9 +55,10 @@ class EntityService
      * @param $name
      * @return Device|null
      */
-    public function getDevice($name): ?Device
+    public function getDevice(string $name): ?Device
     {
         return $this->entityManager->getRepository(Device::class)->findDeviceByName($name);
     }
+
 
 }

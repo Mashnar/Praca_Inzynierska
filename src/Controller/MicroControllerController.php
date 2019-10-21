@@ -40,7 +40,7 @@ class MicroControllerController extends AbstractController
     public function device(Request $request, DeviceService $deviceService): Response
     {
 
-        return $deviceService->saveFirstAccessDevice($request->request->all());
+        return $deviceService->saveAccessDevice($request->request->all());
         //Jesli nasz serwis nie zwroci zadnego błędu, zwracamy status ok
 
 

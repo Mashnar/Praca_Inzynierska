@@ -81,12 +81,13 @@ class HomepageController extends AbstractController
      * @param FacebookService $facebookService
      * @return Response
      *
+     * @throws TransportExceptionInterface
      */
     public function wp(): Response
     {
         $client = HttpClient::create();
         try {
-            $response = $client->request('GET', 'http://localhost/wordpress/wp-json/wp/v2/posts');
+            $response = $client->request('GET', 'http://wfi.uni.lodz.pl/wp-json/wp/v2/posts?&per_page=10');
         } catch (TransportExceptionInterface $e) {
             throw $e;
         }

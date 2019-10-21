@@ -4,6 +4,7 @@
 namespace App\Service;
 
 use App\Entity\DataMain;
+use App\Entity\Device;
 use Error;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,11 +38,12 @@ class TemperatureService
      * @param $data [array] Tablica z danymi na temat temperatury
      * @return Response
      */
-    public function saveTemperature($data): Response
+    public function saveTemperature(array $data): Response
     {
         $this->entityService->beginTransaction();
         //Jesli nie ma odpowiedniej zmiennej, zwracamy response
         if (!($this->validationService->checkVariableName($data))) {
+
             return new Response('Skontaktuj się z administratorem',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
         }
@@ -59,6 +61,7 @@ class TemperatureService
             //Tworze obiekt temperatury
             $temperature = $this->createObjectTemperature($data, $device);
         } catch (Error | Exception $e) {
+            echo $e->getMessage();
             return new Response('Skontaktuj się z administratorem',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
 
@@ -85,7 +88,7 @@ class TemperatureService
      * @param $device
      * @return DataMain
      */
-    protected function createObjectTemperature($data, $device): DataMain
+    protected function createObjectTemperature(array $data, Device $device): DataMain
     {
         $temperature = new DataMain();
         $temperature->setTemperature($data['temperature']);

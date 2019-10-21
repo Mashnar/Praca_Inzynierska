@@ -45,7 +45,7 @@ class ValidationService
      * @param $data
      * @return bool
      */
-    public function checkVariableName($data): bool
+    public function checkVariableName(array $data): bool
     {
         //Jesli nie istnieje taki klucz w tablicy, to zwracamy false ze nie ma odpowiedniego pola
         if (!(array_key_exists('device_name', $data))) {

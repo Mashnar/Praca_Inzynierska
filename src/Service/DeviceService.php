@@ -34,19 +34,27 @@ class DeviceService
     }
 
     /**
-     * @param $data
+     * @param array $data
      * @return Response
      */
-    public function saveFirstAccessDevice($data): Response
+    public function saveAccessDevice(array $data): Response
     {
 
         //Rozpoczynam transakcję
         $this->entityService->beginTransaction();
+        //jesli istnieje takie urządzenie, aktualizujemy tylko ip
+
         //Pierwszy try catch, wychwyca zle nazwy pól przesyłanych POST
         try {
-            $device = $this->createDeviceObject($data);
+            $exist_device = $this->entityService->getDevice($data['name']);
+            if ($exist_device) {
+                $device = $this->updateIP($exist_device, $data['ip_address']);
+            } else {
+                $device = $this->createDeviceObject($data);
+            }
+
         } catch (Error | Exception $e) {
-            return new Response('Skontaktuj sie z administratorem, problem z nazewnictwem',
+            return new Response($e->getMessage(),
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
         }
         //waliduje obiekt
@@ -73,13 +81,26 @@ class DeviceService
      * @param $data
      * @return Device
      */
-    protected function createDeviceObject($data): Device
+    protected function createDeviceObject(array $data): Device
     {
         $device = new Device();
         $device->setName($data['name']);
         $device->setIpAddress($data['ip_address']);
         $device->setActive(true);
         return $device;
+    }
+
+
+    /**
+     * Aktualizuje adres IP
+     * @param $obj_exist
+     * @param $ip_address
+     * @return Device
+     */
+    protected function updateIP(Device $obj_exist, string $ip_address): Device
+    {
+        $obj_exist->setIpAddress($ip_address);
+        return $obj_exist;
     }
 
 

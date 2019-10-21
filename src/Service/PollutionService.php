@@ -5,6 +5,7 @@ namespace App\Service;
 
 
 use App\Entity\DataMain;
+use App\Entity\Device;
 use Doctrine\ORM\EntityManagerInterface;
 use Error;
 use Exception;
@@ -34,13 +35,13 @@ class PollutionService
      * @param $data
      * @return Response
      */
-    public function savePollution($data): Response
+    public function savePollution(array $data): Response
     {
         //rozpoczynamy transakcje
         $this->entityService->beginTransaction();
 
         if (!($this->validationService->checkVariableName($data))) {
-            return new Response('Skontaktuj się z administratorem',
+            return new Response('Skontaktuj się z administratorem, problem z urządzeniem',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
         }
         //Tutaj juz wiemy, ze dobrze mamy pole, wiec  bierzemy urzadzenie
@@ -84,7 +85,7 @@ class PollutionService
      * @param $device
      * @return DataMain
      */
-    protected function createPollutionObject($data, $device): DataMain
+    protected function createPollutionObject(array $data, Device $device): DataMain
     {
         $pollution = new DataMain();
         $pollution->setPm10($data['pm10']);
