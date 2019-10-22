@@ -98,5 +98,22 @@ class HomepageController extends AbstractController
     }
 
 
+    /**
+     *
+     * @Route("/chart", name="chart")
+     * @return Response
+     *
+     *
+     */
+
+    public function charts(): Response
+    {
+//Zwracam widok
+        return $this->render('homepage/charts.html.twig', [
+            'controller_name' => 'HomepageController',
+        ]);
+    }
+
+
 
 }
