@@ -6,7 +6,10 @@
     <meta charset="utf-8">
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="Szymon Frączyk">
-
+    {# DODAJE \FOS\JsRoutingBundle\FOSJsRoutingBundle do obslugi routeingu w js #}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    {#KONIEC #}
     <link href="{{ asset('base/base.css') }}" rel="stylesheet">
     {# Tutaj będziemy dodawać dodatkowe css #}
     {% block head %}

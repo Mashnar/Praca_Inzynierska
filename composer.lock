@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-  "content-hash": "e1f913b211e02a2b44be632fb689ef1b",
+  "content-hash": "ba35a1a79945cfbe0a6ad471d708509e",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1423,6 +1423,68 @@
             "time": "2016-10-17T18:31:11+00:00"
         },
         {
+          "name": "friendsofsymfony/jsrouting-bundle",
+          "version": "2.4.0",
+          "source": {
+            "type": "git",
+            "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git",
+            "reference": "e42ed450eac2b61d5fcba9cd834c294a429e9a40"
+          },
+          "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/e42ed450eac2b61d5fcba9cd834c294a429e9a40",
+            "reference": "e42ed450eac2b61d5fcba9cd834c294a429e9a40",
+            "shasum": ""
+          },
+          "require": {
+            "php": "^5.3.9|^7.0",
+            "symfony/console": "~2.7||~3.0|^4.0",
+            "symfony/framework-bundle": "~2.7||~3.0|^4.0",
+            "symfony/serializer": "~2.7||~3.0|^4.0",
+            "willdurand/jsonp-callback-validator": "~1.0"
+          },
+          "require-dev": {
+            "symfony/expression-language": "~2.7||~3.0|^4.0",
+            "symfony/phpunit-bridge": "^3.3|^4.0"
+          },
+          "type": "symfony-bundle",
+          "extra": {
+            "branch-alias": {
+              "dev-master": "2.0-dev"
+            }
+          },
+          "autoload": {
+            "psr-4": {
+              "FOS\\JsRoutingBundle\\": ""
+            },
+            "exclude-from-classmap": [
+              "/Tests/"
+            ]
+          },
+          "notification-url": "https://packagist.org/downloads/",
+          "license": [
+            "MIT"
+          ],
+          "authors": [
+            {
+              "name": "William Durand",
+              "email": "will+git@drnd.me"
+            },
+            {
+              "name": "FriendsOfSymfony Community",
+              "homepage": "https://github.com/friendsofsymfony/FOSJsRoutingBundle/contributors"
+            }
+          ],
+          "description": "A pretty nice way to expose your Symfony2 routing to client applications.",
+          "homepage": "http://friendsofsymfony.github.com",
+          "keywords": [
+            "Js Routing",
+            "javascript",
+            "routing"
+          ],
+          "time": "2019-08-10T15:40:05+00:00"
+        },
+      {
             "name": "gedmo/doctrine-extensions",
             "version": "v2.4.37",
             "source": {
@@ -4143,20 +4205,20 @@
         },
         {
             "name": "symfony/orm-pack",
-            "version": "v1.0.6",
+          "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/orm-pack.git",
-                "reference": "36c2a928482dc5f05c5c1c1b947242ae03ff1335"
+              "reference": "c57f5e05232ca40626eb9fa52a32bc8565e9231c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/orm-pack/zipball/36c2a928482dc5f05c5c1c1b947242ae03ff1335",
-                "reference": "36c2a928482dc5f05c5c1c1b947242ae03ff1335",
+              "url": "https://api.github.com/repos/symfony/orm-pack/zipball/c57f5e05232ca40626eb9fa52a32bc8565e9231c",
+              "reference": "c57f5e05232ca40626eb9fa52a32bc8565e9231c",
                 "shasum": ""
             },
             "require": {
-                "doctrine/doctrine-bundle": "^1.6.10",
+              "doctrine/doctrine-bundle": "^1.6.10|^2.0",
                 "doctrine/doctrine-migrations-bundle": "^1.3|^2.0",
                 "doctrine/orm": "^2.5.11",
                 "php": "^7.0"
@@ -4167,7 +4229,7 @@
                 "MIT"
             ],
             "description": "A pack for the Doctrine ORM",
-            "time": "2019-01-16T09:49:15+00:00"
+          "time": "2019-10-18T05:41:09+00:00"
         },
         {
             "name": "symfony/polyfill-intl-icu",
@@ -5283,33 +5345,33 @@
         },
         {
             "name": "symfony/swiftmailer-bundle",
-            "version": "v3.2.8",
+          "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/swiftmailer-bundle.git",
-                "reference": "cb125b3648f132fb8070b55393f20cb310907d3b"
+              "reference": "6b895bc0a5e815d1bf2d444869415a7c752516aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/cb125b3648f132fb8070b55393f20cb310907d3b",
-                "reference": "cb125b3648f132fb8070b55393f20cb310907d3b",
+              "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/6b895bc0a5e815d1bf2d444869415a7c752516aa",
+              "reference": "6b895bc0a5e815d1bf2d444869415a7c752516aa",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0",
                 "swiftmailer/swiftmailer": "^6.1.3",
-                "symfony/config": "~2.8|~3.3|~4.0",
-                "symfony/dependency-injection": "~2.7|~3.3|~4.0",
-                "symfony/http-kernel": "~2.7|~3.3|~4.0"
+              "symfony/config": "^3.4|^4.0|^5.0",
+              "symfony/dependency-injection": "^3.4|^4.0|^5.0",
+              "symfony/http-kernel": "^3.4|^4.0|^5.0"
             },
             "conflict": {
                 "twig/twig": "<1.41|<2.10"
             },
             "require-dev": {
-                "symfony/console": "~2.7|~3.3|~4.0",
-                "symfony/framework-bundle": "~2.7|~3.3|~4.0",
-                "symfony/phpunit-bridge": "~3.3|~4.0",
-                "symfony/yaml": "~2.7|~3.3|~4.0"
+              "symfony/console": "^3.4|^4.0|^5.0",
+              "symfony/framework-bundle": "^3.4|^4.0|^5.0",
+              "symfony/phpunit-bridge": "^3.4.32|^4.3.5|^5.0",
+              "symfony/yaml": "^3.4|^4.0|^5.0"
             },
             "suggest": {
                 "psr/log": "Allows logging"
@@ -5317,7 +5379,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                  "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -5334,17 +5396,17 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
+                },
+              {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
                 }
             ],
             "description": "Symfony SwiftmailerBundle",
             "homepage": "http://symfony.com",
-            "time": "2019-06-18T15:27:04+00:00"
+          "time": "2019-10-20T12:05:18+00:00"
         },
         {
             "name": "symfony/translation",
@@ -6060,6 +6122,46 @@
             "time": "2019-08-24T08:43:50+00:00"
         },
         {
+          "name": "willdurand/jsonp-callback-validator",
+          "version": "v1.1.0",
+          "source": {
+            "type": "git",
+            "url": "https://github.com/willdurand/JsonpCallbackValidator.git",
+            "reference": "1a7d388bb521959e612ef50c5c7b1691b097e909"
+          },
+          "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/willdurand/JsonpCallbackValidator/zipball/1a7d388bb521959e612ef50c5c7b1691b097e909",
+            "reference": "1a7d388bb521959e612ef50c5c7b1691b097e909",
+            "shasum": ""
+          },
+          "require": {
+            "php": ">=5.3.0"
+          },
+          "require-dev": {
+            "phpunit/phpunit": "~3.7"
+          },
+          "type": "library",
+          "autoload": {
+            "psr-0": {
+              "JsonpCallbackValidator": "src/"
+            }
+          },
+          "notification-url": "https://packagist.org/downloads/",
+          "license": [
+            "MIT"
+          ],
+          "authors": [
+            {
+              "name": "William Durand",
+              "email": "william.durand1@gmail.com",
+              "homepage": "http://www.willdurand.fr"
+            }
+          ],
+          "description": "JSONP callback validator.",
+          "time": "2014-01-20T22:35:06+00:00"
+        },
+      {
             "name": "zendframework/zend-code",
             "version": "3.4.0",
             "source": {
@@ -6695,16 +6797,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.13.0",
+          "version": "v1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "c4388410e2fb6321e77c5dd6e3cb2dba821f9fe6"
+              "reference": "3e3651e424a5bcb7543c8856ecd10cf1b8d6f9a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/c4388410e2fb6321e77c5dd6e3cb2dba821f9fe6",
-                "reference": "c4388410e2fb6321e77c5dd6e3cb2dba821f9fe6",
+              "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/3e3651e424a5bcb7543c8856ecd10cf1b8d6f9a7",
+              "reference": "3e3651e424a5bcb7543c8856ecd10cf1b8d6f9a7",
                 "shasum": ""
             },
             "require": {
@@ -6759,7 +6861,7 @@
                 "scaffold",
                 "scaffolding"
             ],
-            "time": "2019-08-18T17:34:03+00:00"
+          "time": "2019-10-18T01:41:52+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
@@ -7094,7 +7196,8 @@
     "platform": {
         "php": "^7.1.3",
         "ext-ctype": "*",
-        "ext-iconv": "*"
+      "ext-iconv": "*",
+      "ext-json": "*"
     },
     "platform-dev": []
 }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\DataMain;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -47,4 +48,15 @@ class DataMainRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getTemperatureBetweenDate(DateTime $start, DateTime $end): array
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d.createdAt,d.temperature,d.humidity,d.pressure')
+            ->andWhere('d.createdAt BETWEEN  :start AND :end')
+            ->andWhere('d.pm25 is NULL')
+            ->setParameters(['start' => $start, 'end' => $end])
+            ->getQuery()
+            ->getArrayResult();
+    }
 }
