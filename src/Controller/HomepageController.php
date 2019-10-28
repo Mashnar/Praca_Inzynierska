@@ -2,14 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\DataMain;
 use App\Service\FacebookService;
-use DateTime;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -102,44 +98,6 @@ class HomepageController extends AbstractController
     }
 
 
-    /**
-     *
-     * @Route("/chart", name="chart",  options={"expose"=true} )
-     * @return Response
-     *
-     *
-     * @throws Exception
-     */
-
-    public function chart(): Response
-    {
-        $start = new DateTime('2019-10-22 13:07:18');
-
-        $end = new DateTime('2019-10-23 11:14:07');
-
-
-        return new JsonResponse(json_encode($this->getDoctrine()->getRepository(DataMain::class)->getTemperatureBetweenDate($start, $end)));
-    }
-
-
-    /**
-     *
-     * @Route("/charts", name="charts")
-     * @return Response
-     *
-     *
-     * @throws Exception
-     */
-
-    public function generate_chart(): Response
-    {
-
-        return $this->render('homepage/charts.html.twig', [
-            'controller_name' => 'HomepageController'
-        ]);
-
-
-    }
 }
 
 

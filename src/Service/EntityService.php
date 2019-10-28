@@ -4,7 +4,9 @@
 namespace App\Service;
 
 
+use App\Entity\DataMain;
 use App\Entity\Device;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 
 class EntityService
@@ -58,6 +60,18 @@ class EntityService
     public function getDevice(string $name): ?Device
     {
         return $this->entityManager->getRepository(Device::class)->findDeviceByName($name);
+    }
+
+
+    /**
+     * Funkcja zwracająca tablice z temperaturami pomiedzy data startowa i koncowa
+     * @param DateTime $start
+     * @param DateTime $end
+     * @return array
+     */
+    public function getTemperatureBeetweenDate(DateTime $start, DateTime $end): array
+    {
+        return $this->entityManager->getRepository(DataMain::class)->getTemperatureBetweenDate($start, $end);
     }
 
 
