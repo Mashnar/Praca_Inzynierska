@@ -27,63 +27,21 @@ function generateChart(data) {
         temp.push(data[k].temperature);
         pressure.push(data[k].pressure);
     });
-
-
     console.log(data);
+    createChart("Ciśnienie", "Wykres ciśnienia", time, "myChartPressure", pressure);
+    createChart("Temperatura", "Wykres temperatury", time, "myChartTemp", temp);
+
+}
 
 
-    new Chart(document.getElementById("myChartTemp"), {
+function createChart(label, title, time, id_div, data) {
+    new Chart(document.getElementById(id_div), {
         type: 'line',
         data: {
             labels: time,
             datasets: [{
-                data: temp,
-                label: "Temperatura",
-                borderColor: "#ef7d00",
-                fill: false
-            }
-            ]
-        },
-        options: {
-            legend: {
-                //https://stackoverflow.com/a/49444741
-                onClick: null,
-                labels: {
-                    // This more specific font property overrides the global property
-                    fontColor: '#ef7d00',
-
-                }
-            },
-            //https://stackoverflow.com/a/37293215
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        fontColor: "black",
-
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        fontColor: "black",
-
-                    }
-                }]
-            },
-            responsive: true,
-            title: {
-                display: true,
-                text: 'Wykres temperatury'
-            }
-        }
-    });
-
-    new Chart(document.getElementById("myChartPressure"), {
-        type: 'line',
-        data: {
-            labels: time,
-            datasets: [{
-                data: pressure,
-                label: "Ciśnienie",
+                data: data,
+                label: label,
                 borderColor: "#ef7d00",
                 fill: false
             }
