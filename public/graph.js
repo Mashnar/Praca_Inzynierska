@@ -73,6 +73,8 @@ function createChart(label, title, time, id_div, data) {
                 }]
             },
             responsive: true,
+            //https://stackoverflow.com/a/32460154
+            maintainAspectRatio: false,
             title: {
                 display: true,
                 text: 'Wykres ciśnienia'
