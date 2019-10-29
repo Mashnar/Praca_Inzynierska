@@ -51,6 +51,15 @@
     grid-column-end: 12;
 }
 
+.customization {
+    position: relative;
+    top: 100px;
+    grid-row-start: 3;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 12;
+}
+
 .chart {
     padding-top: 10px;
     height: 500px;
