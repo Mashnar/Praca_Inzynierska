@@ -26,36 +26,13 @@
 
 }
 
-.first {
-
-    padding-left: 70px;
-    grid-column-start: 1;
-    grid-column-end: 3;
-}
-
-.second {
-
-    grid-column-start: 3;
-    grid-column-end: 6;
-}
-
-.third {
-
-    grid-column-start: 6;
-    grid-column-end: 9;
-}
-
-.fourth {
-
-    grid-column-start: 9;
-    grid-column-end: 12;
-}
 
 .customization {
-    position: relative;
-    top: 100px;
-    grid-row-start: 3;
-    grid-row-end: 3;
+    margin-top: 250px;
+    text-align: center;
+    align-content: center;
+    grid-row-start: 2;
+    grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 12;
 }
@@ -73,8 +50,8 @@
     border-color: #ef7d00;
     grid-column-start: 1;
     grid-column-end: 12;
-    grid-row-start: 2;
-    grid-row-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
 
 }
 
@@ -105,10 +82,10 @@ https://codepen.io/jemware/pen/ojhCp
     color: white;
     font-family: Helvetica, sans-serif;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 18px;
     text-align: center;
     text-decoration: none;
-    background-color: #FFA12B;
+    background-color: #ef7d00;
     display: block;
     position: relative;
     padding: 20px 40px;
@@ -117,9 +94,9 @@ https://codepen.io/jemware/pen/ojhCp
     text-shadow: 0px 1px 0px #000;
     filter: dropshadow(color=#000, offx=0px, offy=1px);
 
-    -webkit-box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
-    -moz-box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
-    box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+    -webkit-box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #ef7d00;
+    -moz-box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #ef7d00;
+    box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #ef7d00;
 
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -128,11 +105,11 @@ https://codepen.io/jemware/pen/ojhCp
 
 .button a:active {
     top: 10px;
-    background-color: #F78900;
+    background-color: #ef7d00;
 
-    -webkit-box-shadow: inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
-    -moz-box-shadow: inset 0 1px 0 #FFE5C4, inset 0 -3 pxpx 0 #915100;
-    box-shadow: inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+    -webkit-box-shadow: inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #ef7d00;
+    -moz-box-shadow: inset 0 1px 0 #FFE5C4, inset 0 -3 pxpx 0 #ef7d00;
+    box-shadow: inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #ef7d00;
 }
 
 .button:after {
@@ -160,6 +137,78 @@ https://codepen.io/jemware/pen/ojhCp
 /*    border-width: 8px;*/
 /*    border-color: #ef7d00;*/
 /*}*/
+
+
+/**
+https://codepen.io/raubaca/pen/ONzBxP/
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container
+ */
+.group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+input[type=checkbox],
+input[type=radio] {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+
+}
+
+label {
+    position: relative;
+    margin-right: 1em;
+    padding-left: 2em;
+    padding-right: 1em;
+    line-height: 2;
+    cursor: pointer;
+    color: #ef7d00;
+    font-size: 150%;
+}
+
+label:before {
+    box-sizing: border-box;
+    content: " ";
+    position: absolute;
+    top: 0.3em;
+    left: 0;
+    display: block;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid white;
+    border-radius: 0.25em;
+    z-index: -1;
+}
+
+input[type=radio] + label::before {
+    border-radius: 1em;
+}
+
+/* Checked */
+input[type=checkbox]:checked + label,
+input[type=radio]:checked + label {
+    padding-left: 1em;
+    color: whitesmoke;
+}
+
+input[type=checkbox]:checked + label:before,
+input[type=radio]:checked + label:before {
+    top: 0;
+    width: 100%;
+    height: 2em;
+    background: #ef7d00;
+}
+
+/* Transition */
+label,
+label::before {
+    -webkit-transition: 0.25s all ease;
+    -o-transition: 0.25s all ease;
+    transition: 0.25s all ease;
+}
 
 
 
