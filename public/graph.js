@@ -27,9 +27,9 @@ function generateChart(data) {
         temp.push(data[k].temperature);
         pressure.push(data[k].pressure);
     });
-    console.log(data);
+    // console.log(data);
     createChart("Ciśnienie", "Wykres ciśnienia", time, "myChartPressure", pressure);
-    createChart("Temperatura", "Wykres temperatury", time, "myChartTemp", temp);
+    //createChart("Temperatura", "Wykres temperatury", time, "myChartTemp", temp);
 
 }
 
