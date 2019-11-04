@@ -159,13 +159,14 @@ input[type=radio] {
 }
 
 label {
+    font-weight: bold;
     position: relative;
     margin-right: 1em;
     padding-left: 2em;
     padding-right: 1em;
     line-height: 2;
     cursor: pointer;
-    color: #ef7d00;
+    color: #ffcf68;
     font-size: 150%;
 }
 
