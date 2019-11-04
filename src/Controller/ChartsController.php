@@ -47,9 +47,7 @@ class ChartsController extends AbstractController
     public function generate_chart(): Response
     {
 
-        return $this->render('charts/charts.html.twig', [
-            'controller_name' => 'HomepageController'
-        ]);
+        return $this->render('charts/charts.html.twig');
 
 
     }
