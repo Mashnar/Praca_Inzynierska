@@ -20,15 +20,17 @@ class ScheduleService
      * Prywatna tablica z adresami do stron z plikami z planów zajęc
      */
     private $url = [
-        'inf_1_stop' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/informatyka/1-stopnia/',
-        'inf_2_stop' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/informatyka/2-stopnia/',
-        'fiz_1_stop' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/fizyka/1-stopnia/',
-        'fiz_2_stop' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/fizyka/2-stopnia/',
-        'inf_niest_1_stop' => 'http://wfi.uni.lodz.pl/plany/niestacjonarne/informatyka/',
-        'inf_niest_2_stop' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/informatyka/2-stopnia/'
-
-
+        'Informatyka I stopień' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/informatyka/1-stopnia/',
+        'Informatyka II stopień' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/informatyka/2-stopnia/',
+        'Fizyka I Stopień' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/fizyka/1-stopnia/',
+        'Fizyka II Stopień' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/fizyka/2-stopnia/',
+        'Informatyka Niestacjonarne' => 'http://wfi.uni.lodz.pl/plany/niestacjonarne/informatyka/'
     ];
+    /**
+     * Wyłaczenie toolbara i navbarów ( zeby nie drukować)
+     * @var string
+     */
+    private $options = '#toolbar=0&navpanes=0&scrollbar=0';
 
     public function scrap(): array
     {
@@ -104,8 +106,8 @@ class ScheduleService
             if ($this->checkRegex($node->text())) {
                 //jesli ma pdf to dodaje jeszcze adres url na poczatku aby miec ładny adres do wyswietlania juz bezposrtednio na stronie
                 $content[] = [
-                    $url . $node->text(),
-                    $this->convertFilename($node->text())
+                    'url' => $url . $node->text() . $this->options,
+                    'name' => $this->convertFilename($node->text())
                 ];
 
             }

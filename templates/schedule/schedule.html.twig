@@ -2,12 +2,13 @@
 {% block head %}
     <link href="{{ asset('charts/grid.css') }}" rel="stylesheet">
     <link href="{{ asset('schedule/grid.css') }}" rel="stylesheet">
+    <script src="{{ asset('schedule/pdfChanger.js') }}"></script>
 {% endblock %}
 {% block content %}
     <div class="wrapper">
         <div class="main">
             <iframe src="http://wfi.uni.lodz.pl/plany/stacjonarne/informatyka/1-stopnia/INF_INZ_III_5sem.pdf#toolbar=0&navpanes=0&scrollbar=0"
-                    class="pdf_viever"></iframe>
+                    class="pdf_viever" id="pdf"></iframe>
         </div>
 
         <div class="choose_pdf">
@@ -15,45 +16,36 @@
 
             <article class="tabs">
 
-                <section id="tab1">
-                    <h2><a href="#tab1">Informatyka I Stopień</a></h2>
-                    <p>
-                    <div class="list-type3">
-                        <ol>
-                            <li>
-                                <button>Formget Online Form Builder Create Online Forms</button>
-                            </li>
-                            <li>
-                                <button>Formget Online Form Builder Create Online Forms</button>
-                            </li>
-                            <li>
-                                <button>Formget Online Form Builder Create Online Forms</button>
-                            </li>
-                            <li>
-                                <button>Formget Online Form Builder Create Online Forms</button>
-                            </li>
+                {#iteruje po calej tablicy w content mam nazwe w keys mam elementy#}
+                {% for content,keys in url %}
 
-                        </ol>
-                    </div>
-                </section>
 
-                <section id="tab2">
-                    <h2><a href="#tab2">Informatyka II Stopień</a></h2>
-                    <p>elo</p>
-                </section>
+                    <section id="tab{{ loop.index }}">
+                        <h2>
+                            <a href="#tab{{ loop.index }}">{{ content }}</a>
+                        </h2>
+                        <div class="list-type3">
 
-                <section id="tab3">
-                    <h2><a href="#tab3">Fizyka I Stopień</a></h2>
-                    <p>gsdfgsdfg</p>
-                </section>
-                <section id="tab4">
-                    <h2><a href="#tab4">Fizyka II Stopień</a></h2>
-                    <p>gsdfgsdfg</p>
-                </section>
-                <section id="tab5">
-                    <h2><a href="#tab5">Informatyka niestacjonarne</a></h2>
-                    <p>gsdgsdfg</p>
-                </section>
+                            <ol>
+
+
+                                {% for content_li in keys %}
+                                    <li>
+
+                                        <button onclick="changePDF(this)" value="{{ content_li.url }}">
+
+                                            {{ content_li.name }}
+                                        </button>
+
+
+                                    </li>
+
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    </section>
+
+                {% endfor %}
 
             </article>
         </div>
