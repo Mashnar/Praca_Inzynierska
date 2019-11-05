@@ -103,7 +103,11 @@ class ScheduleService
 
             if ($this->checkRegex($node->text())) {
                 //jesli ma pdf to dodaje jeszcze adres url na poczatku aby miec ładny adres do wyswietlania juz bezposrtednio na stronie
-                $content[] = $url . $node->text();
+                $content[] = [
+                    $url . $node->text(),
+                    $this->convertFilename($node->text())
+                ];
+
             }
 
 
@@ -128,5 +132,28 @@ class ScheduleService
         }
         return false;
     }
+
+    /**
+     * Funkcja konwertujaca nazwe pliku.
+     * @param string $filename
+     * @return false|string
+     */
+    private function convertFilename(string $filename): string
+    {
+
+        return $this->deleteUnderScore(strstr($filename, '.', true));
+
+    }
+
+    /**
+     * Funkcja zamieniajca deski na spacje
+     * @param string $text
+     * @return string
+     */
+    private function deleteUnderScore(string $text): string
+    {
+        return str_replace('_', ' ', $text);
+    }
+
 
 }
