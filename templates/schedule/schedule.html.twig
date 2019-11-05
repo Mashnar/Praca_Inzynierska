@@ -4,16 +4,61 @@
     <link href="{{ asset('schedule/grid.css') }}" rel="stylesheet">
 {% endblock %}
 {% block content %}
-
     <div class="wrapper">
 
-        <div class="chart">
+        <div class="main">
             <iframe src="http://wfi.uni.lodz.pl/plany/stacjonarne/informatyka/1-stopnia/INF_INZ_III_5sem.pdf#toolbar=0&navpanes=0&scrollbar=0"
-                    width="100%" height="100%"></iframe>
+                    class="pdf_viever"></iframe>
         </div>
 
-        <div class="informatic">elo</div>
-        <div class="physics">elo</div>
+        <div class="choose_pdf">
+            <h2>Wybierz swój plan</h2>
+
+            <article class="tabs">
+
+                <section id="tab1">
+                    <h2><a href="#tab1">Informatyka I Stopień</a></h2>
+                    <p>
+                    <div class="list-type3">
+                        <ol>
+                            <li>
+                                <button>Formget Online Form Builder Create Online Forms</button>
+                            </li>
+                            <li>
+                                <button>Formget Online Form Builder Create Online Forms</button>
+                            </li>
+                            <li>
+                                <button>Formget Online Form Builder Create Online Forms</button>
+                            </li>
+                            <li>
+                                <button>Formget Online Form Builder Create Online Forms</button>
+                            </li>
+
+                        </ol>
+                    </div>
+                </section>
+
+                <section id="tab2">
+                    <h2><a href="#tab2">Informatyka II Stopień</a></h2>
+                    <p></p>
+                </section>
+
+                <section id="tab3">
+                    <h2><a href="#tab3">Fizyka I Stopień</a></h2>
+                    <p></p>
+                </section>
+                <section id="tab4">
+                    <h2><a href="#tab4">Fizyka II Stopień</a></h2>
+                    <p></p>
+                </section>
+                <section id="tab5">
+                    <h2><a href="#tab5">Informatyka niestacjonarne</a></h2>
+                    <p></p>
+                </section>
+
+            </article>
+        </div>
+
     </div>
 
 {% endblock %}

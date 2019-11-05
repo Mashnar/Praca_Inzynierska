@@ -24,7 +24,8 @@ class ScheduleService
         'inf_2_stop' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/informatyka/2-stopnia/',
         'fiz_1_stop' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/fizyka/1-stopnia/',
         'fiz_2_stop' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/fizyka/2-stopnia/',
-        'inf_niest_1_stop' => 'http://wfi.uni.lodz.pl/plany/niestacjonarne/informatyka/'
+        'inf_niest_1_stop' => 'http://wfi.uni.lodz.pl/plany/niestacjonarne/informatyka/',
+        'inf_niest_2_stop' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/informatyka/2-stopnia/'
 
 
     ];

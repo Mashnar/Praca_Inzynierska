@@ -1,38 +1,190 @@
-.pdf {
-    padding-top: 10px;
-    height: 500px;
-    background-size: 200px 200px;
-    background-repeat: no-repeat;
-    background-position: center center;
+
+.choose_pdf {
+    top: 202px;
     position: relative;
-    background-color: #DCDBE0;
+    text-align: center;
+
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 12;
+}
+
+h2 {
+    color: #ef7d00;
+    margin: 0;
+    padding: 0 0 6px 0;
+    font-size: 40px;
+    line-height: 44px;
+    font-weight: bold;
+}
+
+.pdf_viever {
+    width: 100%;
+    height: 100%;
+}
+
+
+/**
+
+
+https://codepen.io/KatieK2/pen/ojLgMr
+ */
+article.tabs {
+    position: relative;
+    display: block;
+    width: 50em;
+    height: 15em;
+    margin-left: 150px;
+    margin-top: 50px;
+
+}
+
+article.tabs section {
+    position: absolute;
+    display: block;
+    top: 1.8em;
+    left: 0;
+    height: 15em;
+    padding: 10px 20px;
+    background-color: #ddd;
+    border-radius: 5px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    z-index: 0;
+    width: 120%;
+}
+
+article.tabs section:first-child {
+    z-index: 1;
+}
+
+article.tabs section h2 {
+    position: absolute;
+    font-size: 14px;
+    font-weight: normal;
+    width: 160px;
+    height: 1.8em;
+    top: -1.8em;
+    left: 10px;
+    padding: 0;
+    margin: 0;
+    color: #999;
+    background-color: #ddd;
+    border-radius: 5px 5px 0 0;
+}
+
+article.tabs section:nth-child(2) h2 {
+    left: 200px;
+}
+
+article.tabs section:nth-child(3) h2 {
+    left: 400px;
+}
+
+article.tabs section:nth-child(4) h2 {
+    left: 600px;
+}
+
+article.tabs section:nth-child(5) h2 {
+    left: 800px;
+}
+
+article.tabs section h2 a {
+    display: block;
+    width: 100%;
+    line-height: 1.8em;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    outline: 0 none;
+}
+
+article.tabs section,
+article.tabs section h2 {
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+
+article.tabs section:target,
+article.tabs section:target h2 {
+    color: #333;
+    background-color: #fff;
+    z-index: 2;
+}
+
+
+/**
+
+https://www.formget.com/css-lists/ trzeci
+ */
+
+.list-type3 {
+    margin: 0 auto;
+    width: 500px;
+}
+
+.list-type3 li, .list-type3 button {
+    list-style-type: none;
+    float: left;
+    height: 35px;
+    line-height: 35px;
+    position: relative;
+    font-size: 15px;
+    margin-bottom: 12px;
+    font-family: 'Raleway', sans-serif;
+    transition: background-color 1.5s ease;
+}
+
+.list-type3 button {
+    padding: 0 60px 0 12px;
+    background: #0089e0;
+    color: #fff;
+    text-decoration: none;
+    -moz-border-radius-bottomright: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.list-type3 button:before {
+    content: "";
+    float: left;
+    position: absolute;
+    top: -2px;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent #0089e0 transparent transparent;
     border-style: solid;
-    border-width: 8px;
-    border-color: #ef7d00;
-    grid-column-start: 1;
-    grid-column-end: 12;
-    grid-row-start: 1;
-    grid-row-end: 1;
-
+    border-width: 18px 12px 18px 0;
 }
 
-.physics {
-    top: 202px;
-    position: relative;
-    text-align: center;
-
-    grid-row-start: 2;
-    grid-row-end: 2;
-    grid-column-start: 1;
-    grid-column-end: 6;
+.list-type3 button:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 0;
+    float: left;
+    width: 6px;
+    height: 6px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #fff;
+    -moz-box-shadow: -1px -1px 2px #004977;
+    -webkit-box-shadow: -1px -1px 2px #004977;
+    box-shadow: -1px -1px 2px #004977;
 }
 
-.informatic {
-    text-align: center;
-    top: 202px;
-    position: relative;
-    grid-row-start: 2;
-    grid-row-end: 2;
-    grid-column-start: 6;
-    grid-column-end: 12;
+.list-type3 button:hover {
+    background: #555;
+}
+
+.list-type3 button:hover:before {
+    border-color: transparent #0089e0 transparent transparent;
 }
