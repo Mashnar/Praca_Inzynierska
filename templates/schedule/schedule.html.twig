@@ -1,3 +1,8 @@
+{# TODO
+    poprawić odległości po lewo i prawo okienka z wyborem
+    sprawdzic mozliwosci wymiany scrolla
+    odleglosci zakładek
+#}
 {% extends "base/base.html.twig" %}
 {% block head %}
     <link href="{{ asset('charts/grid.css') }}" rel="stylesheet">
@@ -19,7 +24,7 @@
                 {#iteruje po calej tablicy w content mam nazwe w keys mam elementy#}
                 {% for content,keys in url %}
 
-
+                    elo
                     <section id="tab{{ loop.index }}">
                         <h2>
                             <a href="#tab{{ loop.index }}">{{ content }}</a>
