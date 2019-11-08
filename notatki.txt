@@ -1,0 +1,1 @@
+pamietac o tym ,zeby jak internet sie rozlaczy albo serwer nie odpowiada to zeby wlozyc timer o ponawianiu polaczenia
