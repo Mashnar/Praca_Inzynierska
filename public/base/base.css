@@ -9,6 +9,7 @@
 .header {
     background-color: transparent;
     padding: 1rem;
+    height: 110px;
 }
 
 .content {

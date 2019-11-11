@@ -24,23 +24,23 @@
                 {#iteruje po calej tablicy w content mam nazwe w keys mam elementy#}
                 {% for content,keys in url %}
 
-                    elo
+
                     <section id="tab{{ loop.index }}">
                         <h2>
                             <a href="#tab{{ loop.index }}">{{ content }}</a>
                         </h2>
-                        <div class="list-type3">
+                        <div class="list-type1">
 
                             <ol>
 
 
                                 {% for content_li in keys %}
                                     <li>
-                                        fdfsd
-                                        <button onclick="changePDF(this)" value="{{ content_li.url }}">
+
+                                        <a href="#" onclick="changePDF(this);return false;" id="{{ content_li.url }}">
 
                                             {{ content_li.name }}
-                                        </button>
+                                        </a>
 
 
                                     </li>

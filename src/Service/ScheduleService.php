@@ -104,10 +104,12 @@ class ScheduleService
         $crawler->filter('a')->each(function (Crawler $node) use (&$content, &$url) {
 
             if ($this->checkRegex($node->text())) {
+                $name = $this->convertFilename($node->text());
                 //jesli ma pdf to dodaje jeszcze adres url na poczatku aby miec ładny adres do wyswietlania juz bezposrtednio na stronie
                 $content[] = [
                     'url' => $url . $node->text() . $this->options,
-                    'name' => $this->convertFilename($node->text())
+                    'name' => $name,
+                    'order' => $this->order($name)
                 ];
 
             }
@@ -115,7 +117,7 @@ class ScheduleService
 
         });
 
-        return $content;
+        return $this->sortingAsc($content);
     }
 
 
@@ -157,5 +159,29 @@ class ScheduleService
         return str_replace('_', ' ', $text);
     }
 
+    /**
+     * Funkcja sortująca rosnąco elementy tablicy, aby nie mieć nie pokolei planów podczas wybierania
+     * @param array $content
+     * @return array
+     */
+    private function sortingAsc(array $content): array
+    {
+        //https://stackoverflow.com/a/51174923
+        $keys = array_column($content, 'order');
+
+        array_multisort($keys, SORT_ASC, $content);
+
+        return $content;
+
+
+    }
+
+
+    private function order(string $str): int
+    {
+        // https://stackoverflow.com/a/12582416
+        //robie abs zeby nie bral minusa3
+        return abs((int)filter_var($str, FILTER_SANITIZE_NUMBER_INT));
+    }
 
 }
