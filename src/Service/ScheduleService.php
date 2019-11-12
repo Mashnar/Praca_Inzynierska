@@ -24,8 +24,14 @@ class ScheduleService
         'Informatyka II stopień' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/informatyka/2-stopnia/',
         'Fizyka I Stopień' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/fizyka/1-stopnia/',
         'Fizyka II Stopień' => 'http://wfi.uni.lodz.pl/plany/stacjonarne/fizyka/2-stopnia/',
-        'Informatyka Niestacjonarne' => 'http://wfi.uni.lodz.pl/plany/niestacjonarne/informatyka/'
     ];
+    /**
+     * URL do niestandardowych, wydzialm go bo tam moze byc wiecej niz  6 i zeby nie wygladalo brzydko bede bral tylko
+     * najnowsze, poniewaz nie ma sensu wyswietlac wszystkich
+     * @var string
+     */
+    private $url_special = 'http://wfi.uni.lodz.pl/plany/niestacjonarne/informatyka/';
+
     /**
      * Wyłaczenie toolbara i navbarów ( zeby nie drukować)
      * @var string
@@ -39,9 +45,11 @@ class ScheduleService
 
         foreach ($this->url as $key => $value) {
             $crawler = $this->createScraper($this->generateContentWebsite($value));
-
             $content[$key] = $this->iterateCrawler($crawler, $value);
         }
+        //generujemy content dla specjalnego URL z niestancjonarnymi studiami
+        $crawler = $this->createScraper($this->generateContentWebsite($this->url_special));
+        $content['Informatyka Niestacjonarna'] = $this->iterateCrawler($crawler, $this->url_special, true);
         return $content;
 
     }
@@ -95,15 +103,19 @@ class ScheduleService
      * Funkcja iterujaca crawler, chodzi po wsyztkich elementach zawierajacych znacznik html a
      * @param $crawler
      * @param $url
+     * @param bool $special domyslnie false, jesli true to znaczy ze mamy specjalne filtrowanie
      * @return array
      */
-    private function iterateCrawler($crawler, $url): array
+    private function iterateCrawler($crawler, $url, $special = false): array
     {
         $content = [];
+
         //iteruje po kazdym elemencie a
         $crawler->filter('a')->each(function (Crawler $node) use (&$content, &$url) {
 
+
             if ($this->checkRegex($node->text())) {
+
                 $name = $this->convertFilename($node->text());
                 //jesli ma pdf to dodaje jeszcze adres url na poczatku aby miec ładny adres do wyswietlania juz bezposrtednio na stronie
                 $content[] = [
@@ -117,7 +129,7 @@ class ScheduleService
 
         });
 
-        return $this->sortingAsc($content);
+        return $this->sortingAsc($content, $special);
     }
 
 
@@ -162,26 +174,77 @@ class ScheduleService
     /**
      * Funkcja sortująca rosnąco elementy tablicy, aby nie mieć nie pokolei planów podczas wybierania
      * @param array $content
+     * @param $special bool true|false , jesli true to musimy czyscic tablice
      * @return array
      */
-    private function sortingAsc(array $content): array
+    private function sortingAsc(array $content, $special): array
     {
+
         //https://stackoverflow.com/a/51174923
         $keys = array_column($content, 'order');
 
         array_multisort($keys, SORT_ASC, $content);
-
+        if ($special) {
+            return $this->clearArrayForOnly6Elements($content);
+        }
         return $content;
 
 
     }
 
 
+    /**Funkcja tworząca ordering ( bierze 1 liczbe jaka napotka z nazwy pliku)
+     * @param string $str
+     * @return int
+     */
     private function order(string $str): int
     {
         // https://stackoverflow.com/a/12582416
         //robie abs zeby nie bral minusa3
         return abs((int)filter_var($str, FILTER_SANITIZE_NUMBER_INT));
     }
+
+
+    /**Funkcja czyszczaca tablice tak ,a by bylo tylko 6 elementow ( ze wzgledu na umieszczenie na front-endzie0
+     * Zawsze będzie 0 element ( lista keidy sa zjazdy oraz 5 zjadow liczonych od tyłu)
+     * @param $content
+     * @return array
+     */
+    private function clearArrayForOnly6Elements(array $content): array
+    {
+
+        if (count($content) > 6) {
+            //przypisujemy zmienna tymczasowoa na url do listy zjazdow
+            $url = $content[0];
+            return $this->manipulateArray($content, $url);
+
+        }
+        return $content;
+    }
+
+    /**
+     * Funkcja manipuljaca tablica aby wziac 5 najnowszych elementow
+     * @param array $array tablica z elementami
+     * @param array $url pierwszy adres
+     * @return array tablica juz posorotwana i odwrocona
+     *
+     */
+    private function manipulateArray(array $array, array $url): array
+    {
+
+
+        array_shift($array);
+        //odwracamy tablice
+        $reverse = array_reverse($array);
+        //zostawiamy 5 elementow poczatkowych
+        $reverse = array_slice($reverse, 0, 5);
+        //znow odwracamy
+        $reverse = array_reverse($reverse);
+        //dodajemy 1 element
+        array_unshift($reverse, $url);
+
+        return $reverse;
+    }
+
 
 }

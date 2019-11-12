@@ -35,7 +35,7 @@
 
 
                                 {% for content_li in keys %}
-                                    <li>
+                                    <li id="{{ loop.index }}" class="elements">
 
                                         <a href="#" onclick="changePDF(this);return false;" id="{{ content_li.url }}">
 
