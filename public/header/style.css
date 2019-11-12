@@ -1,5 +1,12 @@
 .right {
+    float: left;
     content: url("logo_wfis_ul_h_pl_rgb.png");
     height: 110px;
     width: auto;
 }
+
+.left {
+
+    float: right;
+}
+

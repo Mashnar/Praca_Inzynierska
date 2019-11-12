@@ -24,18 +24,24 @@ h2 {
     height: 100%;
 }
 
+.back_button {
+    top: 100px;
+    position: absolute;
+    height: 150px;
 
+}
 /**
 
 
 https://codepen.io/KatieK2/pen/ojLgMr
  */
 article.tabs {
+    left: 25px;
     position: relative;
     display: block;
     width: 50em;
     height: 15em;
-    margin-left: 150px;
+    margin-left: 137px;
     margin-top: 50px;
 
 }
