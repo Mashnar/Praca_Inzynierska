@@ -62,16 +62,34 @@ class EntityService
         return $this->entityManager->getRepository(Device::class)->findDeviceByName($name);
     }
 
+    /** Funkcja zwracajaca obiekt urzadzenia za pomoca id
+     * @param int $id
+     * @return Device|null
+     */
+    public function getDeviceById(int $id): ?Device
+    {
+        return $this->entityManager->getRepository(Device::class)->find($id);
+    }
+
 
     /**
      * Funkcja zwracająca tablice z temperaturami pomiedzy data startowa i koncowa
      * @param DateTime $start
      * @param DateTime $end
+     * @param int $id
+     * @param string $type
      * @return array
      */
-    public function getTemperatureBeetweenDate(DateTime $start, DateTime $end): array
+    public function getTemperatureBetweenDate(DateTime $start, DateTime $end, int $id, string $type): array
     {
-        return $this->entityManager->getRepository(DataMain::class)->getTemperatureBetweenDate($start, $end);
+
+        return $this->entityManager->getRepository(DataMain::class)->getDataBeetweenDate($start, $end, $this->getDeviceById($id), $type);
+    }
+
+
+    public function getDeviceAndId(): array
+    {
+        return $this->entityManager->getRepository(Device::class)->getDeviceNameAndId();
     }
 
 

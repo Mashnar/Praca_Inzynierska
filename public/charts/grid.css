@@ -212,5 +212,7 @@ label::before {
 }
 
 
-
+.optional {
+    display: none;
+}
 

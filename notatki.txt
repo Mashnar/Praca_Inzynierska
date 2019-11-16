@@ -1,1 +1,10 @@
 pamietac o tym ,zeby jak internet sie rozlaczy albo serwer nie odpowiada to zeby wlozyc timer o ponawianiu polaczenia
+
+i dolozyc ponowne uruchamiania serwera jesli bedzie zerwane wifi - wydaje mi si eze oto chodzi ( sytuacja losowa gdy zrywa internet i nie dziala
+serwer )
+
+
+trzeba ustawic w js takie same nazwy jak w bazie ( dla uproszczenia )
+
+Dodac description w mikrokontrolerach ( do zmainy ewentualnie w bazie danych)
+oraz zmienic w charts.htmltwig nazwe inna dla kontrolera (B172)

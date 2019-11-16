@@ -52,12 +52,51 @@ class DeviceRepository extends ServiceEntityRepository
     /**
      * Funkcja zwracajaca po nazwie obiekt klasy Device
      * @param string $value
+     * @param bool $get_id (domyslnie false, jesli true to zwraca samo id
      * @return Device|null
      */
     public function findDeviceByName(string $value): ?Device
     {
+
+
         return $this->findOneBy(['name' => $value]);
 
 
     }
+
+
+    /**
+     * Funkcja zwracajaca po nazwie obiekt id obiektu Device
+     * @param string $value
+     * @return Device|null
+     */
+    public function getDeviceId(string $value): ?Int
+    {
+
+        return $this->findOneBy(['name' => $value])->getId();
+
+
+    }
+
+
+    /**
+     * Funkcja zwracajaca po nazwie obiekt id obiektu Device
+     * @param string $value
+     * @return Device|null
+     */
+    public function getDeviceNameAndId(): array
+    {
+        //jesli paratemt get_id jest true, to zwracamy id tego
+        return $this->createQueryBuilder('d')
+            ->select('d.id,d.description,d.name')
+            ->orderBy('d.name')
+            ->getQuery()
+            ->getArrayResult();
+
+
+    }
+
+
+
+
 }

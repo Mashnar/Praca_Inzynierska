@@ -12,32 +12,47 @@
     <div class="wrapper">
 
         <div class="main">
-            <canvas id="myChartPressure"></canvas>
+            <canvas id="myChart"></canvas>
         </div>
         <div class="customization">
             <div class="group">
-                <input type="radio" name="placed" id="rb1"/>
-                <label for="rb1">Aula madsbsła</label>
-                <input type="radio" name="placed" id="rb2"/>
-                <label for="rb2">Aula duża</label>
-                <input type="radio" name="placed" id="rb3"/>
-                <label for="rb3">B172</label>
-                <input type="radio" name="placed" id="rb4"/>
-                <label for="rb4">Portiernia</label>
+
+                {% for name in names %}
+
+                    <input type="radio" name="placed" id="{{ name.id }}" {% if name.name == 'SDS_TEMP_1' %}
+
+                        onclick="showOptional()"
+                    {% else %}
+                        onclick="hideOptional()"
+
+                            {% endif %}/>
+                    <label for="{{ name.id }}">{{ name.description }}</label>
+
+                {% endfor %}
+                {#                <input type="radio" name="placed" id="small_aula" onclick="hideOptional()"/>#}
+                {#                <label for="small_aula">Aula madsbsła</label>#}
+                {#                <input type="radio" name="placed" id="big_aula" onclick="hideOptional()"/>#}
+                {#                <label for="big_aula">Aula duża</label>#}
+                {#                <input type="radio" name="placed" id="B172" onclick="showOptional()"/>#}
+                {#                <label for="B172">B172</label>#}
+                {#                <input type="radio" name="placed" id="gatehouse" onclick="hideOptional()"/>#}
+                {#                <label for="gatehouse">Portiernia</label>#}
             </div>
             <div class="group">
-                <input type="radio" name="type_chart" id="rb9"/>
-                <label for="rb9">Check this</label>
-                <input type="radio" name="type_chart" id="rb5"/>
-                <label for="rb5">... or this...</label>
-                <input type="radio" name="type_chart" id="rb6"/>
-                <label for="rb6">or maybe this</label>
-                <input type="radio" name="type_chart" id="rb7"/>
-                <label for="rb7">or maybe this</label>
+                <input type="radio" name="type_chart" id="temperature"/>
+                <label for="temperature">Temperatura</label>
+                <input type="radio" name="type_chart" id="pressure"/>
+                <label for="pressure">Ciśnienie</label>
+                <input type="radio" name="type_chart" id="humidity"/>
+                <label for="humidity">Wilgotność</label>
+
+                <input type="radio" name="type_chart" id="pollution"/>
+                <label for="pollution" class="optional">Zanieczyszczenie</label>
+
             </div>
 
             <div class="button">
-                <a href="#">Mobile First</a>
+                <a href="#" onclick="newChart();return false;">Mobile First</a>
             </div>
         </div>
 
