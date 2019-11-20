@@ -14,3 +14,15 @@ oraz zmienic w charts.htmltwig nazwe inna dla kontrolera (B172)
 spytac się o fonty
 
 
+NEWS PODPIETY - jako 1 - bedziemy brac 4 najnowsze
+aktualnosci zwykle - 2 - po 4
+
+komentarze eksperckie - 4 - po 4 (iframe i w srodku strona, jak sie da)
+
+aktualnosci planu - 3 - po 4 - zrobimy przekierowanie na nasza strone po kliknieciu
+
+
+pamietac o napisaniu w pracy czemu przekierowywuje a nie wyswieltam content w srodku( bo sa style ze strony wp)
+
+
+w pracy o moim pomysle z generowaniem bezposrednio z wp-posts, ale storna sie ladowala 6,5 sekundy to do bazy i cron (opisac myslenie)

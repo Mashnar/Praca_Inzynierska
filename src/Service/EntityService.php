@@ -38,8 +38,25 @@ class EntityService
      */
     public function persistAndCommit($object): void
     {
+        $this->persist($object);
+        $this->flush();
+        $this->commit();
+
+    }
+
+
+    public function persist($object): void
+    {
         $this->entityManager->persist($object);
+    }
+
+    public function flush(): void
+    {
         $this->entityManager->flush();
+    }
+
+    public function commit(): void
+    {
         $this->entityManager->commit();
     }
 
@@ -57,7 +74,8 @@ class EntityService
      * @param $name
      * @return Device|null
      */
-    public function getDeviceByName(string $name): ?Device
+    public
+    function getDeviceByName(string $name): ?Device
     {
         return $this->entityManager->getRepository(Device::class)->findDeviceByName($name);
     }
@@ -66,7 +84,8 @@ class EntityService
      * @param int $id
      * @return Device|null
      */
-    public function getDeviceById(int $id): ?Device
+    public
+    function getDeviceById(int $id): ?Device
     {
         return $this->entityManager->getRepository(Device::class)->find($id);
     }
@@ -80,7 +99,8 @@ class EntityService
      * @param string $type
      * @return array
      */
-    public function getWeatherParametersBeetweenDate(DateTime $start, DateTime $end, int $id, string $type): array
+    public
+    function getWeatherParametersBeetweenDate(DateTime $start, DateTime $end, int $id, string $type): array
     {
 
         return $this->entityManager->getRepository(DataMain::class)->getDataBeetweenDate($start, $end, $this->getDeviceById($id), $type);
@@ -90,7 +110,8 @@ class EntityService
      * Funkcja zwracajaca wszystkie urzadzenia wraz z ich nazwa i id
      * @return array
      */
-    public function getDeviceAndId(): array
+    public
+    function getDeviceAndId(): array
     {
         return $this->entityManager->getRepository(Device::class)->getDeviceNameAndId();
     }
@@ -101,7 +122,8 @@ class EntityService
      * @param string $type
      * @return array
      */
-    public function get24LatestParams(int $id, string $type): array
+    public
+    function get24LatestParams(int $id, string $type): array
     {
 
         //odwracam,aby byly najnowsze od najstarszego do najmlodszego
@@ -114,7 +136,8 @@ class EntityService
      * @param string $value
      * @return int
      */
-    public function getIdByName(string $value): int
+    public
+    function getIdByName(string $value): int
     {
         return $this->entityManager->getRepository(Device::class)->getDeviceId($value);
     }
@@ -126,7 +149,8 @@ class EntityService
      * @param int $id
      * @return array
      */
-    public function getPollution(DateTime $start, DateTime $end, int $id): array
+    public
+    function getPollution(DateTime $start, DateTime $end, int $id): array
     {
         return $this->entityManager->getRepository(DataMain::class)->getPollutionByDate($start, $end, $this->getDeviceById($id));
     }
@@ -136,7 +160,8 @@ class EntityService
      * @param int $id
      * @return array
      */
-    public function get4LatestPollution(int $id): array
+    public
+    function get4LatestPollution(int $id): array
     {
         return array_reverse($this->entityManager->getRepository(DataMain::class)->get4LatestPollution($this->getDeviceById($id)));
     }
