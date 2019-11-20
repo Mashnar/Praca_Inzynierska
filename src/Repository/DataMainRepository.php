@@ -72,6 +72,7 @@ class DataMainRepository extends ServiceEntityRepository
     }
 
     /**
+     * Funkcja zwracajaca 24 ostatnich parametrow pogodowtych (wilgotnosc,cisnienie,temp) jeden z nich
      * @param Device $device
      * @param string $type
      * @return array
@@ -87,6 +88,48 @@ class DataMainRepository extends ServiceEntityRepository
             ->setParameters(['device' => $device])
             ->orderBy('d.createdAt', 'DESC')
             ->setMaxResults(25)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+
+    /**
+     * Funkcja zwracajaca poluution po nazwie
+     * @param DateTime $start
+     * @param DateTime $end
+     * @param Device $device
+     * @return array
+     */
+    public function getPollutionByDate(DateTime $start, DateTime $end, Device $device): array
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d.pm10', 'd.pm25', 'd.createdAt'
+            )
+            ->where('d.device = :device')
+            ->andWhere('d.createdAt BETWEEN  :start AND :end')
+            //temperatura musi byc nullem aby nie bral niepotrzebnego
+            ->andWhere('d.temperature is NULL')
+            ->setParameters(['device' => $device, 'start' => $start, 'end' => $end])
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+
+    /**
+     * Funkcja zwracajca 4 ostatnie wartosci dla zanieczyszczeń
+     * @param Device $device
+     * @return array
+     */
+    public function get4LatestPollution(Device $device): array
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d.pm25', 'd.pm10', 'd.createdAt'
+            )
+            ->where('d.temperature is NULL')
+            ->andWhere('d.device = :device')
+            ->setParameters(['device' => $device])
+            ->orderBy('d.createdAt', 'DESC')
+            ->setMaxResults(4)
             ->getQuery()
             ->getArrayResult();
     }

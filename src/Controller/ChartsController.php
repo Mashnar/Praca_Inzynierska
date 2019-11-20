@@ -31,7 +31,7 @@ class ChartsController extends AbstractController
         $start = (new DateTime())->modify('-1 day');
 
 
-        return new JsonResponse($chartService->getDataTemperature($start, $end, $id_device, $type));
+        return new JsonResponse($chartService->getData($start, $end, $id_device, $type));
     }
 
 

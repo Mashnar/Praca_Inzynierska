@@ -32,7 +32,7 @@ class ChartService
      * @param string $type domyslnie temperatura
      * @return string
      */
-    public function getDataTemperature(DateTime $start, DateTime $end, $id, $type)
+    public function getData(DateTime $start, DateTime $end, $id, $type): string
     {
         if ($id === null) {
             $id = $this->entityService->getIdByName('SDS_TEMP_4');
@@ -42,7 +42,21 @@ class ChartService
         if ($type === null) {
             $type = 'temperature';
         }
-        $data = $this->entityService->getTemperatureBetweenDate($start, $end, $id, $type);
+        //jesli parametr to pollution, to zwracamy za pomoca innego zapytania
+        if ($type === 'pollution') {
+
+
+            $data = $this->entityService->getPollution($start, $end, $id);
+            if (empty($data)) {
+                return json_encode($this->entityService->get4LatestPollution($id));
+            }
+
+            return $data;
+        }
+
+        $data = $this->entityService->getWeatherParametersBeetweenDate($start, $end, $id, $type);
+
+
 
 
         //jesli dane sa puste, to zwracamy ostatnie 24

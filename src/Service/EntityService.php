@@ -80,7 +80,7 @@ class EntityService
      * @param string $type
      * @return array
      */
-    public function getTemperatureBetweenDate(DateTime $start, DateTime $end, int $id, string $type): array
+    public function getWeatherParametersBeetweenDate(DateTime $start, DateTime $end, int $id, string $type): array
     {
 
         return $this->entityManager->getRepository(DataMain::class)->getDataBeetweenDate($start, $end, $this->getDeviceById($id), $type);
@@ -109,9 +109,36 @@ class EntityService
     }
 
 
+    /**
+     * Funkcja zwracajaca id za pomoca nazwy urzadzenia
+     * @param string $value
+     * @return int
+     */
     public function getIdByName(string $value): int
     {
         return $this->entityManager->getRepository(Device::class)->getDeviceId($value);
+    }
+
+    /**
+     * Funkcja zwracajca wartosci zanieszczyczenia w powietrzu po dacie
+     * @param DateTime $start
+     * @param DateTime $end
+     * @param int $id
+     * @return array
+     */
+    public function getPollution(DateTime $start, DateTime $end, int $id): array
+    {
+        return $this->entityManager->getRepository(DataMain::class)->getPollutionByDate($start, $end, $this->getDeviceById($id));
+    }
+
+    /**
+     * Funkcja zwracajaca 4 ostatnie wpisy zanieczyszczen
+     * @param int $id
+     * @return array
+     */
+    public function get4LatestPollution(int $id): array
+    {
+        return array_reverse($this->entityManager->getRepository(DataMain::class)->get4LatestPollution($this->getDeviceById($id)));
     }
 
 

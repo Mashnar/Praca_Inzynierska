@@ -1,6 +1,6 @@
 window.onload = function () {
 
-//generujemy na poczatku dla STS_TEMP_4 ( moze byc do zmiany)
+
     const temp = Routing.generate('chart');
 
     fetch(temp)
@@ -151,8 +151,21 @@ function InputChart(data, type) {
                 time_hum.push(dt.slice(0, dt.lastIndexOf(".")));
                 hum.push(data[k].humidity);
             });
-
             return humidityChart(hum, time_hum);
+        case 'pollution':
+            let pm10 = [];
+            let pm25 = [];
+            let time_pollution = [];
+            Object.keys(data).forEach(function (k) {
+                let dt = data[k].createdAt.date;
+                /* Możliwe ze jakos ładniej to zrobie, TODO*/
+                time_pollution.push(dt.slice(0, dt.lastIndexOf(".")));
+                pm10.push(data[k].pm10);
+                pm25.push(data[k].pm25);
+            });
+
+            return pollutionChart(pm10, pm25, time_pollution);
+
 
     }
 }
@@ -168,6 +181,65 @@ function temperatureChart(temp, time) {
 
 function humidityChart(hum, time) {
     createChart("Wilgotnosć", "Wykres wilgotności", time, "myChart", hum);
+}
+
+function pollutionChart(pm10, pm25, time) {
+    console.log(pm10);
+    console.log(pm25);
+    console.log(time);
+    new Chart(document.getElementById('myChart'), {
+        type: 'line',
+        data: {
+            labels: time,
+            datasets: [{
+                data: pm10,
+                label: 'PM10',
+                borderColor: "#ef7d00",
+                fill: false
+            }, {
+                data: pm25,
+                label: 'PM25',
+                borderColor: "#ef7d00",
+                fill: false
+
+            }
+            ]
+        },
+        options: {
+            legend: {
+                //https://stackoverflow.com/a/49444741
+                onClick: null,
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#ef7d00',
+
+                }
+            },
+            //https://stackoverflow.com/a/37293215
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontColor: "black",
+
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: "black",
+
+                    }
+                }]
+            },
+            responsive: true,
+            //https://stackoverflow.com/a/32460154
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: 'Wykres zanieczyszczenia'
+            }
+        }
+
+    });
 }
 
 
