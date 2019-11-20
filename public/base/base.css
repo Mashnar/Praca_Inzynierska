@@ -64,6 +64,7 @@ body::before {
     box-sizing: border-box;
 }
 
+
 /**
 
 1. Jeśli pojawi się jakiś element szerszy to nie pojawi się pasek do scrollowania u dołu, bo max ekranu jest używane i więcej się nie da
