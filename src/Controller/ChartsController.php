@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 
-use App\Entity\Device;
 use App\Service\ChartService;
 use DateTime;
 use Exception;
@@ -30,13 +29,6 @@ class ChartsController extends AbstractController
         //jesli jest nullem
         $end = new DateTime();
         $start = (new DateTime())->modify('-1 day');
-        //ustawiam domyslnie jaki wykres
-        if ($id_device === null) {
-            $id_device = $this->getDoctrine()->getRepository(Device::class)->getDeviceId('SDS_TEMP_4');
-        }
-        if ($type === null) {
-            $type = 'temperature';
-        }
 
 
         return new JsonResponse($chartService->getDataTemperature($start, $end, $id_device, $type));

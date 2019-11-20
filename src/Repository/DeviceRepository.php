@@ -52,7 +52,6 @@ class DeviceRepository extends ServiceEntityRepository
     /**
      * Funkcja zwracajaca po nazwie obiekt klasy Device
      * @param string $value
-     * @param bool $get_id (domyslnie false, jesli true to zwraca samo id
      * @return Device|null
      */
     public function findDeviceByName(string $value): ?Device
@@ -81,8 +80,7 @@ class DeviceRepository extends ServiceEntityRepository
 
     /**
      * Funkcja zwracajaca po nazwie obiekt id obiektu Device
-     * @param string $value
-     * @return Device|null
+     * @return array
      */
     public function getDeviceNameAndId(): array
     {

@@ -48,7 +48,7 @@ class TemperatureService
                 RESPONSE::HTTP_NOT_ACCEPTABLE);
         }
         //Tutaj juz wiemy, ze dobrze mamy pole
-        $device = $this->entityService->getDevice($data['device_name']);
+        $device = $this->entityService->getDeviceByName($data['device_name']);
 
 
         if (!$device) {

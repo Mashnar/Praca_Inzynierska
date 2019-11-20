@@ -46,7 +46,7 @@ class PollutionService
         }
         //Tutaj juz wiemy, ze dobrze mamy pole, wiec  bierzemy urzadzenie
 
-        $device = $this->entityService->getDevice($data['device_name']);
+        $device = $this->entityService->getDeviceByName($data['device_name']);
         if (!$device) {
             return new Response('Nie znaleziono twojego urządzenia',
                 RESPONSE::HTTP_NOT_ACCEPTABLE);

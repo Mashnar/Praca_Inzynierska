@@ -29,19 +29,33 @@ class ChartService
      * @param DateTime $start
      * @param DateTime $end
      * @param int $id
-     * @param string $type
+     * @param string $type domyslnie temperatura
      * @return string
      */
-    public function getDataTemperature(DateTime $start, DateTime $end, int $id, string $type): string
+    public function getDataTemperature(DateTime $start, DateTime $end, $id, $type)
     {
+        if ($id === null) {
+            $id = $this->entityService->getIdByName('SDS_TEMP_4');
+        }
 
 
-        return json_encode($this->entityService->getTemperatureBetweenDate($start, $end, $id, $type));
+        if ($type === null) {
+            $type = 'temperature';
+        }
+        $data = $this->entityService->getTemperatureBetweenDate($start, $end, $id, $type);
+
+
+        //jesli dane sa puste, to zwracamy ostatnie 24
+        if (empty($data)) {
+            return json_encode($this->entityService->get24LatestParams($id, $type));
+        }
+
+        return json_encode($data);
 
 
     }
 
-    /**Funkcja zwracajca tablice do generowania wyboru typu nazwa : id do wyboru miejsca umeiszczenia
+    /**Funkcja zwracajca tablice nazwe oraz id urzadzen dostepnych w serwisie
      * @return array
      */
     public function getNameAndId(): array

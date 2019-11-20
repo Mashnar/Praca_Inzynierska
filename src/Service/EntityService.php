@@ -57,7 +57,7 @@ class EntityService
      * @param $name
      * @return Device|null
      */
-    public function getDevice(string $name): ?Device
+    public function getDeviceByName(string $name): ?Device
     {
         return $this->entityManager->getRepository(Device::class)->findDeviceByName($name);
     }
@@ -86,10 +86,32 @@ class EntityService
         return $this->entityManager->getRepository(DataMain::class)->getDataBeetweenDate($start, $end, $this->getDeviceById($id), $type);
     }
 
-
+    /**
+     * Funkcja zwracajaca wszystkie urzadzenia wraz z ich nazwa i id
+     * @return array
+     */
     public function getDeviceAndId(): array
     {
         return $this->entityManager->getRepository(Device::class)->getDeviceNameAndId();
+    }
+
+    /**
+     * FUnkcja zwracajaca ostatnie 24 parametry ( tylko gdy data jnie pasuje bedzie wykonywane)
+     * @param int $id
+     * @param string $type
+     * @return array
+     */
+    public function get24LatestParams(int $id, string $type): array
+    {
+
+        //odwracam,aby byly najnowsze od najstarszego do najmlodszego
+        return array_reverse($this->entityManager->getRepository(DataMain::class)->get24LatestParams($this->getDeviceById($id), $type));
+    }
+
+
+    public function getIdByName(string $value): int
+    {
+        return $this->entityManager->getRepository(Device::class)->getDeviceId($value);
     }
 
 

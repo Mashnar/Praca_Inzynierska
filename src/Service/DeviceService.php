@@ -46,7 +46,7 @@ class DeviceService
 
         //Pierwszy try catch, wychwyca zle nazwy pól przesyłanych POST
         try {
-            $exist_device = $this->entityService->getDevice($data['name']);
+            $exist_device = $this->entityService->getDeviceByName($data['name']);
             if ($exist_device) {
                 $device = $this->updateIP($exist_device, $data['ip_address']);
             } else {

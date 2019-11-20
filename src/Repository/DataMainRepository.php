@@ -59,6 +59,7 @@ class DataMainRepository extends ServiceEntityRepository
      */
     public function getDataBeetweenDate(DateTime $start, DateTime $end, Device $device, string $type): array
     {
+
         return $this->createQueryBuilder('d')
             ->select('d.' . $type . ',d.createdAt'
             )
@@ -70,5 +71,24 @@ class DataMainRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    /**
+     * @param Device $device
+     * @param string $type
+     * @return array
+     */
+    public function get24LatestParams(Device $device, string $type): array
+    {
+
+        return $this->createQueryBuilder('d')
+            ->select('d.' . $type . ',d.createdAt'
+            )
+            ->where('d.pm25 is NULL')
+            ->andWhere('d.device = :device')
+            ->setParameters(['device' => $device])
+            ->orderBy('d.createdAt', 'DESC')
+            ->setMaxResults(25)
+            ->getQuery()
+            ->getArrayResult();
+    }
 
 }
