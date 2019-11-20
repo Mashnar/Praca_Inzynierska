@@ -18,15 +18,26 @@
             <div class="group">
 
                 {% for name in names %}
-
+                    {#tutaj jest sds temp 1 bo to jest dwór#}
                     <input type="radio" name="placed" id="{{ name.id }}" {% if name.name == 'SDS_TEMP_1' %}
 
                         onclick="showOptional()"
                     {% else %}
                         onclick="hideOptional()"
 
-                            {% endif %}/>
-                    <label for="{{ name.id }}">{{ name.description }}</label>
+                    {% endif %}
+                            {# domyslna wartosc, to moze byc do zmiany#}
+                            {% if name.name =='SDS_TEMP_4' %}
+                                checked="checked"
+                            {% endif %}
+
+                    />
+
+                    <label for="{{ name.id }}">
+                        {{ name.description }}
+
+                    </label>
+
 
                 {% endfor %}
                 {#                <input type="radio" name="placed" id="small_aula" onclick="hideOptional()"/>#}
@@ -39,7 +50,7 @@
                 {#                <label for="gatehouse">Portiernia</label>#}
             </div>
             <div class="group">
-                <input type="radio" name="type_chart" id="temperature"/>
+                <input type="radio" name="type_chart" id="temperature" checked="checked"/>
                 <label for="temperature">Temperatura</label>
                 <input type="radio" name="type_chart" id="pressure"/>
                 <label for="pressure">Ciśnienie</label>
@@ -52,10 +63,15 @@
             </div>
 
             <div class="button">
-                <a href="#" onclick="newChart();return false;">Mobile First</a>
+                <a href="#" onclick="newChart();return false;">Generuj</a>
             </div>
         </div>
+        <a href="{{ path('homepage') }}">
+            <div class="back_button" style="position:absolute;top: 750px;height: 150px;left: 50px;">
 
+
+            </div>
+        </a>
 
     </div>
 
