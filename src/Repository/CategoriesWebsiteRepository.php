@@ -47,4 +47,16 @@ class CategoriesWebsiteRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function findCategoryBySlugAndId(string $slug, int $id): ?array
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d.id')
+            ->where('d.category_slug_id = :id')
+            ->andWhere('d.slug =:slug')->setParameters(
+                ['id' => $id
+                    , 'slug' => $slug])
+            ->getQuery()->getResult();
+    }
 }

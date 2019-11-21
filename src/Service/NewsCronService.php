@@ -39,9 +39,14 @@ class NewsCronService
 
     ];
 
-    public function __construct(HttpClientInterface $httpClient)
+
+    private $entityService;
+
+
+    public function __construct(HttpClientInterface $httpClient, EntityService $entityService)
     {
         $this->httpclient = $httpClient;
+        $this->entityService = $entityService;
 
 
     }
@@ -160,6 +165,22 @@ class NewsCronService
         $object->setCategorySlugId($id);
 
         return $object;
+
+    }
+
+
+    /**
+     * Funkcja sprawdzajaca czy istnieje kategoria o danym id  i slugu
+     * @param string $slug
+     * @param int $id
+     * @return bool
+     */
+    public function checkExistCategoryBySlugAndId(string $slug, int $id): bool
+    {
+        if ($this->entityService->ifCategoryExistBySlugAndId($id, $slug)) {
+            return true;
+        }
+        return false;
 
     }
 

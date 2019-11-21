@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Entity\CategoriesWebsite;
 use App\Entity\DataMain;
 use App\Entity\Device;
 use DateTime;
@@ -163,7 +164,23 @@ class EntityService
     public
     function get4LatestPollution(int $id): array
     {
+        //odwracam aby miec od najstarszej do najnowszej
         return array_reverse($this->entityManager->getRepository(DataMain::class)->get4LatestPollution($this->getDeviceById($id)));
+    }
+
+
+    /**
+     * Funkcja sprawdzajaca czy istnieje kategoria o danym slugu i id
+     * @param int $id
+     * @param string $slug
+     * @return bool
+     */
+    public function ifCategoryExistBySlugAndId(int $id, string $slug): bool
+    {
+        if ($this->entityManager->getRepository(CategoriesWebsite::class)->findCategoryBySlugAndId($slug, $id)) {
+            return true;
+        }
+        return false;
     }
 
 

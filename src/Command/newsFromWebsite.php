@@ -43,6 +43,7 @@ class newsFromWebsite extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $output->writeln('elo');
         /**
          * TODO
          * zrobić walidacje oraz rollback oraz sprawdzanie czy nei ma tego samego
@@ -61,21 +62,31 @@ class newsFromWebsite extends Command
          * ["komentarz-ekspercki"]=>
          * int(205)
          */
+
         $categories = $this->newsCronService->generateIdForCategories();
 
+        $flush_flag = false;
         //rozpoczynam transakcje
         $this->entityService->beginTransaction();
-        foreach ($categories as $key => $value) {
+        foreach ($categories as $slug => $id) {
 
-            $object = $this->newsCronService->createCategoryObject($key, $value);
+            if (!$this->newsCronService->checkExistCategoryBySlugAndId($slug, $id)) {
+                $flush_flag = true;
 
-            $this->entityService->persist($object);
+
+                $object = $this->newsCronService->createCategoryObject($slug, $id);
+
+                $this->entityService->persist($object);
+            }
+
         }
 
+        if ($flush_flag) {
+            $this->entityService->flush();
 
-        $this->entityService->flush();
+            $this->entityService->commit();
+        }
 
-        $this->entityService->commit();
 
 
     }
