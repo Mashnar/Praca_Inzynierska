@@ -60,49 +60,10 @@ class CategoriesCronService
         return $this->generateContentToArrayHttp();
     }
 
-    private function generateContentToArrayHttp(): array
-    {
-        $output = [];
-        foreach ($this->slug as $key => $value) {
-
-            $output[$key] = $this->parseReturnContent($this->getPostsByCategory($value));
-
-        }
-
-        return $output;
-    }
-
-    /**
-     * Funckcja parsujaca jak bedzie wygladac tablica dla wiekszosc typow postów
-     * @param array $content
-     * @return array
-     */
-    private function parseReturnContent(array $content): array
-    {
-        $output = [];
-        foreach ($content as $key => $value) {
-            $output[] = [
-                'title' => $value['title']['rendered'],
-                'date' => $value['date'],
-                'link' => $value['link'],
-                'excerpt' => $value['excerpt']['rendered'],
 
 
-            ];
-        }
-        return $output;
-    }
-
-    private function getPostsByCategory(int $id_category): array
-    {
 
 
-        //http://wfi.uni.lodz.pl/wp-json/wp/v2/posts?categories=14&per_page=8'
-        //zwracam tablice z danymi pod categorie konkretna
-        return $this->httpclient->request('GET', $this->url . 'posts?categories=' . $id_category . '&per_page=4')->toArray();
-
-
-    }
 
     /**
      *

@@ -6,7 +6,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
       "ext-json": "*",
-      "cron/cron-bundle": "^2.2",
         "doctrine/annotations": "^1.8",
         "facebook/graph-sdk": "^5.7",
       "friendsofsymfony/jsrouting-bundle": "^2.4",

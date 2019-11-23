@@ -184,4 +184,18 @@ class EntityService
     }
 
 
+    /**
+     * @param string $name
+     */
+    public function clearTable(string $name): void
+    {
+        $this->entityManager->getRepository($name)->clearTable();
+    }
+
+    public function getAllCategories(): array
+    {
+        return $this->entityManager->getRepository(CategoriesWebsite::class)->findAll();
+    }
+
+
 }

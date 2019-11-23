@@ -4,7 +4,7 @@
 namespace App\Command;
 
 
-use App\Service\EntityService;
+use App\Service\NewsCronService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,13 +14,13 @@ class newsFromWebsite extends Command
     // the name of the command (the part after "bin/console")
     protected static $defaultName = 'app:download-news';
 
-    private $entityService;
+    private $newsCronService;
 
 
-    public function __construct(EntityService $entityService)
+    public function __construct(NewsCronService $newsCronService)
     {
         parent::__construct();
-        $this->entityService = $entityService;
+        $this->newsCronService = $newsCronService;
     }
 
     protected function configure(): void
@@ -38,8 +38,12 @@ class newsFromWebsite extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
-
+        $this->newsCronService->downloadAndSaveNews();
     }
+
+
+
+
 
 
 

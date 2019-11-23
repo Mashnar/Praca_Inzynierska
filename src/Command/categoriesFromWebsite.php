@@ -14,7 +14,6 @@ class categoriesFromWebsite extends Command
     // the name of the command (the part after "bin/console")
     protected static $defaultName = 'app:update-categories';
     private $categoriesCronService;
-    private $entityService;
 
     /**
      * categoriesFromWebsite constructor.

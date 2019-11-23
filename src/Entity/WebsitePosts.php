@@ -23,7 +23,7 @@ class WebsitePosts
     private $category_id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="array")
      */
     private $posts;
 
@@ -44,12 +44,12 @@ class WebsitePosts
         return $this;
     }
 
-    public function getPosts(): ?string
+    public function getPosts(): ?array
     {
         return $this->posts;
     }
 
-    public function setPosts(string $posts): self
+    public function setPosts(array $posts): self
     {
         $this->posts = $posts;
 
