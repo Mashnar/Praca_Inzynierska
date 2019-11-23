@@ -11,14 +11,13 @@ class NewsController extends AbstractController
 {
     /**
      * @Route("/news", name="news")
-     * @param NewsCronService $newsService
      * @return Response
      */
     public function index(): Response
     {
 
         return $this->render('news/news.html.twig', [
-//            'content'=>$newsService->newsFromWebsite()
+//            'content'=>$newsService->categoriesFromWebsite()
         ]);
     }
 }
