@@ -7,6 +7,7 @@ namespace App\Service;
 use App\Entity\CategoriesWebsite;
 use App\Entity\DataMain;
 use App\Entity\Device;
+use App\Entity\WebsitePosts;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -185,6 +186,7 @@ class EntityService
 
 
     /**
+     * Funkcja czyszczaca tabele dla danej encji
      * @param string $name
      */
     public function clearTable(string $name): void
@@ -195,6 +197,16 @@ class EntityService
     public function getAllCategories(): array
     {
         return $this->entityManager->getRepository(CategoriesWebsite::class)->findAll();
+    }
+
+
+    /**
+     * Funkcja zwracajca wszystkie posty
+     * @return CategoriesWebsite[]|WebsitePosts|WebsitePosts[]|object[]
+     */
+    public function getNews()
+    {
+        return $this->entityManager->getRepository(WebsitePosts::class)->findAll();
     }
 
 
