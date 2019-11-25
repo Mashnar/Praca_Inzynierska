@@ -25,12 +25,12 @@ function generateChart(data) {
         time.push(dt.slice(0, dt.lastIndexOf(".")));
         temp.push(data[k].temperature);
     });
-    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp);
+    barChart("Temperatura", "Wykres temperatury", time, "myChart", temp);
 
 }
 
 
-function createChart(label, title, time, id_div, data) {
+function barChart(label, title, time, id_div, data) {
     new Chart(document.getElementById(id_div), {
         type: 'line',
         data: {
@@ -39,7 +39,8 @@ function createChart(label, title, time, id_div, data) {
                 data: data,
                 label: label,
                 borderColor: "#ef7d00",
-                fill: false
+                fill: false,
+
             }
             ]
         },
@@ -64,6 +65,7 @@ function createChart(label, title, time, id_div, data) {
                 xAxes: [{
                     ticks: {
                         fontColor: "black",
+
 
                     }
                 }]
@@ -172,15 +174,15 @@ function InputChart(data, type) {
 
 
 function pressureChart(hum, time) {
-    createChart("Ciśnienie", "Wykres Ciśnienia", time, "myChart", hum);
+    barChart("Ciśnienie", "Wykres Ciśnienia", time, "myChart", hum);
 }
 
 function temperatureChart(temp, time) {
-    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp);
+    barChart("Temperatura", "Wykres temperatury", time, "myChart", temp);
 }
 
 function humidityChart(hum, time) {
-    createChart("Wilgotnosć", "Wykres wilgotności", time, "myChart", hum);
+    barChart("Wilgotnosć", "Wykres wilgotności", time, "myChart", hum);
 }
 
 function pollutionChart(pm10, pm25, time) {
@@ -242,6 +244,61 @@ function pollutionChart(pm10, pm25, time) {
     });
 }
 
+
+
+function barChart(label, title, time, id_div, data)
+{
+    new Chart(document.getElementById(id_div), {
+        type: 'bar',
+        data: {
+            labels: time,
+            datasets: [{
+                data: data,
+                label: label,
+                borderColor: "#ef7d00",
+                fill: false,
+                backgroundColor:'#ef7d00'
+
+            }
+            ]
+        },
+        options: {
+            legend: {
+                //https://stackoverflow.com/a/49444741
+                onClick: null,
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#ef7d00',
+
+                }
+            },
+            //https://stackoverflow.com/a/37293215
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontColor: "black",
+
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: "black",
+
+
+                    }
+                }]
+            },
+            responsive: true,
+            //https://stackoverflow.com/a/32460154
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: title
+            }
+        }
+
+    });
+}
 
 
 
