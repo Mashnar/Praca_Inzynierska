@@ -34,11 +34,12 @@ class ChartService
      */
     public function getData(DateTime $start, DateTime $end, $id, $type): string
     {
+        //jesli id jest null, t bierzemy o nazwei SDS_TEMP_4
         if ($id === null) {
             $id = $this->entityService->getIdByName('SDS_TEMP_4');
         }
 
-
+        //domyslnie temperatura
         if ($type === null) {
             $type = 'temperature';
         }
@@ -47,6 +48,7 @@ class ChartService
 
 
             $data = $this->entityService->getPollution($start, $end, $id);
+            //jesli jest puste, tobierzemy ostatnie 4
             if (empty($data)) {
                 return json_encode($this->entityService->get4LatestPollution($id));
             }

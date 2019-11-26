@@ -26,7 +26,7 @@ class ChartsController extends AbstractController
 
     public function chart(ChartService $chartService, $id_device, $type): Response
     {
-        //jesli jest nullem
+
         $end = new DateTime();
         $start = (new DateTime())->modify('-1 day');
 
@@ -37,7 +37,19 @@ class ChartsController extends AbstractController
 
     /**
      *
-     * @Route("/charts", name="charts")
+     * Generowanie menu do wybory wykresów
+     * @Route("/menuCharts", name="menuCharts")
+     *
+     */
+    public function menuChart(): Response
+    {
+        return $this->render('charts/menuCharts.html.twig');
+    }
+
+
+    /**
+     *
+     * @Route("/chartsDetails", name="chartsDetails")
      * @param ChartService $chartService
      * @return Response
      *
@@ -47,8 +59,27 @@ class ChartsController extends AbstractController
     public function generate_chart(ChartService $chartService): Response
     {
 
-        return $this->render('charts/charts.html.twig', ['names' => $chartService->getNameAndId()]);
+        return $this->render('charts/chartsDetails.html.twig', ['names' => $chartService->getNameAndId()]);
 
 
     }
+
+    /**
+     *
+     * @Route("/generalChart", name="generalChart")
+     * @return Response
+     *
+     *
+     */
+    public function generalChart(): Response
+    {
+        return $this->render('charts/generalChart.html.twig');
+    }
+
+
+
+
+
+
+
 }

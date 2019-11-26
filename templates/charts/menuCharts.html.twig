@@ -1,0 +1,25 @@
+{% extends "base/base.html.twig" %}
+{% block head %}
+
+    <link href="{{ asset('charts/menuCharts.css') }}" rel="stylesheet">
+    {#dla przycisku#}
+    <link href="{{ asset('charts/grid.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <div id="container">
+        <div class="button">
+            <a href="{{ asset('generalChart') }}">Ogólny</a>
+        </div>
+        <div class="button">
+            <a href="{{ asset('chartsDetails') }}">Szczegółowy</a>
+        </div>
+    </div>
+    <a href="{{ path('homepage') }}">
+        <div class="back_button" style="position:absolute;top: 750px;height: 150px;left: 50px;">
+
+
+        </div>
+    </a>
+{% endblock %}
