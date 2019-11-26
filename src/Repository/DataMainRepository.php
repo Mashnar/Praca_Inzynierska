@@ -77,7 +77,7 @@ class DataMainRepository extends ServiceEntityRepository
      * @param string $type
      * @return array
      */
-    public function get24LatestParams(Device $device, string $type): array
+    public function get48LatestParams(Device $device, string $type): array
     {
 
         return $this->createQueryBuilder('d')
@@ -87,7 +87,7 @@ class DataMainRepository extends ServiceEntityRepository
             ->andWhere('d.device = :device')
             ->setParameters(['device' => $device])
             ->orderBy('d.createdAt', 'DESC')
-            ->setMaxResults(25)
+            ->setMaxResults(48)
             ->getQuery()
             ->getArrayResult();
     }

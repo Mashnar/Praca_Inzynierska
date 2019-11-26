@@ -125,11 +125,11 @@ class EntityService
      * @return array
      */
     public
-    function get24LatestParams(int $id, string $type): array
+    function get48LatestParams(int $id, string $type): array
     {
 
         //odwracam,aby byly najnowsze od najstarszego do najmlodszego
-        return array_reverse($this->entityManager->getRepository(DataMain::class)->get24LatestParams($this->getDeviceById($id), $type));
+        return array_reverse($this->entityManager->getRepository(DataMain::class)->get48LatestParams($this->getDeviceById($id), $type));
     }
 
 

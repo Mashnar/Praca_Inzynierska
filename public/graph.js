@@ -140,9 +140,7 @@ function humidityChart(hum, time) {
 }
 
 function pollutionChart(pm10, pm25, time) {
-    console.log(pm10);
-    console.log(pm25);
-    console.log(time);
+
     if (typeof chart !== "undefined") {
         chart.destroy();
     }
@@ -187,6 +185,7 @@ function pollutionChart(pm10, pm25, time) {
                     ticks: {
                         fontColor: "black",
 
+
                     }
                 }]
             },
@@ -203,23 +202,26 @@ function pollutionChart(pm10, pm25, time) {
 }
 
 
-function barChart(label, title, time, id_div, data)
-{
+function barChart(label, title, time, id_div, data) {
     if (typeof chart !== "undefined") {
         chart.destroy();
     }
 
-
+    console.log(data);
     chart = new Chart(document.getElementById(id_div), {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: time,
             datasets: [{
+
                 data: data,
                 label: label,
                 borderColor: "#ef7d00",
                 fill: false,
-                backgroundColor:'#ef7d00'
+                backgroundColor: '#ef7d00',
+                lineTension: 0,
+                pointRadius: 6,
+                pointHoverRadius: 12
 
             }
             ]
@@ -237,11 +239,27 @@ function barChart(label, title, time, id_div, data)
             //https://stackoverflow.com/a/37293215
             scales: {
                 yAxes: [{
-                    ticks: {}
+                    ticks: {
+                        fontColor: "black",
+                        callback: function (value, index, values) {
+                            switch (label) {
+                                case 'Temperatura':
+                                    return value + '°';
+                                case 'Ciśnienie':
+                                    return value + ' hPa';
+                                case 'Wilgotnosć':
+                                    return value + ' %';
+                            }
+
+                        }
+                    }
                 }],
                 xAxes: [{
                     ticks: {
+                        //https://stackoverflow.com/a/39326127
                         fontColor: "black",
+                        autoSkip: true,
+                        maxTicksLimit: 8,
 
 
                     }
@@ -258,6 +276,10 @@ function barChart(label, title, time, id_div, data)
 
     });
 }
+
+
+
+
 
 
 
