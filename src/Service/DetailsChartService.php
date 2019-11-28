@@ -6,7 +6,7 @@ namespace App\Service;
 
 use DateTime;
 
-class ChartService
+class DetailsChartService
 {
 
     /**@var $entityService */
@@ -14,7 +14,7 @@ class ChartService
 
 
     /**
-     * ChartService constructor.
+     * DetailsChartService constructor.
      * @param EntityService $entityService
      */
     public function __construct(EntityService $entityService)
@@ -50,7 +50,7 @@ class ChartService
             $data = $this->entityService->getPollution($start, $end, $id);
             //jesli jest puste, tobierzemy ostatnie 4
             if (empty($data)) {
-                return json_encode($this->entityService->get4LatestPollution($id));
+                return json_encode($this->entityService->get8LatestPollution($id));
             }
 
             return $data;

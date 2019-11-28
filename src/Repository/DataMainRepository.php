@@ -120,7 +120,7 @@ class DataMainRepository extends ServiceEntityRepository
      * @param Device $device
      * @return array
      */
-    public function get4LatestPollution(Device $device): array
+    public function get8LatestPollution(Device $device): array
     {
         return $this->createQueryBuilder('d')
             ->select('d.pm25', 'd.pm10', 'd.createdAt'
@@ -129,9 +129,10 @@ class DataMainRepository extends ServiceEntityRepository
             ->andWhere('d.device = :device')
             ->setParameters(['device' => $device])
             ->orderBy('d.createdAt', 'DESC')
-            ->setMaxResults(4)
+            ->setMaxResults(8)
             ->getQuery()
             ->getArrayResult();
     }
+
 
 }

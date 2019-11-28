@@ -207,7 +207,7 @@ function barChart(label, title, time, id_div, data) {
         chart.destroy();
     }
 
-    console.log(data);
+
     chart = new Chart(document.getElementById(id_div), {
         type: 'line',
         data: {

@@ -1,0 +1,31 @@
+.wrapper {
+    margin-left: 5.5%;
+    display: grid;
+    grid-template-columns: 550px 550px;
+    grid-template-rows: 350px 350px;
+
+}
+
+.border_charts {
+    background-color: #DCDBE0;
+    border-style: solid;
+    border-width: 8px;
+    border-color: #ef7d00;
+}
+
+.temperature {
+
+}
+
+.pressure {
+
+}
+
+.humidity {
+
+}
+
+.pollution {
+
+}
+

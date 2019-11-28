@@ -1,8 +1,32 @@
 {% extends "base/base.html.twig" %}
+{% block head %}
+    <script src="{{ asset('Chart.min.js') }}"></script>
+    <script src="{{ asset('charts/js/generalChart.js') }}" type="module"></script>
+    <link href="{{ asset('charts/generalChart.css') }}" rel="stylesheet">
 
+{% endblock %}
 
 {% block content %}
+    <div class="wrapper">
 
+        <div class="temperature border_charts">
+            wewnatrz zewnatrz
+            <canvas id="myChartTemp"></canvas>
+        </div>
+        <div class="pollution border_charts">
+            <canvas id="myChartPollution"></canvas>
+
+        </div>
+        <div class="humidity border_charts">
+            <canvas id="myChartHumidity"></canvas>
+
+        </div>
+        <div class="pressure border_charts">
+            <canvas id="myChartPressure"></canvas>
+
+        </div>
+
+    </div>
 
 
 {% endblock %}

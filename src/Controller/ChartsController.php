@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 
-use App\Service\ChartService;
+use App\Service\DetailsChartService;
+use App\Service\generalChartService;
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,20 +16,20 @@ class ChartsController extends AbstractController
 {
 
     /**
-     *
+     *Funkcja wywłowyana przez JS do generowania szczeoglowych wykresow
      * @Route("/chart/{id_device}/{type}",   name="chart",  options={"expose"=true} ,defaults={"id_device"=null,"type"=null} )
-     * @param ChartService $chartService
+     * @param DetailsChartService $chartService
      * @param int $id_device
      * @param string $type
      * @return Response
      * @throws Exception
      */
 
-    public function chart(ChartService $chartService, $id_device, $type): Response
+    public function chart(DetailsChartService $chartService, $id_device, $type): Response
     {
 
         $end = new DateTime();
-        $start = (new DateTime())->modify('-1 day');
+        $start = (new DateTime())->modify('-2 day');
 
 
         return new JsonResponse($chartService->getData($start, $end, $id_device, $type));
@@ -48,15 +49,15 @@ class ChartsController extends AbstractController
 
 
     /**
-     *
+     *Funkcja generujaca wykresy szczegolowe
      * @Route("/chartsDetails", name="chartsDetails")
-     * @param ChartService $chartService
+     * @param DetailsChartService $chartService
      * @return Response
      *
      *
      */
 
-    public function generate_chart(ChartService $chartService): Response
+    public function generate_chart(DetailsChartService $chartService): Response
     {
 
         return $this->render('charts/chartsDetails.html.twig', ['names' => $chartService->getNameAndId()]);
@@ -65,7 +66,7 @@ class ChartsController extends AbstractController
     }
 
     /**
-     *
+     * Funkcja wywoluwajaa widok ogolnych wykresow
      * @Route("/generalChart", name="generalChart")
      * @return Response
      *
@@ -75,6 +76,19 @@ class ChartsController extends AbstractController
     {
         return $this->render('charts/generalChart.html.twig');
     }
+
+    /**
+     *
+     *Funkcja wywoływana przez JavaScript do wziecia danych do wykresów ogolnych
+     * @Route("/dataForGeneralChart",   name="dataForGeneralChart",  options={"expose"=true}  )
+     * @param generalChartService $generalChartService
+     * @return JsonResponse
+     */
+    public function dataForGeneralChart(generalChartService $generalChartService): JsonResponse
+    {
+        return new JsonResponse($generalChartService->getDataForCharts());
+    }
+
 
 
 

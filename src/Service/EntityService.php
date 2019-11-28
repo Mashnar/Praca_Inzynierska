@@ -122,12 +122,16 @@ class EntityService
      * FUnkcja zwracajaca ostatnie 24 parametry ( tylko gdy data jnie pasuje bedzie wykonywane)
      * @param int $id
      * @param string $type
+     * @param Device|null $device
      * @return array
      */
     public
-    function get48LatestParams(int $id, string $type): array
+    function get48LatestParams(int $id = null, string $type, Device $device = null): array
     {
 
+        if ($device) {
+            return array_reverse($this->entityManager->getRepository(DataMain::class)->get48LatestParams($device, $type));
+        }
         //odwracam,aby byly najnowsze od najstarszego do najmlodszego
         return array_reverse($this->entityManager->getRepository(DataMain::class)->get48LatestParams($this->getDeviceById($id), $type));
     }
@@ -158,15 +162,24 @@ class EntityService
     }
 
     /**
-     * Funkcja zwracajaca 4 ostatnie wpisy zanieczyszczen
-     * @param int $id
+     * Funkcja zwracajaca 8 ostatnie wpisy zanieczyszczen
+     * @param int $id domyslnie null
+     * @param bool $with_id jesli true , to szukamy z id, jesli false to uzywamy urzadzenia domyslnego
+     * @param Device|null $device
      * @return array
      */
     public
-    function get4LatestPollution(int $id): array
+    function get8LatestPollution(int $id = null, $with_id = true, Device $device = null): array
     {
-        //odwracam aby miec od najstarszej do najnowszej
-        return array_reverse($this->entityManager->getRepository(DataMain::class)->get4LatestPollution($this->getDeviceById($id)));
+        //jesli true, to bierzemy po id
+        if ($with_id) {
+            //odwracam aby miec od najstarszej do najnowszej
+            return array_reverse($this->entityManager->getRepository(DataMain::class)->get8LatestPollution($this->getDeviceById($id)));
+        }
+
+        //jesli nie, to bierzemy po urzadzeniu bo mamy ogolny wykres i przekazuje w parametrze urzadzenie
+        return array_reverse($this->entityManager->getRepository(DataMain::class)->get8LatestPollution($device));
+
     }
 
 
