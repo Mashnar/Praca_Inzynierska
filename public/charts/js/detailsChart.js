@@ -153,12 +153,20 @@ function pollutionChart(pm10, pm25, time) {
                 data: pm10,
                 label: 'PM10',
                 borderColor: "#ef7d00",
-                fill: false
+                backgroundColor: '#ef7d00',
+                pointRadius: 6,
+                pointHoverRadius: 12,
+
+                fill: false,
             }, {
                 data: pm25,
                 label: 'PM25',
                 borderColor: "#ef7d00",
-                fill: false
+                backgroundColor: '#ef7d00',
+                pointRadius: 6,
+                pointHoverRadius: 12,
+
+                fill: false,
 
             }
             ]
@@ -219,7 +227,6 @@ function barChart(label, title, time, id_div, data) {
                 borderColor: "#ef7d00",
                 fill: false,
                 backgroundColor: '#ef7d00',
-                lineTension: 0,
                 pointRadius: 6,
                 pointHoverRadius: 12
 
