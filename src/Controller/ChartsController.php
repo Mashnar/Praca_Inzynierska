@@ -80,13 +80,28 @@ class ChartsController extends AbstractController
     /**
      *
      *Funkcja wywoływana przez JavaScript do wziecia danych do wykresów ogolnych
-     * @Route("/dataForGeneralChart",   name="dataForGeneralChart",  options={"expose"=true}  )
+     * @Route("/dataForGeneralChartInside",   name="dataForGeneralChartInside",  options={"expose"=true}  )
      * @param generalChartService $generalChartService
      * @return JsonResponse
+     * @throws Exception
      */
-    public function dataForGeneralChart(generalChartService $generalChartService): JsonResponse
+    public function dataForGeneralChartInside(generalChartService $generalChartService): JsonResponse
     {
-        return new JsonResponse($generalChartService->getDataForCharts());
+        return new JsonResponse($generalChartService->getDataForChartsInside());
+    }
+
+
+    /**
+     *
+     *Funkcja wywoływana przez JavaScript do wziecia danych do wykresów ogolnych
+     * @Route("/dataForGeneralChartOutside",   name="dataForGeneralChartOutside",  options={"expose"=true}  )
+     * @param generalChartService $generalChartService
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function dataForGeneralChartOutside(generalChartService $generalChartService): JsonResponse
+    {
+        return new JsonResponse($generalChartService->getDataForChartsOutside());
     }
 
 

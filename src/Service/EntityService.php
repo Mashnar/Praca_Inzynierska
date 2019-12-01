@@ -119,21 +119,22 @@ class EntityService
     }
 
     /**
-     * FUnkcja zwracajaca ostatnie 24 parametry ( tylko gdy data jnie pasuje bedzie wykonywane)
+     * FUnkcja zwracajaca ostatnie 24 lub 48  parametrów ( tylko gdy data jnie pasuje bedzie wykonywane)
      * @param int $id
      * @param string $type
      * @param Device|null $device
+     * @param int $numberParameters
      * @return array
      */
     public
-    function get48LatestParams(int $id = null, string $type, Device $device = null): array
+    function get48Or24LatestParams(int $id = null, string $type, Device $device = null, int $numberParameters = 48): array
     {
 
         if ($device) {
-            return array_reverse($this->entityManager->getRepository(DataMain::class)->get48LatestParams($device, $type));
+            return array_reverse($this->entityManager->getRepository(DataMain::class)->get48Or24LatestParams($device, $type, $numberParameters));
         }
         //odwracam,aby byly najnowsze od najstarszego do najmlodszego
-        return array_reverse($this->entityManager->getRepository(DataMain::class)->get48LatestParams($this->getDeviceById($id), $type));
+        return array_reverse($this->entityManager->getRepository(DataMain::class)->get48Or24LatestParams($this->getDeviceById($id), $type, $numberParameters));
     }
 
 

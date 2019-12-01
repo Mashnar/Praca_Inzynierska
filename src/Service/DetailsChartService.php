@@ -63,7 +63,7 @@ class DetailsChartService
 
         //jesli dane sa puste, to zwracamy ostatnie 24
         if (empty($data)) {
-            return json_encode($this->entityService->get48LatestParams($id, $type));
+            return json_encode($this->entityService->get48Or24LatestParams($id, $type));
         }
 
         return json_encode($data);

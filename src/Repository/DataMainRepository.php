@@ -75,9 +75,10 @@ class DataMainRepository extends ServiceEntityRepository
      * Funkcja zwracajaca 24 ostatnich parametrow pogodowtych (wilgotnosc,cisnienie,temp) jeden z nich
      * @param Device $device
      * @param string $type
+     * @param int $numberParameters
      * @return array
      */
-    public function get48LatestParams(Device $device, string $type): array
+    public function get48Or24LatestParams(Device $device, string $type, int $numberParameters): array
     {
 
         return $this->createQueryBuilder('d')
@@ -87,7 +88,7 @@ class DataMainRepository extends ServiceEntityRepository
             ->andWhere('d.device = :device')
             ->setParameters(['device' => $device])
             ->orderBy('d.createdAt', 'DESC')
-            ->setMaxResults(48)
+            ->setMaxResults($numberParameters)
             ->getQuery()
             ->getArrayResult();
     }
