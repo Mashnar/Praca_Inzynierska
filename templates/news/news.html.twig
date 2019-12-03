@@ -46,8 +46,44 @@
             {% endfor %}
         {% endfor %}
     </div>
+
+    <div class="news_container facebook">
+        {% for posts in content %}
+            {#            {{ dump(posts.getCategoryId().getSlug()) }}#}
+            {% for post in posts.posts %}
+                {#            {{ dump(post) }}#}
+
+
+                <div class="news_item">
+
+                    <div class="title">{{ post.title|raw }}</div>
+
+
+                    <div class="date"> {{ post.date|raw|date("m-d-Y  H:i") }}</div>
+
+
+                    <div class="excerpt">
+                        {{ post.excerpt|raw }}
+                    </div>
+
+                    <div class="link">
+                        <div class="button">
+                            <a href="http://kanishkkunal.in"
+                               target="popup"
+                               onclick="window.open('{{ post.link|raw }}','liveMatches','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1000,height=500');
+                                       return false;">
+                                Kliknij po więcej
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+        {% endfor %}
+    </div>
     <a href="{{ path('homepage') }}">
-        <div class="back_button" style="position:absolute;top: 750px;height: 150px;left: 50px;">
+        <div class="back_button" style="position:absolute;top: 870px;height: 150px;left: 50px;">
 
 
         </div>
