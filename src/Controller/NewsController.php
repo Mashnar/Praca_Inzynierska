@@ -12,6 +12,7 @@ class NewsController extends AbstractController
 {
     /**
      * @Route("/news", name="news")
+     * @param NewsService $newsService
      * @return Response
      */
     public function index(NewsService $newsService): Response
