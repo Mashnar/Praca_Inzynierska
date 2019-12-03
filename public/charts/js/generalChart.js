@@ -72,10 +72,11 @@ function insideChart(data) {
     });
 
 
-    lineChart("Wilgotność", "Wykres Wilgotności Wewnętrzny", time_hum, "myChartHumidity", hum, humidityChart);
-    lineChart("Ciśnienie", "Wykres Ciśnienia Wewnętrzny", time_press, "myChartPressure", press, pressureChart);
+    chart("Wilgotność", "Wykres Wilgotności Wewnętrzny", time_hum, "myChartHumidity", hum, humidityChart, 'line');
+    chart("Ciśnienie", "Wykres Ciśnienia Wewnętrzny", time_press, "myChartPressure", press, pressureChart, 'line');
     pollutionChart(pm10, pm25, time_pollution, polluChart);
-    lineChart('Temperatura', 'Wykres Temperatury Wewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, temperaturaChart);
+    chart('Temperatura', 'Wykres Temperatury Wewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, temperaturaChart, 'bar');
+
 
 }
 
@@ -169,21 +170,21 @@ function outsideChart(data) {
     });
 
 
-    lineChart("Wilgotność", "Wykres Wilgotności Zewnętrzne", time_hum, "myChartHumidity", hum, humidityChart);
-    lineChart("Ciśnienie", "Wykres Ciśnienia Zewnętrzne", time_press, "myChartPressure", press, pressureChart);
+    chart("Wilgotność", "Wykres Wilgotności Zewnętrzne", time_hum, "myChartHumidity", hum, humidityChart, 'line');
+    chart("Ciśnienie", "Wykres Ciśnienia Zewnętrzne", time_press, "myChartPressure", press, pressureChart, 'line');
     pollutionChart(pm10, pm25, time_pollution, polluChart);
-    lineChart('Temperatura', 'Wykres Temperatury Zewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, temperaturaChart);
+    chart('Temperatura', 'Wykres Temperatury Zewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, temperaturaChart, 'bar');
 }
 
 
-function lineChart(label, title, time, id_div, data, obj) {
+function chart(label, title, time, id_div, data, obj, type) {
     if (typeof obj !== "undefined") {
-        chart.destroy();
+        obj.destroy();
     }
 
 
     obj = new Chart(document.getElementById(id_div), {
-        type: 'line',
+        type: type,
         data: {
             labels: time,
             datasets: [{
@@ -252,25 +253,27 @@ function lineChart(label, title, time, id_div, data, obj) {
 }
 
 
-function pollutionChart(pm10, pm25, time) {
+function pollutionChart(pm10, pm25, time, chart) {
 
     if (typeof chart !== "undefined") {
         chart.destroy();
     }
 
     new Chart(document.getElementById('myChartPollution'), {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: time,
             datasets: [{
                 data: pm10,
                 label: 'PM10',
                 borderColor: "#ef7d00",
+                backgroundColor: "#ef7d00",
                 fill: false
             }, {
                 data: pm25,
                 label: 'PM25',
                 borderColor: "#ef7d00",
+                backgroundColor: "#ef7d00",
                 fill: false
 
             }
