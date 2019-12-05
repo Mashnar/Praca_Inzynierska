@@ -82,8 +82,7 @@ class DataMainRepository extends ServiceEntityRepository
     {
 
         return $this->createQueryBuilder('d')
-            ->select('d.' . $type . ',d.createdAt'
-            )
+            ->select('d.' . $type . ',d.createdAt')
             ->where('d.pm25 is NULL')
             ->andWhere('d.device = :device')
             ->setParameters(['device' => $device])

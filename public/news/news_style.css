@@ -1,13 +1,18 @@
 .news_container {
-    top: 80px;
-    position: relative;
+    border-color: #ef7d00;
+    border-style: solid;
+    border-width: 10px;
+
     background-color: #DCDBE0;
     margin: auto;
     overflow-y: scroll;
     width: 1200px;
     height: 350px;
 }
-
+.facebook{
+position: relative;
+    top: 50px;
+}
 ::-webkit-scrollbar {
     width: 3em;
 
@@ -26,6 +31,10 @@
 
 .news_item {
     border-bottom: 5px solid #ef7d00;
+}
+.news_item:last-child
+{
+    border-bottom: none;
 }
 
 .title {
