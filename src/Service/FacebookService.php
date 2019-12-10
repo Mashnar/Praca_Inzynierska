@@ -25,11 +25,12 @@ class FacebookService
     public function __construct()
     {
         $this->facebook = new Facebook([
-            'app_id' => '802717966793299',
-            'app_secret' => 'cf8413336573f8b5ac41aebb8909999d',
+            'app_id' => '2387146028203414',
+            'app_secret' => 'fc7bb324994ecf5cae4a074288000f6f',
             'default_graph_version' => 'v4.0',
-            'default_access_token' => 'EAALaEVdDZBlMBAMpsp7v4rW0WnrzeqgPlWlR4pj8kvZACXokZAX0u5bg3wqKZCdo0VJTPOBGCjzAd6ZBRtetxgQAFrrDyaKPyoQ5OrcEmEtZCrlNR0TtkzNYWCVKhc1P6tSj0hQ2yjcCxvs7pPI5ZCqA5czetBXp6VVNGABgsJaLjg9gQ5e3wEu', // optional
+            'default_access_token' => 'EAAh7GL8JvZAYBADHsGZB1iu7UIrk0fifnlluX6ZAs7NvQyqzQCYu8jwaMB1Ej0uIMZBCp1ImHb4ZAvtWBaF6VuF9epP2eelDBHUYf7SA8SpTmlZCjO5ZAMLscZAZCBauqlvbxoLpIhCZCnqbT6JsLcciRR6OVenRKBBsTZADhFwfz6zNhThqwiX4yK4ZBH2cNH5HLGEZD', // optional
         ]);
+        //
     }
 
 
@@ -43,7 +44,7 @@ class FacebookService
         try {
             // Returns a `FacebookFacebookResponse` object
             $response = $this->facebook->get(
-                '/me/feed?fields=message,full_picture,created_time,description,properties&limit=500'
+                '/me/feed?fields=message,full_picture,created_time,description,properties&limit=20'
             );
         } catch (FacebookExceptionsFacebookResponseException $e) {
             echo 'Graph returned an error: ' . $e->getMessage();

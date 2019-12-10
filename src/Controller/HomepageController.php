@@ -34,7 +34,6 @@ class HomepageController extends AbstractController
     public function facebook(FacebookService $facebookService): Response
     {
 
-
         return new Response();
     }
 
