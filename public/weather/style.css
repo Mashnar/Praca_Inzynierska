@@ -1,0 +1,35 @@
+.back_button {
+    top: 750px;
+    position: absolute;
+    height: 150px;
+
+}
+
+
+.weather_container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+
+
+    border-color: #ef7d00;
+    border-style: solid;
+    border-width: 10px;
+
+    background-color: #DCDBE0;
+    margin: auto;
+    width: 1200px;
+    height: 500px;
+}
+
+.day_weather {
+
+    border-right: 5px solid #ef7d00;
+
+}
+
+.day_weather:last-child {
+    border-right: none;
+}

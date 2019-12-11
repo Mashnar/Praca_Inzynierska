@@ -4,6 +4,7 @@
 namespace App\Service;
 
 use Cmfcmf\OpenWeatherMap;
+use Cmfcmf\OpenWeatherMap\Forecast;
 use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
 use Http\Factory\Guzzle\RequestFactory;
 
@@ -16,47 +17,95 @@ class WeatherService
     /**
      * @var RequestFactory Do openweathermap
      */
-    private $requestFactory;
-    private $httpClient;
     private $owm;
     private $apiKEY = '68e997e13515cf96431962052d6b202e';
     //obiekt z danymi jak przypiszemy miasto
     private $objData;
+    private $city = 'Lodz';
+    private $unit = 'metric';
+    private $language = 'pl';
+    private $days = 5;
+    private $days_to_query;
+    /**
+     * @var array z danymi do przekazania do widoku
+     */
+    private $dataToSend;
 
     public function __construct()
     {
 
-        $this->requestFactory = new RequestFactory();
 
-        $this->httpClient = GuzzleAdapter::createWithConfig([]);
-        $this->owm = new OpenWeatherMap('68e997e13515cf96431962052d6b202e', $this->httpClient, $this->requestFactory);
+        $this->owm = new OpenWeatherMap($this->apiKEY, GuzzleAdapter::createWithConfig([]), new RequestFactory());
+        //https://stackoverflow.com/a/8308005
+        //deklaruje 5 kolejnych dni
+        $this->days_to_query = [
+            date('d.m.y') . ' 12:00',
+            date('d.m.y', strtotime('+1 days')) . ' 12:00',
+            date('d.m.y', strtotime('+2 days')) . ' 12:00',
+            date('d.m.y', strtotime('+3 days')) . ' 12:00',
+            date('d.m.y', strtotime('+4 days')) . ' 12:00',
+
+
+        ];
+
 
     }
 
     //https://github.com/cmfcmf/OpenWeatherMap-PHP-API/blob/master/Examples/CurrentWeather.php
-    public function test()
+
+    /**
+     * Funkcja zwracaja dane w postaci tablicy z 5 dni
+     * @return array
+     * @throws OpenWeatherMap\Exception
+     */
+    public function getData(): array
     {
-        $this->objData = $this->owm->getWeatherForecast('Lodz', 'metric', 'pl', '', 5);
 
 
-//
-//
-//        foreach (  $this->objData as $key=>$weather) {
-//
-//            echo $key;
-//                print_r($weather);
-//            // Each $weather contains a Cmfcmf\ForecastWeather object which is almost the same as the Cmfcmf\Weather object.
-//            // Take a look into 'Examples_Current.php' to see the available options.
-//            echo "Weather forecast at " . $weather->time->day->format('d.m.Y') . " from " . $weather->time->from->format('H:i') . " to " . $weather->time->to->format('H:i');
-//            echo "<br />\n";
-//            echo $weather->temperature;
-//            echo "<br />\n";
-//            echo "Sun rise: " . $weather->sun->rise->format('d.m.Y H:i (e)');
-//            echo "<br />\n";
-//            echo "---";
-//            echo "<br />\n";
-//        }
-//       // dd($obj->weather->getIconUrl());
+        //zrobimy ze z kazdego dnia do przodu o 5 bierzemy od godziny 12 do 15 temperatura i te dane bedziemy wyswietlac
+        $this->setWeatherForecast();
 
+        foreach ($this->objData as $key => $weather) {
+            foreach ($this->days_to_query as $value) {
+                if ($weather->time->from->format('d.m.y H:i') === $value) {
+
+                    $this->generateArrayToSend($weather);
+
+                }
+
+
+            }
+
+
+        }
+        return $this->dataToSend;
+
+    }
+
+
+    /**
+     * Tworze obiekt uzywany do zapytan o pogode
+     * @throws OpenWeatherMap\Exception
+     */
+    private function setWeatherForecast(): void
+    {
+        $this->objData = $this->owm->getWeatherForecast($this->city, $this->unit, $this->language, '', $this->days);
+    }
+
+    /**
+     * Funckja tworzaca tablice z danymi do outputu
+     * @param Forecast $weather
+     * @return void
+     */
+    private function generateArrayToSend(Forecast $weather): void
+    {
+
+        $this->dataToSend[$weather->time->from->format('d.m.y')] = [
+            'temp' => $weather->temperature->getFormatted(),
+            'clouds' => $weather->clouds->getDescription() . ' (' . $weather->clouds . ')',
+            'icon' => $weather->weather->getIconUrl(),
+            'wind_speed' => $weather->wind->speed->getFormatted(),
+            'direction' => $weather->wind->direction->getDescription()
+        ];
     }
 }

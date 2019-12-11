@@ -9,10 +9,12 @@
     width: 1200px;
     height: 350px;
 }
-.facebook{
-position: relative;
+
+.facebook {
+    position: relative;
     top: 50px;
 }
+
 ::-webkit-scrollbar {
     width: 3em;
 
@@ -32,8 +34,8 @@ position: relative;
 .news_item {
     border-bottom: 5px solid #ef7d00;
 }
-.news_item:last-child
-{
+
+.news_item:last-child {
     border-bottom: none;
 }
 
