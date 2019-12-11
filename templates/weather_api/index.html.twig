@@ -18,11 +18,17 @@
 
     <div class="weather_container">
 
-        <div class="day_weather"></div>
-        <div class="day_weather"></div>
-        <div class="day_weather"></div>
-        <div class="day_weather"></div>
-        <div class="day_weather"></div>
+        {% for weather_daily in content %}
+        <div class="day_weather">
+            Temperatura : {{ weather_daily.temp }}
+           <img src="{{ weather_daily.icon }}" alt="">
+            Chmury : {{ weather_daily.clouds }}
+            Prędkość wiatru: {{ weather_daily.wind_speed }}
+            Kierunek :{{ weather_daily.direction }}
+
+
+        </div>
+        {% endfor %}
 
 
     </div>

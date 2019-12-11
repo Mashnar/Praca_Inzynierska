@@ -39,7 +39,6 @@ class WeatherService
         //https://stackoverflow.com/a/8308005
         //deklaruje 5 kolejnych dni
         $this->days_to_query = [
-            date('d.m.y') . ' 12:00',
             date('d.m.y', strtotime('+1 days')) . ' 12:00',
             date('d.m.y', strtotime('+2 days')) . ' 12:00',
             date('d.m.y', strtotime('+3 days')) . ' 12:00',
@@ -60,6 +59,9 @@ class WeatherService
      */
     public function getData(): array
     {
+        $this->setWeatherToday();
+        //dzisiejsza pogoda
+        $this->generateArrayToSendDaily($this->objData);
 
 
         //zrobimy ze z kazdego dnia do przodu o 5 bierzemy od godziny 12 do 15 temperatura i te dane bedziemy wyswietlac
@@ -78,6 +80,7 @@ class WeatherService
 
 
         }
+
         return $this->dataToSend;
 
     }
@@ -108,4 +111,31 @@ class WeatherService
             'direction' => $weather->wind->direction->getDescription()
         ];
     }
+
+
+    /**
+     * @param OpenWeatherMap\CurrentWeather $weather
+     */
+    private function generateArrayToSendDaily(OpenWeatherMap\CurrentWeather $weather): void
+    {
+
+        $this->dataToSend[$weather->lastUpdate->format('d.m.y')] = [
+            'temp' => $weather->temperature->getFormatted(),
+            'clouds' => $weather->clouds->getDescription() . ' (' . $weather->clouds . ')',
+            'icon' => $weather->weather->getIconUrl(),
+            'wind_speed' => $weather->wind->speed->getFormatted(),
+            'direction' => $weather->wind->direction->getDescription()
+        ];
+    }
+
+
+    private function setWeatherToday()
+    {
+        try {
+            $this->objData = $this->owm->getWeather($this->city, $this->unit, $this->language, '');
+        } catch (OpenWeatherMap\Exception $e) {
+        }
+
+    }
+
 }
