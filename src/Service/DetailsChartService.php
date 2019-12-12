@@ -50,10 +50,10 @@ class DetailsChartService
             $data = $this->entityService->getPollution($start, $end, $id);
             //jesli jest puste, tobierzemy ostatnie 4
             if (empty($data)) {
-                return json_encode($this->entityService->get8LatestPollution($id));
+                return json_encode($this->entityService->getXLatestPollution($id,true,null,8));
             }
 
-            return $data;
+            return json_encode($data);
         }
 
         $data = $this->entityService->getWeatherParametersBeetweenDate($start, $end, $id, $type);

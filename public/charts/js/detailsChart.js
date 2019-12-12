@@ -31,7 +31,7 @@ function generateChart(data) {
         time.push(dt.slice(0, dt.lastIndexOf(".")));
         temp.push(data[k].temperature);
     });
-    barChart("Temperatura", "Wykres temperatury", time, "myChart", temp);
+    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp,'bar');
 
 }
 
@@ -61,7 +61,9 @@ function generateUserChart(placed, type) {
     const temp = Routing.generate('chart', {
         id_device: placed
         , type: type
-    }, true);
+    });
+
+
 
     fetch(temp)
         .then((res) => {
@@ -128,15 +130,15 @@ function InputChart(data, type) {
 
 
 function pressureChart(hum, time) {
-    barChart("Ciśnienie", "Wykres Ciśnienia", time, "myChart", hum);
+    createChart("Ciśnienie", "Wykres Ciśnienia", time, "myChart", hum,'line');
 }
 
 function temperatureChart(temp, time) {
-    barChart("Temperatura", "Wykres temperatury", time, "myChart", temp);
+    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp,'bar');
 }
 
 function humidityChart(hum, time) {
-    barChart("Wilgotnosć", "Wykres wilgotności", time, "myChart", hum);
+    createChart("Wilgotnosć", "Wykres wilgotności", time, "myChart", hum,'line');
 }
 
 function pollutionChart(pm10, pm25, time) {
@@ -146,7 +148,7 @@ function pollutionChart(pm10, pm25, time) {
     }
 
     chart = new Chart(document.getElementById('myChart'), {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: time,
             datasets: [{
@@ -186,6 +188,12 @@ function pollutionChart(pm10, pm25, time) {
                 yAxes: [{
                     ticks: {
                         fontColor: "black",
+                        callback: function (value, index, values) {
+
+                            return value + ' µg/m3';
+
+
+                        }
 
                     }
                 }],
@@ -210,14 +218,14 @@ function pollutionChart(pm10, pm25, time) {
 }
 
 
-function barChart(label, title, time, id_div, data) {
+function createChart(label, title, time, id_div, data, type) {
     if (typeof chart !== "undefined") {
         chart.destroy();
     }
 
 
     chart = new Chart(document.getElementById(id_div), {
-        type: 'line',
+        type: type,
         data: {
             labels: time,
             datasets: [{

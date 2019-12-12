@@ -22,7 +22,8 @@ class WeatherAPIController extends AbstractController
 
         return $this->render('weather_api/index.html.twig', [
             'content' => $weatherService->getData(),
-            'inside' => $weatherService->getDataInside()
+            'inside' => $weatherService->getDataInside(),
+            'outside'=>$weatherService->getDataOutside()
 
 
         ]);

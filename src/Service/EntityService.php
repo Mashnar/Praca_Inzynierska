@@ -173,23 +173,24 @@ class EntityService
     }
 
     /**
-     * Funkcja zwracajaca 8 ostatnie wpisy zanieczyszczen
+     * Funkcja zwracajaca X ostatnie wpisy zanieczyszczen
      * @param int $id domyslnie null
      * @param bool $with_id jesli true , to szukamy z id, jesli false to uzywamy urzadzenia domyslnego
      * @param Device|null $device
+     * @param int $number_of_results
      * @return array
      */
     public
-    function get8LatestPollution(int $id = null, $with_id = true, Device $device = null): array
+    function getXLatestPollution(int $id = null, $with_id = true, Device $device = null,int $number_of_results): array
     {
         //jesli true, to bierzemy po id
         if ($with_id) {
             //odwracam aby miec od najstarszej do najnowszej
-            return array_reverse($this->entityManager->getRepository(DataMain::class)->get8LatestPollution($this->getDeviceById($id)));
+            return array_reverse($this->entityManager->getRepository(DataMain::class)->getXLatestPollution($this->getDeviceById($id),$number_of_results));
         }
 
         //jesli nie, to bierzemy po urzadzeniu bo mamy ogolny wykres i przekazuje w parametrze urzadzenie
-        return array_reverse($this->entityManager->getRepository(DataMain::class)->get8LatestPollution($device));
+        return array_reverse($this->entityManager->getRepository(DataMain::class)->getXLatestPollution($device,$number_of_results));
 
     }
 

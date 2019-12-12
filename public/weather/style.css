@@ -26,7 +26,7 @@
 }
 
 .microcontroler {
-    height: 265px;
+    height: 350px;
     grid-template-columns: repeat(2, 1fr);
     margin-top: 30px;
 }
@@ -81,5 +81,8 @@
 }
 
 .update {
+    margin-top: 25px;
+}
+.pollution{
     margin-top: 25px;
 }

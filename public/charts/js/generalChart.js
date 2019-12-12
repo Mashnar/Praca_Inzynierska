@@ -1,7 +1,3 @@
-let humidityChart;
-let pressureChart;
-let temperaturaChart;
-let polluChart;
 window.onload = function () {
 
 
@@ -72,10 +68,10 @@ function insideChart(data) {
     });
 
 
-    chart("Wilgotność", "Wykres Wilgotności Wewnętrzny", time_hum, "myChartHumidity", hum, humidityChart, 'line');
-    chart("Ciśnienie", "Wykres Ciśnienia Wewnętrzny", time_press, "myChartPressure", press, pressureChart, 'line');
-    pollutionChart(pm10, pm25, time_pollution, polluChart);
-    chart('Temperatura', 'Wykres Temperatury Wewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, temperaturaChart, 'bar');
+    chart("Wilgotność", "Wykres Wilgotności Wewnętrzny", time_hum, "myChartHumidity", hum,  'line');
+    chart("Ciśnienie", "Wykres Ciśnienia Wewnętrzny", time_press, "myChartPressure", press,  'line');
+    pollutionChart(pm10, pm25, time_pollution);
+    chart('Temperatura', 'Wykres Temperatury Wewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, 'bar');
 
 
 }
@@ -170,20 +166,23 @@ function outsideChart(data) {
     });
 
 
-    chart("Wilgotność", "Wykres Wilgotności Zewnętrzne", time_hum, "myChartHumidity", hum, humidityChart, 'line');
-    chart("Ciśnienie", "Wykres Ciśnienia Zewnętrzne", time_press, "myChartPressure", press, pressureChart, 'line');
-    pollutionChart(pm10, pm25, time_pollution, polluChart);
-    chart('Temperatura', 'Wykres Temperatury Zewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, temperaturaChart, 'bar');
+    chart("Wilgotność", "Wykres Wilgotności Zewnętrzne", time_hum, "myChartHumidity", hum,'line');
+    chart("Ciśnienie", "Wykres Ciśnienia Zewnętrzne", time_press, "myChartPressure", press, 'line');
+    pollutionChart(pm10, pm25, time_pollution);
+    chart('Temperatura', 'Wykres Temperatury Zewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, 'bar');
 }
 
 
-function chart(label, title, time, id_div, data, obj, type) {
-    if (typeof obj !== "undefined") {
-        obj.destroy();
-    }
+function chart(label, title, time, id_div, data, type) {
 
+    let canvas = document.getElementById(id_div)
 
-    obj = new Chart(document.getElementById(id_div), {
+    let context = canvas.getContext('2d');
+
+    context.clearRect(0,0,canvas.width,canvas.height);
+    // begin custom shape
+    // begin custom shape
+    new Chart(document.getElementById(id_div), {
         type: type,
         data: {
             labels: time,
@@ -219,7 +218,7 @@ function chart(label, title, time, id_div, data, obj, type) {
                         callback: function (value, index, values) {
                             switch (label) {
                                 case 'Temperatura':
-                                    return value + '°';
+                                    return value + '°C';
                                 case 'Ciśnienie':
                                     return value + ' hPa';
                                 case 'Wilgotność':
@@ -253,13 +252,15 @@ function chart(label, title, time, id_div, data, obj, type) {
 }
 
 
-function pollutionChart(pm10, pm25, time, chart) {
+function pollutionChart(pm10, pm25, time) {
+    let canvas = document.getElementById('myChartPollution');
 
-    if (typeof chart !== "undefined") {
-        chart.destroy();
-    }
+    let context = canvas.getContext('2d');
 
-    new Chart(document.getElementById('myChartPollution'), {
+    context.clearRect(0,0,canvas.width,canvas.height);
+
+
+   new Chart(document.getElementById('myChartPollution'), {
         type: 'bar',
         data: {
             labels: time,
@@ -294,6 +295,12 @@ function pollutionChart(pm10, pm25, time, chart) {
                 yAxes: [{
                     ticks: {
                         fontColor: "black",
+                        callback: function (value, index, values) {
+
+                                    return value + ' µg/m3';
+
+
+                        }
 
                     }
                 }],

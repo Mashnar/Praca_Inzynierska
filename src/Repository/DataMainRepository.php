@@ -116,11 +116,12 @@ class DataMainRepository extends ServiceEntityRepository
 
 
     /**
-     * Funkcja zwracajca 4 ostatnie wartosci dla zanieczyszczeń
+     * Funkcja zwracajca X  ostatnie wartosci dla zanieczyszczeń
      * @param Device $device
+     * @param int $number
      * @return array
      */
-    public function get8LatestPollution(Device $device): array
+    public function getXLatestPollution(Device $device,int $number): array
     {
         return $this->createQueryBuilder('d')
             ->select('d.pm25', 'd.pm10', 'd.createdAt'
@@ -129,7 +130,7 @@ class DataMainRepository extends ServiceEntityRepository
             ->andWhere('d.device = :device')
             ->setParameters(['device' => $device])
             ->orderBy('d.createdAt', 'DESC')
-            ->setMaxResults(8)
+            ->setMaxResults($number)
             ->getQuery()
             ->getArrayResult();
     }
@@ -151,6 +152,8 @@ class DataMainRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
     }
+
+
 
 
 }

@@ -18,7 +18,7 @@ class generalChartService
     private $device_inside;
 
     /**
-     * @var placed boolean true or false , true w srodku false na zewnatrz
+     * @var boolean true or false , true w srodku false na zewnatrz
      */
     private $placed;
 
@@ -121,7 +121,7 @@ class generalChartService
     private function getPollution(): array
     {
         //biore 8 ostatnich wpisow z parametrem false,bo nie posiadam id
-        return $this->entityService->get8LatestPollution(null, false, $this->device_outside);
+        return $this->entityService->getXLatestPollution(null, false, $this->device_outside,8);
 
     }
 

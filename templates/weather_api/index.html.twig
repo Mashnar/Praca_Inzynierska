@@ -42,10 +42,12 @@
                     Kierunek: {{ weather_daily.direction }}
                 </div>
                 <div class="rain">
-                    {% if weather_daily.precipitation != '0 (0)' %}
-                        Deszcz: {{ weather_daily.precipitation }}
+
+                    {% if weather_daily.precipitation != 0.0 %}
+                        Deszcz: {{ weather_daily.precipitation }} mm
                     {% endif %}
                 </div>
+
 
 
             </div>
@@ -58,20 +60,42 @@
         <div class="inside">
             <div class="header_inside"> Wewnątrz budynku :</div>
             <div class="temperature">
-                Temperatura: {{ inside[0].temperature }} °C
+                Temperatura: {{ inside.temperature }} °C
             </div>
             <div class="humidity">
-                Wilgotność: {{ inside[0].humidity }} %
+                Wilgotność: {{ inside.humidity }} %
             </div>
             <div class="pressure">
-                Ciśnienie: {{ inside[0].pressure }} hPa
+                Ciśnienie: {{ inside.pressure }} hPa
             </div>
 
             <div class="update">
-                Ostatni pomiar: {{ inside[0].createdAt|date('Y-m-d H:i') }}
+                Ostatni pomiar: {{ inside.createdAt|date('Y-m-d H:i') }}
             </div>
         </div>
         <div class="outside">
+            <div class="header_inside"> Na zewnątrz budynku :</div>
+            <div class="temperature">
+                Temperatura: {{ outside.temperature }} °C
+            </div>
+            <div class="humidity">
+                Wilgotność: {{ outside.humidity }} %
+            </div>
+            <div class="pressure">
+                Ciśnienie: {{ outside.pressure }} hPa
+            </div>
+            <div class="update">
+                Ostatni pomiar : {{ outside.createdAt|date('Y-m-d H:i') }}
+            </div>
+
+            <div class="pollution">
+                PM2.5: {{ outside.pm25 }} µg/m3
+                PM10: {{ outside.pm10 }} µg/m3
+            </div>
+
+            <div class="update">
+                Ostatni pomiar zanieczyszczenia : {{ outside.createdAtPollution|date('Y-m-d H:i') }}
+            </div>
 
         </div>
     </div>
