@@ -18,19 +18,62 @@
 
     <div class="weather_container">
 
-        {% for weather_daily in content %}
-        <div class="day_weather">
-            Temperatura : {{ weather_daily.temp }}
-           <img src="{{ weather_daily.icon }}" alt="">
-            Chmury : {{ weather_daily.clouds }}
-            Prędkość wiatru: {{ weather_daily.wind_speed }}
-            Kierunek :{{ weather_daily.direction }}
+        {% for key,weather_daily in content %}
+            <div class="day_weather">
+                <div class="day">
+                    Łódź dnia {{ key }}
+                </div>
+                <div class="temperature">
+                    Temperatura: {{ weather_daily.temp }}
+                </div>
+
+                <div class="icon">
+                    <img src="{{ weather_daily.icon }}" alt="">
+                </div>
+
+                <div class="clouds">
+                    Chmury: {{ weather_daily.clouds }}
+                </div>
+
+                <div class="wind_speed">
+                    Prędkość wiatru: {{ weather_daily.wind_speed }}
+                </div>
+                <div class="direction">
+                    Kierunek: {{ weather_daily.direction }}
+                </div>
+                <div class="rain">
+                    {% if weather_daily.precipitation != '0 (0)' %}
+                        Deszcz: {{ weather_daily.precipitation }}
+                    {% endif %}
+                </div>
 
 
-        </div>
+            </div>
         {% endfor %}
 
 
+    </div>
+
+    <div class="weather_container microcontroler">
+        <div class="inside">
+            <div class="header_inside"> Wewnątrz budynku :</div>
+            <div class="temperature">
+                Temperatura: {{ inside[0].temperature }} °C
+            </div>
+            <div class="humidity">
+                Wilgotność: {{ inside[0].humidity }} %
+            </div>
+            <div class="pressure">
+                Ciśnienie: {{ inside[0].pressure }} hPa
+            </div>
+
+            <div class="update">
+                Ostatni pomiar: {{ inside[0].createdAt|date('Y-m-d H:i') }}
+            </div>
+        </div>
+        <div class="outside">
+
+        </div>
     </div>
 
 {% endblock %}

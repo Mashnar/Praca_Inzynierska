@@ -109,6 +109,16 @@ class EntityService
     }
 
     /**
+     * Funkcja zwracajca najnowsze 3 wpisy dla danego kontrolera
+     * @param string $name nazwa mikrokontrolera (SDS_TEMP1-4)
+     * @return array
+     */
+    public function getNewestWeatherParameter(string $name): array
+    {
+        return $this->entityManager->getRepository(DataMain::class)->getNewestParameter($this->getDeviceByName($name));
+    }
+
+    /**
      * Funkcja zwracajaca wszystkie urzadzenia wraz z ich nazwa i id
      * @return array
      */
@@ -208,6 +218,10 @@ class EntityService
         $this->entityManager->getRepository($name)->clearTable();
     }
 
+    /**
+     * Funckja zwracajacca wszstkie kategorie z bazy danych
+     * @return array
+     */
     public function getAllCategories(): array
     {
         return $this->entityManager->getRepository(CategoriesWebsite::class)->findAll();

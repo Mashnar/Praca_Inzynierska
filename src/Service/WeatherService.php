@@ -5,6 +5,7 @@ namespace App\Service;
 
 use Cmfcmf\OpenWeatherMap;
 use Cmfcmf\OpenWeatherMap\Forecast;
+use DateTimezone;
 use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
 use Http\Factory\Guzzle\RequestFactory;
 
@@ -26,12 +27,13 @@ class WeatherService
     private $language = 'pl';
     private $days = 5;
     private $days_to_query;
+    private $entityservice;
     /**
      * @var array z danymi do przekazania do widoku
      */
     private $dataToSend;
 
-    public function __construct()
+    public function __construct(EntityService $entityService)
     {
 
 
@@ -47,6 +49,8 @@ class WeatherService
 
         ];
 
+        $this->entityservice = $entityService;
+
 
     }
 
@@ -59,7 +63,9 @@ class WeatherService
      */
     public function getData(): array
     {
+
         $this->setWeatherToday();
+
         //dzisiejsza pogoda
         $this->generateArrayToSendDaily($this->objData);
 
@@ -87,6 +93,17 @@ class WeatherService
 
 
     /**
+     * Funkcja zwracajca parametry wewnatrz budynku ( będzie to ... narazie mała aula ( kontroler SDS_TEMP_4)
+     * @return array
+     */
+    public function getDataInside(): array
+    {
+        return $this->entityservice->getNewestWeatherParameter('SDS_TEMP_4');
+
+    }
+
+
+    /**
      * Tworze obiekt uzywany do zapytan o pogode
      * @throws OpenWeatherMap\Exception
      */
@@ -103,12 +120,14 @@ class WeatherService
     private function generateArrayToSend(Forecast $weather): void
     {
 
-        $this->dataToSend[$weather->time->from->format('d.m.y')] = [
+
+        $this->dataToSend[$weather->time->from->setTimezone(new DateTimezone('Europe/Berlin'))->format('d.m.y')] = [
             'temp' => $weather->temperature->getFormatted(),
             'clouds' => $weather->clouds->getDescription() . ' (' . $weather->clouds . ')',
             'icon' => $weather->weather->getIconUrl(),
             'wind_speed' => $weather->wind->speed->getFormatted(),
-            'direction' => $weather->wind->direction->getDescription()
+            'direction' => $this->convertDegree($weather->wind->direction->getValue()),
+            'precipitation' => $weather->precipitation->getValue() . ' (' . $weather->precipitation . ')',
         ];
     }
 
@@ -118,18 +137,22 @@ class WeatherService
      */
     private function generateArrayToSendDaily(OpenWeatherMap\CurrentWeather $weather): void
     {
-
-        $this->dataToSend[$weather->lastUpdate->format('d.m.y')] = [
+//https://github.com/cmfcmf/OpenWeatherMap-PHP-Api/issues/73#issuecomment-211013246
+        $this->dataToSend[$weather->lastUpdate->setTimezone(new DateTimezone('Europe/Berlin'))->format('d.m.y')] = [
             'temp' => $weather->temperature->getFormatted(),
             'clouds' => $weather->clouds->getDescription() . ' (' . $weather->clouds . ')',
             'icon' => $weather->weather->getIconUrl(),
             'wind_speed' => $weather->wind->speed->getFormatted(),
-            'direction' => $weather->wind->direction->getDescription()
+            'direction' => $this->convertDegree($weather->wind->direction->getValue()),
+            'precipitation' => $weather->precipitation->getValue() . ' (' . $weather->precipitation . ')'
         ];
     }
 
 
-    private function setWeatherToday()
+    /**
+     *Funkcja ustawiajaca obiekt na pobieranie dzisiejszej pogody
+     */
+    private function setWeatherToday(): void
     {
         try {
             $this->objData = $this->owm->getWeather($this->city, $this->unit, $this->language, '');
@@ -137,5 +160,42 @@ class WeatherService
         }
 
     }
+
+
+    /**
+     * Funkcja przerabiajaca stopnie na kierunek wiatru
+     * https://stackoverflow.com/a/36475516
+     * @param float $degree
+     * @return string|null
+     */
+    private function convertDegree(float $degree): ?string
+    {
+        if ($degree > 337.5) {
+            return 'Północny';
+        }
+        if ($degree > 292.5) {
+            return 'Północno Zachodni';
+        }
+        if ($degree > 247.5) {
+            return 'Zachodni';
+        }
+        if ($degree > 202.5) {
+            return 'Południowo Zachodni';
+        }
+        if ($degree > 157.5) {
+            return 'Południowy';
+        }
+        if ($degree > 122.5) {
+            return 'Południowo Wschodni';
+        }
+        if ($degree > 67.5) {
+            return 'Wschodni';
+        }
+        if ($degree > 22.5) {
+            return 'Północno Wschodni';
+        }
+        return 'Północny';
+    }
+
 
 }

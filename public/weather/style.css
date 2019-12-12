@@ -1,5 +1,5 @@
 .back_button {
-    top: 750px;
+    top: 850px;
     position: absolute;
     height: 150px;
 
@@ -7,12 +7,13 @@
 
 
 .weather_container {
+    font-size: 17px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 1fr;
     grid-column-gap: 0;
     grid-row-gap: 0;
-
+    text-align: center;
 
     border-color: #ef7d00;
     border-style: solid;
@@ -21,7 +22,13 @@
     background-color: #DCDBE0;
     margin: auto;
     width: 1200px;
-    height: 300px;
+    height: 350px;
+}
+
+.microcontroler {
+    height: 265px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 30px;
 }
 
 .day_weather {
@@ -32,4 +39,47 @@
 
 .day_weather:last-child {
     border-right: none;
+}
+
+.temperature {
+    margin-top: 20px;
+}
+
+.day {
+    margin-top: 20px;
+}
+
+.wind_speed {
+    margin-top: 20px;
+}
+
+.direction {
+    margin-top: 20px;
+}
+
+.rain {
+    margin-top: 16px;
+}
+
+.inside {
+    border-right: 5px solid #ef7d00;
+}
+
+.header_inside {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.humidity {
+    margin-top: 25px;
+}
+
+.pressure {
+    margin-top: 25px;
+}
+
+.update {
+    margin-top: 25px;
 }

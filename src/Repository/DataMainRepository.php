@@ -134,5 +134,23 @@ class DataMainRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    /**
+     * Funkcja zwracaja najnowsze parametry dal danego urzadzenia
+     * @param Device $device
+     * @return array
+     */
+    public function getNewestParameter(Device $device): array
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d.temperature', 'd.humidity', 'd.pressure', 'd.createdAt')
+            ->where('d.pm25 is NULL')
+            ->andWhere('d.device= :device')
+            ->setParameters(['device' => $device])
+            ->orderBy('d.createdAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
 
 }
