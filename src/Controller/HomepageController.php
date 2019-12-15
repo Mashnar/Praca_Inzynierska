@@ -33,7 +33,7 @@ class HomepageController extends AbstractController
      */
     public function facebook(FacebookService $facebookService): Response
     {
-
+        dd($facebookService->get());
         return new Response();
     }
 

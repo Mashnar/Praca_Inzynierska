@@ -49,7 +49,7 @@ class ScheduleService
         }
         //generujemy content dla specjalnego URL z niestancjonarnymi studiami
         $crawler = $this->createScraper($this->generateContentWebsite($this->url_special));
-        $content['Informatyka Niestacjonarna'] = $this->iterateCrawler($crawler, $this->url_special, true);
+        $content['Inf Niestac'] = $this->iterateCrawler($crawler, $this->url_special, true);
         return $content;
 
     }
