@@ -25,10 +25,10 @@ class FacebookService
     public function __construct()
     {
         $this->facebook = new Facebook([
-            'app_id' => '429144981296142',
-            'app_secret' => '7f1e8f65ec3783214a93e12f2bca8fa4',
+            'app_id' => '2387146028203414',
+            'app_secret' => 'fc7bb324994ecf5cae4a074288000f6f',
             'default_graph_version' => 'v4.0',
-            'default_access_token' => 'EAAGGThoq1A4BAMkgrNWaLuQdjLPOqBQ3Sqs0eMiqEY6bQm2Rcndgf0svU9H66GwZBZARRPG4QdFoCStkwUn1kg5nib940ThD9Nj3QWs2702XKDadwgwYzzwj3Ofrfr3RmfqA3ZCJZCZApFcLqSlsZC6MlRT5sGnMT80yAlJh4xLq79KkZCD9H8APL0FI11zsI4ZD', // optional
+            'default_access_token' => 'EAAh7GL8JvZAYBADHsGZB1iu7UIrk0fifnlluX6ZAs7NvQyqzQCYu8jwaMB1Ej0uIMZBCp1ImHb4ZAvtWBaF6VuF9epP2eelDBHUYf7SA8SpTmlZCjO5ZAMLscZAZCBauqlvbxoLpIhCZCnqbT6JsLcciRR6OVenRKBBsTZADhFwfz6zNhThqwiX4yK4ZBH2cNH5HLGEZD', // optional
         ]);
         //EAAGGThoq1A4BADgg4ZA2RJZBWZCM2Unq7CZAqvyPDcvjJdsMIH9ZCaofWz8RAuSlrZAFW88mZAFT5yFapwFb4zJEYavn93uyPl0ZCg42zYfNAdkquFYFYNXgHgGXew4eINIZBXQXevxBPsZCyA2HBCkYwDU33mfQ7hfIsffW48z2T3FeZCdJI62fktaJeWllrMXc3Ys11ZBMWA5OHuC6m0ZAoBPUcAPt6p6Tbo8MZD
         //EAAGGThoq1A4BAAfkaPTJTKjqUJ7623nDFHLklvsk5qwGLZAyqNDBC1DMcw67MomZCaaebmTgASCheBnZC3XneknHpWIi8K8zY67qVcBVaHjVPbFoBEcj928iZB4ZASSCAje5x3GElTQUJWKcZA1rWksGoLUAENoO43p3QNZA8YdqhOmyobk7buZB
@@ -47,7 +47,7 @@ class FacebookService
         try {
             // Returns a `FacebookFacebookResponse` object
             $response = $this->facebook->get(
-                '/me/events'
+                '/me/feed?fields=message,full_picture,created_time,properties&limit=20'
             );
         } catch (FacebookExceptionsFacebookResponseException $e) {
             echo 'Graph returned an error: ' . $e->getMessage();
