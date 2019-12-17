@@ -1,3 +1,11 @@
+let pressure;
+let humidity;
+let temperature;
+/***
+ *
+ *
+ * NAPISAC O TYM W PRACY ZE MUSIALEM POTROIC FUNKCJE BO MI STARE DANE ZACHOWYWALY SIE
+ */
 window.onload = function () {
 
 
@@ -68,10 +76,10 @@ function insideChart(data) {
     });
 
 
-    chart("Wilgotność", "Wykres Wilgotności Wewnętrzny", time_hum, "myChartHumidity", hum,  'line');
-    chart("Ciśnienie", "Wykres Ciśnienia Wewnętrzny", time_press, "myChartPressure", press,  'line');
+    chartHumidity("Wilgotność", "Wykres Wilgotności Zewnętrzne", time_hum, "myChartHumidity", hum, 'line');
+    chartPressure("Ciśnienie", "Wykres Ciśnienia Zewnętrzne", time_press, "myChartPressure", press, 'line');
     pollutionChart(pm10, pm25, time_pollution);
-    chart('Temperatura', 'Wykres Temperatury Wewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, 'bar');
+    chartTemp('Temperatura', 'Wykres Temperatury Zewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, 'bar');
 
 
 }
@@ -166,23 +174,27 @@ function outsideChart(data) {
     });
 
 
-    chart("Wilgotność", "Wykres Wilgotności Zewnętrzne", time_hum, "myChartHumidity", hum,'line');
-    chart("Ciśnienie", "Wykres Ciśnienia Zewnętrzne", time_press, "myChartPressure", press, 'line');
+    chartHumidity("Wilgotność", "Wykres Wilgotności Zewnętrzne", time_hum, "myChartHumidity", hum, 'line');
+    chartPressure("Ciśnienie", "Wykres Ciśnienia Zewnętrzne", time_press, "myChartPressure", press, 'line');
     pollutionChart(pm10, pm25, time_pollution);
-    chart('Temperatura', 'Wykres Temperatury Zewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, 'bar');
+    chartTemp('Temperatura', 'Wykres Temperatury Zewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, 'bar');
 }
 
 
-function chart(label, title, time, id_div, data, type) {
+function chartPressure(label, title, time, id_div, data, type) {
 
-    let canvas = document.getElementById(id_div)
+    let canvas = document.getElementById(id_div);
 
     let context = canvas.getContext('2d');
 
-    context.clearRect(0,0,canvas.width,canvas.height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (pressure !== undefined) {
+        pressure.destroy();
+    }
     // begin custom shape
     // begin custom shape
-    new Chart(document.getElementById(id_div), {
+    pressure = new Chart(document.getElementById(id_div), {
         type: type,
         data: {
             labels: time,
@@ -215,7 +227,165 @@ function chart(label, title, time, id_div, data, type) {
                 yAxes: [{
                     ticks: {
                         fontColor: "black",
-                        callback: function (value, index, values) {
+                        callback: function (value) {
+                            switch (label) {
+                                case 'Temperatura':
+                                    return value + '°C';
+                                case 'Ciśnienie':
+                                    return value + ' hPa';
+                                case 'Wilgotność':
+                                    return value + ' %';
+                            }
+
+                        }
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        //https://stackoverflow.com/a/39326127
+                        fontColor: "black",
+                        autoSkip: true,
+                        maxTicksLimit: 8,
+
+
+                    }
+                }]
+            },
+            responsive: true,
+            //https://stackoverflow.com/a/32460154
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: title
+            }
+        }
+
+    });
+}
+
+
+function chartHumidity(label, title, time, id_div, data, type) {
+
+
+    if (humidity !== undefined) {
+        humidity.destroy();
+    }
+
+    // begin custom shape
+    // begin custom shape
+    humidity = new Chart(document.getElementById(id_div), {
+        type: type,
+        data: {
+            labels: time,
+            datasets: [{
+
+                data: data,
+                label: label,
+                borderColor: "#ef7d00",
+                fill: false,
+                backgroundColor: '#ef7d00',
+                lineTension: 0,
+                pointRadius: 4,
+                pointHoverRadius: 12
+
+            }
+            ]
+        },
+        options: {
+            legend: {
+                //https://stackoverflow.com/a/49444741
+                onClick: null,
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#ef7d00',
+
+                }
+            },
+            //https://stackoverflow.com/a/37293215
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontColor: "black",
+                        callback: function (value) {
+                            switch (label) {
+                                case 'Temperatura':
+                                    return value + '°C';
+                                case 'Ciśnienie':
+                                    return value + ' hPa';
+                                case 'Wilgotność':
+                                    return value + ' %';
+                            }
+
+                        }
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        //https://stackoverflow.com/a/39326127
+                        fontColor: "black",
+                        autoSkip: true,
+                        maxTicksLimit: 8,
+
+
+                    }
+                }]
+            },
+            responsive: true,
+            //https://stackoverflow.com/a/32460154
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: title
+            }
+        }
+
+    });
+}
+
+
+function chartTemp(label, title, time, id_div, data, type) {
+
+
+    if (temperature !== undefined) {
+        temperature.destroy();
+    }
+
+    // begin custom shape
+    // begin custom shape
+    temperature = new Chart(document.getElementById(id_div), {
+        type: type,
+        data: {
+            labels: time,
+            datasets: [{
+
+                data: data,
+                label: label,
+                borderColor: "#ef7d00",
+                fill: false,
+                backgroundColor: '#ef7d00',
+                lineTension: 0,
+                pointRadius: 4,
+                pointHoverRadius: 12
+
+            }
+            ]
+        },
+        options: {
+            legend: {
+                //https://stackoverflow.com/a/49444741
+                onClick: null,
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#ef7d00',
+
+                }
+            },
+            //https://stackoverflow.com/a/37293215
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        fontColor: "black",
+                        callback: function (value) {
                             switch (label) {
                                 case 'Temperatura':
                                     return value + '°C';
@@ -257,10 +427,10 @@ function pollutionChart(pm10, pm25, time) {
 
     let context = canvas.getContext('2d');
 
-    context.clearRect(0,0,canvas.width,canvas.height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
 
-   new Chart(document.getElementById('myChartPollution'), {
+    new Chart(document.getElementById('myChartPollution'), {
         type: 'bar',
         data: {
             labels: time,
@@ -297,7 +467,7 @@ function pollutionChart(pm10, pm25, time) {
                         fontColor: "black",
                         callback: function (value, index, values) {
 
-                                    return value + ' µg/m3';
+                            return value + ' µg/m3';
 
 
                         }
@@ -323,11 +493,3 @@ function pollutionChart(pm10, pm25, time) {
 
     });
 }
-
-
-
-
-
-
-
-
