@@ -4,6 +4,9 @@
 namespace App\Service;
 
 
+use App\Entity\CategoriesWebsite;
+use App\Entity\WebsitePosts;
+
 class NewsService
 {
 
@@ -39,7 +42,7 @@ class NewsService
 
     /**
      * Funckja pytajaca sie entity o wszystkie newsy
-     * @return \App\Entity\CategoriesWebsite[]|\App\Entity\WebsitePosts|\App\Entity\WebsitePosts[]|object[]
+     * @return CategoriesWebsite[]|WebsitePosts|WebsitePosts[]|object[]
      */
     private function queryNews()
     {

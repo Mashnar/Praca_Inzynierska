@@ -3,6 +3,13 @@
 
     <link href="{{ asset('news/news_style.css') }}" rel="stylesheet">
     <link href="{{ asset('base/button.css') }}" rel="stylesheet">
+    <script>
+
+        function onClick(element) {
+            document.getElementById("img01").src = element.src;
+            document.getElementById("modal01").style.display = "block";
+        }
+    </script>
 {% endblock %}
 {% block content %}
 
@@ -35,9 +42,9 @@
                             {#szerokosc 1024
                             wysokos 1280
                             #}
-                            <a href="http://kanishkkunal.in"
+                            <a href="#"
                                target="popup"
-                               onclick="window.open('{{ post.link|raw }}','liveMatches','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600 left=340 top=212');
+                               onclick="window.open('{{ post.link|raw }}','liveMatches','directories=no,titlebar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600,height=600 left=340 top=212');
                                        return false;">
                                 Kliknij po więcej
                             </a>
@@ -51,39 +58,46 @@
     </div>
 
     <div class="news_container facebook">
-        {% for posts in content %}
-            {#            {{ dump(posts.getCategoryId().getSlug()) }}#}
-            {% for post in posts.posts %}
-                {#            {{ dump(post) }}#}
+        {% for posts in facebook['data'] %}
+            {#          {{ dump(posts) }}#}
 
 
-                <div class="news_item">
-
-                    <div class="title">{{ post.title|raw }}</div>
+            <div class="news_item">
 
 
-                    <div class="date"> {{ post.date|raw|date("m-d-Y  H:i") }}</div>
+                <div class="date"> {{ posts.created_time|raw|date("m-d-Y  H:i") }}</div>
 
 
-                    <div class="excerpt">
-                        {{ post.excerpt|raw }}
+                <div class="excerpt">
+                    {{ posts.message|raw }}
+                </div>
+                <div class="container1">
+                    <img class="modal-hover-opacity picture" src="{{ posts.full_picture }}"
+                         style="max-width:100%;cursor:pointer"
+                         onclick="onClick(this)" alt="obrazek">
+                </div>
+                <div class="link">
+                    <div class="button">
+                        <a href="#"
+                           target="popup"
+                           onclick="window.open('{{ posts.link|raw }}','liveMatches','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1000,height=700');
+                                   return false;">
+                            Kliknij po więcej
+                        </a>
                     </div>
-
-                    <div class="link">
-                        <div class="button">
-                            <a href="http://kanishkkunal.in"
-                               target="popup"
-                               onclick="window.open('{{ post.link|raw }}','liveMatches','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1000,height=700');
-                                       return false;">
-                                Kliknij po więcej
-                            </a>
-                        </div>
-                    </div>
-
                 </div>
 
-            {% endfor %}
+            </div>
+
         {% endfor %}
+
+
+        <div id="modal01" class="modal" onclick="this.style.display='none'">
+            <span class="close">&times;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <div class="modal-content">
+                <img id="img01" style="max-width:100%" alt="obrazek" src="#">
+            </div>
+        </div>
     </div>
     <a href="{{ path('homepage') }}">
         <div class="back_button" style="position:absolute;top: 870px;height: 150px;left: 50px;">
