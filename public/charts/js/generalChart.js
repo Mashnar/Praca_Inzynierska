@@ -76,10 +76,10 @@ function insideChart(data) {
     });
 
 
-    chartHumidity("Wilgotność", "Wykres Wilgotności Zewnętrzne", time_hum, "myChartHumidity", hum, 'line');
-    chartPressure("Ciśnienie", "Wykres Ciśnienia Zewnętrzne", time_press, "myChartPressure", press, 'line');
+    chartHumidity("Wilgotność", "Wykres Wilgotności Wewnętrzny", time_hum, "myChartHumidity", hum, 'line');
+    chartPressure("Ciśnienie", "Wykres Ciśnienia Wewnętrzny", time_press, "myChartPressure", press, 'line');
     pollutionChart(pm10, pm25, time_pollution);
-    chartTemp('Temperatura', 'Wykres Temperatury Zewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, 'bar');
+    chartTemp('Temperatura', 'Wykres Temperatury Wewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, 'bar');
 
 
 }

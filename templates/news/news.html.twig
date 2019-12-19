@@ -59,36 +59,37 @@
 
     <div class="news_container facebook">
         {% for posts in facebook['data'] %}
-            {#          {{ dump(posts) }}#}
+
+            {# jesli jest zadeklarowana, to wyswietlamy. mialem sytuacje gdy nei byla i nie ma sensu wyswietlac bez wiadomosci#}
+            {% if posts.message is defined %}
+
+                <div class="news_item">
 
 
-            <div class="news_item">
+                    <div class="date"> {{ posts.created_time|raw|date("m-d-Y  H:i") }}</div>
 
 
-                <div class="date"> {{ posts.created_time|raw|date("m-d-Y  H:i") }}</div>
-
-
-                <div class="excerpt">
-                    {{ posts.message|raw }}
-                </div>
-                <div class="container1">
-                    <img class="modal-hover-opacity picture" src="{{ posts.full_picture }}"
-                         style="max-width:100%;cursor:pointer"
-                         onclick="onClick(this)" alt="obrazek">
-                </div>
-                <div class="link">
-                    <div class="button">
-                        <a href="#"
-                           target="popup"
-                           onclick="window.open('{{ posts.link|raw }}','liveMatches','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1000,height=700 left=340 top=212');
-                                   return false;">
-                            Kliknij po więcej
-                        </a>
+                    <div class="excerpt">
+                        {{ posts.message|raw }}
                     </div>
+                    <div class="container1">
+                        <img class="modal-hover-opacity picture" src="{{ posts.full_picture }}"
+                             style="max-width:100%;cursor:pointer"
+                             onclick="onClick(this)" alt="obrazek">
+                    </div>
+                    <div class="link">
+                        <div class="button">
+                            <a href="#"
+                               target="popup"
+                               onclick="window.open('{{ posts.link|raw }}','liveMatches','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1000,height=700 left=340 top=212');
+                                       return false;">
+                                Kliknij po więcej
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
-
-            </div>
-
+            {% endif %}
         {% endfor %}
 
 
