@@ -4,12 +4,14 @@
 namespace App\Service;
 
 
+use App\Entity\Consultation;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ConsultationService
 {
@@ -17,26 +19,36 @@ class ConsultationService
      * @var string zawartosc strony pod adresem $url_teachers
      */
     private $contentPage;
-
+    /**
+     * @var HttpClientInterface klient do pobierania contentu strony
+     */
     private $httpClient;
-
+    /**
+     * @var Crawler obiekt crawlera do przeszukiwania strony
+     */
     private $crawler;
-
+    /**
+     * @var array tablica z danymi do wysylki do bazy
+     */
     private $dataAboutConsultation;
 
+    private $entityService;
     /**
      * @var string adres ze wsyzstkimi pracownikami wydzialu
      */
     private $url_teachers = 'http://wfi.uni.lodz.pl/wydzial/pracownicy/';
 
-    public function __construct()
+    public function __construct(EntityService $entityService)
     {
         $this->httpClient = HttpClient::create();
         $this->crawler = new Crawler();
+        $this->entityService = $entityService;
     }
 
 
     /**
+     * Funkcja parsująca strone
+     * w array $this->>dataAbout bedziemy mieli dane o : dane kontaktowe , opis gdzie ma pokoj itp, jego dyzur oraz link
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
@@ -44,26 +56,26 @@ class ConsultationService
      */
     public function scrap(): void
     {
-//        $this->testForURL();
         //wykonuje request na stronie ze wszystkimi nauczycielami
         $this->makeRequest($this->url_teachers);
         //dodaje kontent do crawlera
-        $this->addContentToCrawler($this->contentPage);
+        $this->addContentToCrawler();
         //bierzemy linki oraz nazwy
         $this->getLinkAndNamesForTeachers();
-
+        //biore dla kazdego nauczyciela opis i jego dyzur
         $this->getShiftAndDescriptionForTeachers();
+
+        $this->sendToDatabase();
 
     }
 
 
     /**
      * @param $url
-     * @param $typeContent
-     * @throws TransportExceptionInterface
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
     private function makeRequest($url): void
     {
@@ -73,11 +85,11 @@ class ConsultationService
     }
 
     /**
-     * @param $content
+     * Funkcja dodajaca do crawlera content strony
      */
-    private function addContentToCrawler($content): void
+    private function addContentToCrawler(): void
     {
-        $this->crawler->add($content);
+        $this->crawler->add($this->contentPage);
 
     }
 
@@ -104,13 +116,9 @@ class ConsultationService
             $this->makeRequest($teacher['link']);
 
             //przekazuje content
-            $this->addContentToCrawler($this->contentPage);
+            $this->addContentToCrawler();
             $this->dataAboutConsultation[$key]['shift'] = $this->setShiftPerTeacher();
             $this->dataAboutConsultation[$key]['description'] = $this->setDescriptionPerTeacher();
-            echo '<pre>';
-            print_r($this->dataAboutConsultation[$key]);
-
-            echo '</pre>';
 
 
         }
@@ -119,20 +127,9 @@ class ConsultationService
     }
 
 
-//    private function testForURL(): void
-//    {
-//        $temp = $this->httpClient->request('GET', 'http://wfi.uni.lodz.pl/borowski-norbert-mgr-inz')->getContent();
-//        $this->crawler->add($temp);
-//        $dataCrawler = $this->crawler->filter('.eachInfo');
-//        foreach ($dataCrawler as $domElement) {
-//            //wszystkie dane
-//            //dd($domElement->nodeValue);
-//        }
-//
-//
-//
-//    }
-
+    /**
+     * Funkcja czyszcząca crawler, musi byc wywolywana po kazdym pobraniu content dla 1 nauczyciela
+     */
     private function clearCrawler(): void
     {
         $this->crawler->clear();
@@ -145,7 +142,7 @@ class ConsultationService
     {
         $datasecond = $this->crawler->filter('div[id="tab-id-2-container"]');
         foreach ($datasecond as $domElement) {
-            if (preg_match("/Dyżur/i", $domElement->nodeValue)) {
+            if ($this->checkIsStringContainDyżur($domElement->nodeValue)) {
 
                 //konsultacje
                 return $domElement->nodeValue;
@@ -158,7 +155,7 @@ class ConsultationService
     //trzeba popratrzec nad tym , bo nie zawsze lapie, zmienimy moze na tab-id-1-container
     private function setDescriptionPerTeacher(): string
     {
-        $dataCrawler = $this->crawler->filter('.eachInfo');
+        $dataCrawler = $this->crawler->filter('div[id="tab-id-1-container"]');
         foreach ($dataCrawler as $domElement) {
             if (!empty($domElement->nodeValue)) {
                 return $domElement->nodeValue;
@@ -170,6 +167,47 @@ class ConsultationService
 
     }
 
+    /**Funkcja sprawdzajaca czy string ma słowo dyżur. Jesli ma, to wiemy ze są tam napisane godziny dyzuru
+     * @param $str
+     * @return bool
+     */
+    private function checkIsStringContainDyżur($str): bool
+    {
+        if (preg_match("/Dyżur/i", $str))
+            return true;
+        return false;
+    }
 
-//    private function checkIs
+
+    /**
+     * @param array $data
+     * @return Consultation
+     */
+    private function createObjectPerOneTeacher(array $data): Consultation
+    {
+        $teacher = new Consultation();
+        $teacher->setName($data['name']);
+        $teacher->setDescription($data['description']);
+        $teacher->setShift($data['shift']);
+        return $teacher;
+    }
+
+
+    /**
+     *Funkcja wysylajaca do bazy wsyzstkie dane
+     */
+    private function sendToDatabase(): void
+    {
+
+        $this->entityService->beginTransaction();
+        foreach ($this->dataAboutConsultation as $key => $value) {
+//            print_r($value);
+            $this->entityService->persist($this->createObjectPerOneTeacher($value));
+        }
+        $this->entityService->flush();
+        $this->entityService->commit();
+
+    }
+
+
 }

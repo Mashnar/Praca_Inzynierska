@@ -16,6 +16,7 @@ class ConsultationController extends AbstractController
      */
     public function index(ConsultationService $consultationService)
     {
+        set_time_limit(200);
         $consultationService->scrap();
         return $this->render('consultation/index.html.twig', [
 

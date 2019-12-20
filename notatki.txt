@@ -26,3 +26,7 @@ pamietac o napisaniu w pracy czemu przekierowywuje a nie wyswieltam content w sr
 
 
 w pracy o moim pomysle z generowaniem bezposrednio z wp-posts, ale storna sie ladowala 6,5 sekundy to do bazy i cron (opisac myslenie)
+
+
+konsultacje stworze w 1 tabeli, ustawie ze bedzie sie mienizac co 3 mieisace i bede ja czyscil w celu dodania nowych, wydaje mi sie ze
+to bedzie optymalniejsze , 150 sekund bylo generowana strona
