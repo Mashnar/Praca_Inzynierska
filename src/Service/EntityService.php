@@ -5,6 +5,7 @@ namespace App\Service;
 
 
 use App\Entity\CategoriesWebsite;
+use App\Entity\Consultation;
 use App\Entity\DataMain;
 use App\Entity\Device;
 use App\Entity\WebsitePosts;
@@ -69,6 +70,11 @@ class EntityService
     public function rollback(): void
     {
         $this->entityManager->rollback();
+    }
+
+    public function getAllTeachersShift(): array
+    {
+        return $this->entityManager->getRepository(Consultation::class)->findAll();
     }
 
 

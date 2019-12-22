@@ -3,7 +3,40 @@
     <link href="{{ asset('consultation/consultation.css') }}" rel="stylesheet">
 {% endblock %}
 {% block content %}
+    <div class="parent">
+        <div class="consultation">
 
 
+            <table>
+                <caption>Konsultacje</caption>
+                <thead>
+                <tr>
+                    <th scope="col">Dane osobowe</th>
+                    <th scope="col">Opis</th>
+                    <th scope="col">Dyżur</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for teacher in consultation %}
+                    <tr>
+                        <td data-label="dane">{{ teacher.name }}</td>
+                        <td data-label="opis">{{ teacher.description }}</td>
+                        <td data-label="dyzur">{{ teacher.shift }}</td>
+                    </tr>
+                {% endfor %}
 
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <a href="{{ path('homepage') }}">
+        <div class="back_button" style="position:absolute;top: 800px;height: 170px;left: 50px;">
+
+
+        </div>
+    </a>
 {% endblock %}

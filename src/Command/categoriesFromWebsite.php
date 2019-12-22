@@ -4,7 +4,6 @@
 namespace App\Command;
 
 use App\Service\CategoriesCronService;
-use App\Service\EntityService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,7 +17,6 @@ class categoriesFromWebsite extends Command
     /**
      * categoriesFromWebsite constructor.
      * @param CategoriesCronService $newsCronService
-     * @param EntityService $entityService
      */
     public function __construct(CategoriesCronService $newsCronService)
     {

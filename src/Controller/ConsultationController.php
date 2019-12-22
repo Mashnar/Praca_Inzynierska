@@ -14,11 +14,13 @@ class ConsultationController extends AbstractController
      * @param ConsultationService $consultationService
      * @return Response
      */
-    public function index(ConsultationService $consultationService)
+    public function index(ConsultationService $consultationService): Response
     {
-        set_time_limit(200);
-        $consultationService->scrap();
+        // dd($consultationService->getAllTeachersShift());
+
+        // $consultationService->scrap();
         return $this->render('consultation/index.html.twig', [
+            'consultation' => $consultationService->getAllTeachersShift()
 
         ]);
     }

@@ -45,6 +45,15 @@ class ConsultationService
         $this->entityService = $entityService;
     }
 
+    /**
+     * Funkcja zwracajca wszystkie dane o wykladowcach ( z ostatniego pobrania)
+     * @return array
+     */
+    public function getAllTeachersShift(): array
+    {
+        return $this->entityService->getAllTeachersShift();
+    }
+
 
     /**
      * Funkcja parsująca strone
