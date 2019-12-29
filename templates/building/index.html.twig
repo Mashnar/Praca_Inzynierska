@@ -1,0 +1,118 @@
+{% extends "base/base.html.twig" %}
+{% block head %}
+
+    <link href="{{ asset('building/style.css') }}" rel="stylesheet">
+    {#/*https://www.cssscript.com/css-only-minimal-responsive-image-gallery-lightbox-cssbox/*/#}
+    <link href="{{ asset('building/cssbox.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="parent">
+        <div class="div3 styles">
+            <div class="cssbox">
+                <a id="image1" href="#image1"><img class="cssbox_thumb" src="building/Schema/A_1_FLOOR.svg" height="250"
+                                                   width="400">
+                    <span class="cssbox_full"><img src="building/Schema/A_1_FLOOR.svg" height="1000"
+                                                   width="1000"></span>
+                </a>
+                <a class="cssbox_close" href="#void"></a>
+                <a class="cssbox_next" href="#image2">&gt;</a>
+            </div>
+
+        </div>
+        <div class="div4 styles">
+            <div class="cssbox">
+                <a id="image2" href="#image2"><img class="cssbox_thumb" src="building/Schema/A_2_FLOOR.svg" height="250"
+                                                   width="400">
+                    <span class="cssbox_full"><img src="building/Schema/A_2_FLOOR.svg" height="1000"
+                                                   width="1000"></span>
+                </a>
+                <a class="cssbox_close" href="#void"></a>
+                <a class="cssbox_next" href="#image3">&gt;</a>
+            </div>
+        </div>
+        <div class="div5 styles">
+            <div class="cssbox">
+                <a id="image3" href="#image3"><img class="cssbox_thumb" src="building/Schema/A_3_FLOOR.svg" height="250"
+                                                   width="400">
+                    <span class="cssbox_full"><img src="building/Schema/A_3_FLOOR.svg" height="1000"
+                                                   width="1000"></span>
+                </a>
+                <a class="cssbox_close" href="#void"></a>
+                <a class="cssbox_next" href="#image4">&gt;</a>
+            </div>
+        </div>
+        <div class="div6 styles">
+            <div class="cssbox">
+                <a id="image4" href="#image4"><img class="cssbox_thumb" src="building/Schema/B_1_FLOOR.svg" height="250"
+                                                   width="400">
+                    <span class="cssbox_full"><img src="building/Schema/B_1_FLOOR.svg" height="1000"
+                                                   width="1000"></span>
+                </a>
+                <a class="cssbox_close" href="#void"></a>
+                <a class="cssbox_next" href="#image5">&gt;</a>
+            </div>
+        </div>
+        <div class="div7 styles">
+            <div class="cssbox">
+                <a id="image5" href="#image5"><img class="cssbox_thumb" src="building/Schema/B_2_FLOOR.svg" height="250"
+                                                   width="400">
+                    <span class="cssbox_full"><img src="building/Schema/B_2_FLOOR.svg" height="1000"
+                                                   width="1000"></span>
+                </a>
+                <a class="cssbox_close" href="#void"></a>
+                <a class="cssbox_next" href="#image6">&gt;</a>
+            </div>
+        </div>
+        <div class="div8 styles">
+            <div class="cssbox">
+                <a id="image6" href="#image6"><img class="cssbox_thumb" src="building/Schema/B_3_FLOOR.svg" height="250"
+                                                   width="400">
+                    <span class="cssbox_full"><img src="building/Schema/B_3_FLOOR.svg" height="1000"
+                                                   width="1000"></span>
+                </a>
+                <a class="cssbox_close" href="#void"></a>
+                <a class="cssbox_next" href="#image7">&gt;</a>
+            </div>
+        </div>
+        <div class="div9 styles">
+            <div class="cssbox">
+                <a id="image7" href="#image7"><img class="cssbox_thumb" src="building/Schema/B_4_FLOOR.svg" height="250"
+                                                   width="400">
+                    <span class="cssbox_full"><img src="building/Schema/B_4_FLOOR.svg" height="1000"
+                                                   width="1000"></span>
+                </a>
+                <a class="cssbox_close" href="#void"></a>
+                <a class="cssbox_next" href="#image8">&gt;</a>
+            </div>
+        </div>
+        <div class="div10 styles">
+            <div class="cssbox">
+                <a id="image8" href="#image8"><img class="cssbox_thumb" src="building/Schema/B_5_FLOOR.svg" height="250"
+                                                   width="400">
+                    <span class="cssbox_full"><img src="building/Schema/B_5_FLOOR.svg" height="1000"
+                                                   width="1000"></span>
+                </a>
+                <a class="cssbox_close" href="#void"></a>
+                <a class="cssbox_next" href="#image9">&gt;</a>
+            </div>
+        </div>
+        <div class="div11 styles">
+            <div class="cssbox">
+                <a id="image9" href="#image9"><img class="cssbox_thumb" src="building/Schema/B_6_FLOOR.svg" height="250"
+                                                   width="400">
+                    <span class="cssbox_full"><img src="building/Schema/B_6_FLOOR.svg" height="1000"
+                                                   width="1000"></span>
+                </a>
+                <a class="cssbox_close" href="#void"></a>
+                <a class="cssbox_next" href="#image1">&gt;</a>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('homepage') }}">
+        <div class="back_button" style="position:absolute;top: 870px;height: 150px;left: 50px;">
+
+
+        </div>
+    </a>
+{% endblock %}
+
