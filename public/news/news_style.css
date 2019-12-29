@@ -2,9 +2,8 @@
     border-color: #ef7d00;
     border-style: solid;
     border-width: 10px;
-
+    margin: 25px auto;
     background-color: #DCDBE0;
-    margin: auto;
     overflow-y: scroll;
     width: 1200px;
     height: 350px;
@@ -12,7 +11,7 @@
 
 .facebook {
     position: relative;
-    top: 50px;
+    top: 15px;
 }
 
 ::-webkit-scrollbar {

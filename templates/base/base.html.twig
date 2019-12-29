@@ -8,7 +8,13 @@
     <meta name="author" content="Szymon Frączyk">
     {# DODAJE \FOS\JsRoutingBundle\FOSJsRoutingBundle do obslugi routeingu w js #}
     <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
-    <script src="{{ asset('header/Clock.js') }}"></script>
+    {#
+    https://stackoverflow.com/questions/44609306/moment-is-not-defined-using-moment-js/44609409
+    #}
+    <script src="moment.js"></script>
+
+    <script src="{{ asset('header/clock.js') }}"></script>
+
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     {#KONIEC #}
     <link href="{{ asset('base/base.css') }}" rel="stylesheet">
@@ -38,5 +44,6 @@
 
     </div>
 </div>
+
 </body>
 </html>

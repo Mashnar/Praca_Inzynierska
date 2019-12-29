@@ -7,6 +7,7 @@
 
 
 .weather_container {
+
     font-size: 17px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -20,7 +21,7 @@
     border-width: 10px;
 
     background-color: #DCDBE0;
-    margin: auto;
+    margin: 28px auto;
     width: 1200px;
     height: 350px;
 }
