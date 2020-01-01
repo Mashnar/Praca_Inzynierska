@@ -8,6 +8,8 @@
 }
 
 .main_content_box {
+    text-decoration: none;
+    color: #ef7d00;
     background-size: 200px 200px;
     background-repeat: no-repeat;
     background-position: center center;
@@ -47,8 +49,19 @@
 }
 
 .building {
+
     background-image: url("university2.svg");
+
 }
+
+.title_content {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 26px;
+    margin-top: 240px;
+
+}
+
 
 .news {
     background-image: url("newspaper.svg");
@@ -62,8 +75,4 @@
 
 .consultation {
     background-image: url("consultation2.svg");
-}
-
-.signature {
-
 }

@@ -55,7 +55,7 @@ body::before {
     width: 100%;
     height: 100%;
     position: absolute;
-    background-image: url("../DSC00261.JPG");
+    background-image: url("../DSC00261_good_size.JPG");
     filter: blur(5px);
     z-index: -1;
     background-size: cover;
