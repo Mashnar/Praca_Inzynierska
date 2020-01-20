@@ -16,6 +16,7 @@ window.onload = function () {
             return res.json();
         })
         .then((data) => {
+            console.log(data);
             insideChart(data);
 
         });
@@ -278,7 +279,6 @@ function chartHumidity(label, title, time, id_div, data, type) {
         data: {
             labels: time,
             datasets: [{
-
                 data: data,
                 label: label,
                 borderColor: "#ef7d00",
@@ -287,7 +287,6 @@ function chartHumidity(label, title, time, id_div, data, type) {
                 lineTension: 0,
                 pointRadius: 4,
                 pointHoverRadius: 12
-
             }
             ]
         },

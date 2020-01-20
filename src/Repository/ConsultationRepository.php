@@ -47,4 +47,12 @@ class ConsultationRepository extends ServiceEntityRepository
         ;
     }
     */
+    /**
+     * Funkcja czyszczaca tabele, pod to jak będzie aktualizacja newsów
+     * @return mixed
+     */
+    public function clearTable()
+    {
+        return $this->createQueryBuilder('e')->delete()->getQuery()->execute();
+    }
 }

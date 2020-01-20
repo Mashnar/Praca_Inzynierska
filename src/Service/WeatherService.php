@@ -45,8 +45,6 @@ class WeatherService
             date('d.m.y', strtotime('+2 days')) . ' 12:00',
             date('d.m.y', strtotime('+3 days')) . ' 12:00',
             date('d.m.y', strtotime('+4 days')) . ' 12:00',
-
-
         ];
 
         $this->entityservice = $entityService;
@@ -72,7 +70,6 @@ class WeatherService
 
         //zrobimy ze z kazdego dnia do przodu o 5 bierzemy od godziny 12 do 15 temperatura i te dane bedziemy wyswietlac
         $this->setWeatherForecast();
-
         foreach ($this->objData as $key => $weather) {
             foreach ($this->days_to_query as $value) {
                 if ($weather->time->from->format('d.m.y H:i') === $value) {
@@ -86,7 +83,6 @@ class WeatherService
 
 
         }
-
         return $this->dataToSend;
 
     }
@@ -137,8 +133,6 @@ class WeatherService
      */
     private function generateArrayToSend(Forecast $weather): void
     {
-
-
         $this->dataToSend[$weather->time->from->setTimezone(new DateTimezone('Europe/Berlin'))->format('d.m.y')] = [
             'temp' => $weather->temperature->getFormatted(),
             'clouds' => $weather->clouds->getDescription() . ' (' . $weather->clouds . ')',

@@ -71,9 +71,9 @@ class FacebookService
     public function getFacebookNews(): array
     {
         $this->content = $this->get();
+
         //kasuje paginacje, nie potrzebuje
         $this->cleanupArray();
-
         return $this->content;
 
     }

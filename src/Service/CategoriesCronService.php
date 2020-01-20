@@ -70,11 +70,7 @@ class CategoriesCronService
      */
     public function downloadAndSaveCategories(): void
     {
-        /**
-         * TODO
-         * zrobić walidacje oraz rollback
-         */
-        // ...
+
         //zwracam sobie tablice w postaci
         /**
          *
@@ -90,7 +86,6 @@ class CategoriesCronService
          */
 
         $categories = $this->generateIdForCategories();
-
         $flush_flag = false;
         //rozpoczynam transakcje
         $this->entityService->beginTransaction();
@@ -124,6 +119,7 @@ class CategoriesCronService
 
 
         $array = $this->getIdForCategory(implode(',', $this->slug));
+
         foreach ($this->slug as $key => $value) {
             $this->slug[$value] = $array[$key];
         }
@@ -149,9 +145,7 @@ class CategoriesCronService
     {
         //mam pewnosc ze bedczie w kolejnosci jakiej zdefiniowalem w tablicy poniewaz orderby iclude slugs
         //https://developer.wordpress.org/rest-api/reference/categories/#list-categories
-
         $temp = $this->httpclient->request('GET', $this->url . 'categories/?slug=' . $slug_with_comma . '&orderby=include_slugs')->toArray();
-
         $output = [];
         //przypisuje tylko id bo nic wiecej mi nie optrzebne
         foreach ($temp as $key => $value) {

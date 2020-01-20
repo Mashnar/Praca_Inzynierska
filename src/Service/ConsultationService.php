@@ -65,6 +65,8 @@ class ConsultationService
      */
     public function scrap(): void
     {
+
+
         //wykonuje request na stronie ze wszystkimi nauczycielami
         $this->makeRequest($this->url_teachers);
         //dodaje kontent do crawlera
@@ -73,7 +75,8 @@ class ConsultationService
         $this->getLinkAndNamesForTeachers();
         //biore dla kazdego nauczyciela opis i jego dyzur
         $this->getShiftAndDescriptionForTeachers();
-
+        //wysylam na koniec zeby nie byl oprzestoju
+        $this->entityService->clearTable(Consultation::class);
         $this->sendToDatabase();
 
     }

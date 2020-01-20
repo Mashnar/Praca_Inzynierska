@@ -48,8 +48,10 @@ class NewsCronService
         $categories = $this->getCategories();
 
         foreach ($categories as $obj) {
+
             //zbieram posty dla danego categoryid
             $posts = $this->getPostsByCategoryId($obj->getCategorySlugId());
+
             //serializuje tablice i wrzucam do obiektu
             $this->entityService->persist($this->createObject($obj, $posts));
 
