@@ -11,7 +11,7 @@ class ScheduleController extends AbstractController
 {
     /**
      *
-     * @Route("/schedule", name="generate_schedule")
+     * @Route("/scheduleRoute", name="generate_schedule")
      * @param ScheduleService $scheduleService
      * @return Response
      */

@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class WeatherAPIController extends AbstractController
 {
     /**
-     * @Route("/weather", name="weather")
+     * @Route("/weatherRoute", name="weather")
      * @param WeatherService $weatherService
      * @return Response
      * @throws Exception
