@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConsultationController extends AbstractController
 {
     /**
-     * @Route("/consultationRoute", name="consultation")
+     * @Route("/consultationRoute", name="consultationRoute")
      * @param ConsultationService $consultationService
      * @return Response
      */

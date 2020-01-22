@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class NewsController extends AbstractController
 {
     /**
-     * @Route("/newsRoute", name="news")
+     * @Route("/newsRoute", name="newsRoute")
      * @param NewsService $newsService
      * @param FacebookService $facebookService
      * @return Response
