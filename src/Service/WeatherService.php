@@ -89,25 +89,25 @@ class WeatherService
 
 
     /**
-     * Funkcja zwracajca parametry wewnatrz budynku ( będzie to ... narazie mała aula ( kontroler SDS_TEMP_4)
+     * Funkcja zwracajca parametry wewnatrz budynku ( będzie to ... narazie mała aula ( kontroler SDS_INSIDE)
      * @return array
      */
     public function getDataInside(): array
     {
-        return $this->entityservice->getNewestWeatherParameter('SDS_TEMP_4')[0];
+        return $this->entityservice->getNewestWeatherParameter('SDS_INSIDE')[0];
 
     }
 
     /**
-     * Funckja zwracaja parametry na zewnatrz budynku ( SDS_TEMP_1)
+     * Funckja zwracaja parametry na zewnatrz budynku ( SDS_OUTSIDE)
      * @return array
      */
     public function getDataOutside(): array
     {
         //biore parametry pogodewe i odrazu 0 element
-        $weatherParameter = $this->entityservice->getNewestWeatherParameter('SDS_TEMP_1')[0];
+        $weatherParameter = $this->entityservice->getNewestWeatherParameter('SDS_OUTSIDE')[0];
         $pollution_parameter = $this->entityservice->getXLatestPollution
-        (null, false, $this->entityservice->getDeviceByName('SDS_TEMP_1')
+        (null, false, $this->entityservice->getDeviceByName('SDS_OUTSIDE')
             , 1)[0];
         $pollution_parameter['createdAtPollution'] = $pollution_parameter['createdAt'];
         unset($pollution_parameter['createdAt']);

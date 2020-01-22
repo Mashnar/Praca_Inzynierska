@@ -34,9 +34,9 @@ class DetailsChartService
      */
     public function getData(DateTime $start, DateTime $end, $id, $type): string
     {
-        //jesli id jest null, t bierzemy o nazwei SDS_TEMP_4
+        //jesli id jest null, t bierzemy o nazwei SDS_INSIDE
         if ($id === null) {
-            $id = $this->entityService->getIdByName('SDS_TEMP_4');
+            $id = $this->entityService->getIdByName('SDS_INSIDE');
         }
 
         //domyslnie temperatura

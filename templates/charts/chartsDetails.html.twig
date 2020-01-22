@@ -19,7 +19,7 @@
 
                 {% for name in names %}
                     {#tutaj jest sds temp 1 bo to jest dwór#}
-                    <input type="radio" name="placed" id="{{ name.id }}" {% if name.name == 'SDS_TEMP_1' %}
+                    <input type="radio" name="placed" id="{{ name.id }}" {% if name.name == 'SDS_OUTSIDE' %}
 
                         onclick="showOptional()"
                     {% else %}
@@ -27,7 +27,7 @@
 
                     {% endif %}
                             {# domyslna wartosc, to moze byc do zmiany#}
-                            {% if name.name =='SDS_TEMP_4' %}
+                            {% if name.name =='SDS_INSIDE' %}
                                 checked="checked"
                             {% endif %}
 

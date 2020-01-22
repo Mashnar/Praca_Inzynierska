@@ -26,8 +26,8 @@ class generalChartService
     public function __construct(EntityService $entityService)
     {
         $this->entityService = $entityService;
-        $this->device_inside = $this->entityService->getDeviceByName('SDS_TEMP_4');
-        $this->device_outside = $this->entityService->getDeviceByName('SDS_TEMP_1');
+        $this->device_inside = $this->entityService->getDeviceByName('SDS_INSIDE');
+        $this->device_outside = $this->entityService->getDeviceByName('SDS_OUTSIDE');
 
     }
 

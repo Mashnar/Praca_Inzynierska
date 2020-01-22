@@ -154,7 +154,7 @@ class ConsultationService
     {
         $datasecond = $this->crawler->filter('div[id="tab-id-2-container"]');
         foreach ($datasecond as $domElement) {
-            if ($this->checkIsStringContainDyżur($domElement->nodeValue)) {
+            if ($this->checkIsStringContainDyzur($domElement->nodeValue)) {
 
                 //konsultacje
                 return $domElement->nodeValue;
@@ -183,7 +183,7 @@ class ConsultationService
      * @param $str
      * @return bool
      */
-    private function checkIsStringContainDyżur($str): bool
+    private function checkIsStringContainDyzur($str): bool
     {
         if (preg_match("/Dyżur/i", $str))
             return true;
