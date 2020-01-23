@@ -41,6 +41,7 @@ class categoriesFromWebsite extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->categoriesCronService->downloadAndSaveCategories();
+        return $output->write('Done');
 
     }
 }

@@ -39,6 +39,7 @@ class newsFromWebsite extends Command
     {
 
         $this->newsCronService->downloadAndSaveNews();
+        return $output->write('Done');
     }
 
 

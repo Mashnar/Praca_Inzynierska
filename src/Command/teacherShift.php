@@ -41,6 +41,6 @@ class teacherShift extends Command
         set_time_limit(60);
 
 
-        return 0;
+        return $output->write('Done');
     }
 }

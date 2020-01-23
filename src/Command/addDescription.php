@@ -42,19 +42,21 @@ class addDescription extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
+        // pobieram urzadzenia
         $outside = $this->entityService->getDeviceByName('SDS_OUTSIDE');
         $inside = $this->entityService->getDeviceByName('SDS_INSIDE');
-
+        //ustawiam argumenty na opis
         $outside->setDescription($input->getArgument('outside'));
         $inside->setDescription($input->getArgument('inside'));
-
+        //waliduje
         $this->validationService->validate($outside);
         $this->validationService->validate($inside);
-
+        //wysylam jak jest ok
         $this->entityService->persist($outside);
         $this->entityService->persist($inside);
         $this->entityService->flush();
+
+        return $output->write('Done');
 
 
     }
