@@ -16,7 +16,7 @@ class RoutingTest extends WebTestCase
      * @test
      * @param $url
      */
-    public function testPageIsSuccessful($url)
+    public function testPageIsSuccessful($url): void
     {
         $client = self::createClient();
         $client->request('GET', $url);
@@ -34,6 +34,7 @@ class RoutingTest extends WebTestCase
             ['/chartsDetails'],
             ['/generalChart'],
             ['/newsRoute'],
+            ['/chart'],
             ['/scheduleRoute'],
             ['/weatherRoute'],
             ['/consultationRoute'],
