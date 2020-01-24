@@ -26,7 +26,6 @@ class DeviceTests extends WebTestCase
             'name' => 'TEST_DEVICE',
             'ip_address' => '192.168.0.2'
         ]);
-        echo $this->client->getResponse()->getContent();
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
     }
@@ -42,7 +41,6 @@ class DeviceTests extends WebTestCase
             'name' => 'TEST_DEVICE',
             'ip_address' => '192.169.0.3'
         ]);
-        echo $this->client->getResponse()->getContent();
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
     }
