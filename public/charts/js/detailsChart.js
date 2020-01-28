@@ -179,7 +179,7 @@ function pollutionChart(pm10, pm25, time) {
                 onClick: null,
                 labels: {
                     // This more specific font property overrides the global property
-                    fontColor: '#ef7d00',
+                    fontColor: '#000000',
 
                 }
             },
