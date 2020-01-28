@@ -16,7 +16,6 @@ window.onload = function () {
             return res.json();
         })
         .then((data) => {
-            console.log(data);
             insideChart(data);
 
         });
@@ -175,8 +174,8 @@ function outsideChart(data) {
     });
 
 
-    chartHumidity("Wilgotność", "Wykres Wilgotności Zewnętrzne", time_hum, "myChartHumidity", hum, 'line');
-    chartPressure("Ciśnienie", "Wykres Ciśnienia Zewnętrzne", time_press, "myChartPressure", press, 'line');
+    chartHumidity("Wilgotność", "Wykres Wilgotności Zewnętrzny", time_hum, "myChartHumidity", hum, 'line');
+    chartPressure("Ciśnienie", "Wykres Ciśnienia Zewnętrzny", time_press, "myChartPressure", press, 'line');
     pollutionChart(pm10, pm25, time_pollution);
     chartTemp('Temperatura', 'Wykres Temperatury Zewnętrzny', time_inside_temp, 'myChartTemp', temp_inside, 'bar');
 }
@@ -200,12 +199,11 @@ function chartPressure(label, title, time, id_div, data, type) {
         data: {
             labels: time,
             datasets: [{
-
                 data: data,
                 label: label,
-                borderColor: "#ef7d00",
+                borderColor: "#008000",
                 fill: false,
-                backgroundColor: '#ef7d00',
+                backgroundColor: '#008000',
                 lineTension: 0,
                 pointRadius: 4,
                 pointHoverRadius: 12
@@ -219,7 +217,7 @@ function chartPressure(label, title, time, id_div, data, type) {
                 onClick: null,
                 labels: {
                     // This more specific font property overrides the global property
-                    fontColor: '#ef7d00',
+                    fontColor: '#000000',
 
                 }
             },
@@ -257,7 +255,9 @@ function chartPressure(label, title, time, id_div, data, type) {
             maintainAspectRatio: false,
             title: {
                 display: true,
-                text: title
+                text: title,
+                fontColor: "#000000"
+
             }
         }
 
@@ -296,7 +296,7 @@ function chartHumidity(label, title, time, id_div, data, type) {
                 onClick: null,
                 labels: {
                     // This more specific font property overrides the global property
-                    fontColor: '#ef7d00',
+                    fontColor: '#000000',
 
                 }
             },
@@ -334,7 +334,9 @@ function chartHumidity(label, title, time, id_div, data, type) {
             maintainAspectRatio: false,
             title: {
                 display: true,
-                text: title
+                text: title,
+                fontColor: "#000000"
+
             }
         }
 
@@ -349,6 +351,9 @@ function chartTemp(label, title, time, id_div, data, type) {
         temperature.destroy();
     }
 
+    const colorBackground = [];
+    colorBackground.fill('rgb(255, 0, 0)', 0, data.length);
+
     // begin custom shape
     // begin custom shape
     temperature = new Chart(document.getElementById(id_div), {
@@ -356,12 +361,11 @@ function chartTemp(label, title, time, id_div, data, type) {
         data: {
             labels: time,
             datasets: [{
-
                 data: data,
                 label: label,
-                borderColor: "#ef7d00",
+                borderColor: colorBackground,
                 fill: false,
-                backgroundColor: '#ef7d00',
+                backgroundColor: colorBackground,
                 lineTension: 0,
                 pointRadius: 4,
                 pointHoverRadius: 12
@@ -371,13 +375,14 @@ function chartTemp(label, title, time, id_div, data, type) {
         },
         options: {
             legend: {
+
                 //https://stackoverflow.com/a/49444741
                 onClick: null,
                 labels: {
                     // This more specific font property overrides the global property
-                    fontColor: '#ef7d00',
+                    fontColor: '#000000',
 
-                }
+                },
             },
             //https://stackoverflow.com/a/37293215
             scales: {
@@ -413,11 +418,27 @@ function chartTemp(label, title, time, id_div, data, type) {
             maintainAspectRatio: false,
             title: {
                 display: true,
-                text: title
+                text: title,
+                fontColor: "#000000"
+
             }
-        }
+        },
 
     });
+
+
+    let colorChangeValue = 0; //set this to whatever is the deciding color change value
+    let dataset = temperature.data.datasets[0];
+    for (let i = 0; i < dataset.data.length; i++) {
+        if (dataset.data[i] < colorChangeValue) {
+            dataset.backgroundColor[i] = '#0000FF';
+            dataset.borderColor[i] = '#0000FF';
+        } else {
+            dataset.backgroundColor[i] = 'rgb(255, 0, 0)';
+            dataset.borderColor[i] = 'rgb(255, 0, 0)';
+        }
+    }
+    temperature.update();
 }
 
 
@@ -436,14 +457,14 @@ function pollutionChart(pm10, pm25, time) {
             datasets: [{
                 data: pm10,
                 label: 'PM10',
-                borderColor: "#ef7d00",
-                backgroundColor: "#ef7d00",
+                borderColor: "#A9A9A9",
+                backgroundColor: "#A9A9A9",
                 fill: false
             }, {
                 data: pm25,
                 label: 'PM25',
-                borderColor: "#ef7d00",
-                backgroundColor: "#ef7d00",
+                borderColor: "#696969",
+                backgroundColor: "#696969   ",
                 fill: false
 
             }
@@ -455,7 +476,7 @@ function pollutionChart(pm10, pm25, time) {
                 onClick: null,
                 labels: {
                     // This more specific font property overrides the global property
-                    fontColor: '#ef7d00',
+                    fontColor: '#000000',
 
                 }
             },
@@ -486,7 +507,8 @@ function pollutionChart(pm10, pm25, time) {
             maintainAspectRatio: false,
             title: {
                 display: true,
-                text: 'Wykres zanieczyszczenia'
+                text: 'Wykres zanieczyszczenia',
+                fontColor: "#000000"
             }
         }
 
