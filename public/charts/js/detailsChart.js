@@ -31,7 +31,7 @@ function generateChart(data) {
         time.push(dt.slice(0, dt.lastIndexOf(".")));
         temp.push(data[k].temperature);
     });
-    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp, 'bar', '#008000', true);
+    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp, 'line', '#ff0000', true);
 
 }
 
@@ -130,11 +130,11 @@ function InputChart(data, type) {
 
 
 function pressureChart(hum, time) {
-    createChart("Ciśnienie", "Wykres Ciśnienia", time, "myChart", hum, 'line', '#008000');
+    createChart("Ciśnienie", "Wykres Ciśnienia", time, "myChart", hum, 'bar', '#008000');
 }
 
 function temperatureChart(temp, time) {
-    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp, 'bar', '#008000', true);
+    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp, 'line', '#ff0000', true);
 }
 
 function humidityChart(hum, time) {
@@ -218,19 +218,12 @@ function pollutionChart(pm10, pm25, time) {
 }
 
 
-function createChart(label, title, time, id_div, data, type, color, temperature = false) {
+function createChart(label, title, time, id_div, data, type, color) {
 
     if (typeof chart !== "undefined") {
         chart.destroy();
     }
-    if (temperature) {
 
-        const colorBackground = [];
-        colorBackground.fill('rgb(255, 0, 0)', 0, data.length);
-
-        color = colorBackground;
-        console.log(color);
-    }
 
     chart = new Chart(document.getElementById(id_div), {
         type: type,
@@ -300,21 +293,6 @@ function createChart(label, title, time, id_div, data, type, color, temperature 
 
     });
 
-    if (temperature) {
-        console.log('elo');
-        let colorChangeValue = 0; //set this to whatever is the deciding color change value
-        let dataset = chart.data.datasets[0];
-        for (let i = 0; i < dataset.data.length; i++) {
-            if (dataset.data[i] < colorChangeValue) {
-                dataset.backgroundColor[i] = '#0000FF';
-                dataset.borderColor[i] = '#0000FF';
-            } else {
-                dataset.backgroundColor[i] = 'rgb(255, 0, 0)';
-                dataset.borderColor[i] = 'rgb(255, 0, 0)';
-            }
-        }
-        chart.update();
-    }
 }
 
 
