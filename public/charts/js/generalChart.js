@@ -1,3 +1,4 @@
+
 let pressure;
 let humidity;
 let temperature;
@@ -552,3 +553,4 @@ function pollutionChart(pm10, pm25, time, date) {
 
     });
 }
+
