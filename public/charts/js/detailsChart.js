@@ -31,7 +31,7 @@ function generateChart(data) {
         time.push(dt.slice(0, dt.lastIndexOf(".")));
         temp.push(data[k].temperature);
     });
-    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp,'bar');
+    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp, 'line', '#ff0000', true);
 
 }
 
@@ -130,15 +130,15 @@ function InputChart(data, type) {
 
 
 function pressureChart(hum, time) {
-    createChart("Ciśnienie", "Wykres Ciśnienia", time, "myChart", hum,'line');
+    createChart("Ciśnienie", "Wykres Ciśnienia", time, "myChart", hum, 'bar', '#008000');
 }
 
 function temperatureChart(temp, time) {
-    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp,'bar');
+    createChart("Temperatura", "Wykres temperatury", time, "myChart", temp, 'line', '#ff0000', true);
 }
 
 function humidityChart(hum, time) {
-    createChart("Wilgotnosć", "Wykres wilgotności", time, "myChart", hum,'line');
+    createChart("Wilgotnosć", "Wykres wilgotności", time, "myChart", hum, 'line', "#ef7d00");
 }
 
 function pollutionChart(pm10, pm25, time) {
@@ -154,8 +154,8 @@ function pollutionChart(pm10, pm25, time) {
             datasets: [{
                 data: pm10,
                 label: 'PM10',
-                borderColor: "#ef7d00",
-                backgroundColor: '#ef7d00',
+                borderColor: "#A9A9A9",
+                backgroundColor: "#A9A9A9",
                 pointRadius: 6,
                 pointHoverRadius: 12,
 
@@ -163,8 +163,8 @@ function pollutionChart(pm10, pm25, time) {
             }, {
                 data: pm25,
                 label: 'PM25',
-                borderColor: "#ef7d00",
-                backgroundColor: '#ef7d00',
+                borderColor: "#696969",
+                backgroundColor: "#696969",
                 pointRadius: 6,
                 pointHoverRadius: 12,
 
@@ -179,7 +179,7 @@ function pollutionChart(pm10, pm25, time) {
                 onClick: null,
                 labels: {
                     // This more specific font property overrides the global property
-                    fontColor: '#ef7d00',
+                    fontColor: '#000000',
 
                 }
             },
@@ -218,7 +218,8 @@ function pollutionChart(pm10, pm25, time) {
 }
 
 
-function createChart(label, title, time, id_div, data, type) {
+function createChart(label, title, time, id_div, data, type, color) {
+
     if (typeof chart !== "undefined") {
         chart.destroy();
     }
@@ -232,9 +233,9 @@ function createChart(label, title, time, id_div, data, type) {
 
                 data: data,
                 label: label,
-                borderColor: "#ef7d00",
+                borderColor: color,
                 fill: false,
-                backgroundColor: '#ef7d00',
+                backgroundColor: color,
                 pointRadius: 6,
                 pointHoverRadius: 12
 
@@ -247,7 +248,7 @@ function createChart(label, title, time, id_div, data, type) {
                 onClick: null,
                 labels: {
                     // This more specific font property overrides the global property
-                    fontColor: '#ef7d00',
+                    fontColor: '#000000',
 
                 }
             },
@@ -285,11 +286,13 @@ function createChart(label, title, time, id_div, data, type) {
             maintainAspectRatio: false,
             title: {
                 display: true,
-                text: title
+                text: title,
+                fontColor: "#000000"
             }
         }
 
     });
+
 }
 
 

@@ -52,7 +52,7 @@ class generalChartService
             //temperatura w srodku
             'temp_inside' => $this->getTemperature(),
             //zanieczyszczenie
-            'pollution' => $this->getPollution()
+            'pollution' => $this->getPollution(),
 
         ];
 

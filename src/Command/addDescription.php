@@ -35,7 +35,7 @@ class addDescription extends Command
 
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp('1 parametr urzadzenie wewnetrzne, drugi zewnetrzne')
+            ->setHelp('1 parametr urzadzenie zewnetrzne, drugi wewnetrzne')
             ->addArgument('outside', InputArgument::REQUIRED, 'Opis urzadzenia zewnetrznego')
             ->addArgument('inside', InputArgument::REQUIRED, 'Opis urzadzenia wewnetrznego');
     }
