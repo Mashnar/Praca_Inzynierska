@@ -47,26 +47,18 @@ class DetailsChartService
         if ($type === 'pollution') {
 
 
-            $data = $this->entityService->getPollution($start, $end, $id);
-            //jesli jest puste, tobierzemy ostatnie 4
-            if (empty($data)) {
                 return json_encode($this->entityService->getXLatestPollution($id,true,null,8));
-            }
 
-            return json_encode($data);
+
         }
-
-        $data = $this->entityService->getWeatherParametersBeetweenDate($start, $end, $id, $type);
 
 
 
 
         //jesli dane sa puste, to zwracamy ostatnie 24
-        if (empty($data)) {
-            return json_encode($this->entityService->get48Or24LatestParams($id, $type));
-        }
 
-        return json_encode($data);
+        return json_encode($this->entityService->get48Or24LatestParams($id, $type));
+
 
 
     }
