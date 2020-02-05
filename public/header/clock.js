@@ -10,7 +10,7 @@ function updateTime() {
     var day = dateObj.getDate();
     document.documentElement.style.setProperty('--timer-day', "'" + day + "." + month + "." + dateObj.getFullYear());
     // document.documentElement.style.setProperty('--timer-day', "'" + day + "." + month + "." + dateObj.getFullYear());
-    document.documentElement.style.setProperty('--timer-hours', "'" + moment().format("H") + "'");
+    document.documentElement.style.setProperty('--timer-hours', "'" + moment().format("HH") + "'");
     document.documentElement.style.setProperty('--timer-minutes', "'" + moment().format("mm") + "'");
     document.documentElement.style.setProperty('--timer-seconds', "'" + moment().format("ss") + "'");
     requestAnimationFrame(updateTime);
