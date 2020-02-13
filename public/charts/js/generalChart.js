@@ -1,4 +1,16 @@
+setInterval(function () {
 
+    const temp = Routing.generate('dataForGeneralChartInside');
+
+    fetch(temp)
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            insideChart(data);
+        });
+
+}, 3600000);
 let pressure;
 let humidity;
 let temperature;
