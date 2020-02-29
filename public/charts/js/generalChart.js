@@ -14,6 +14,7 @@ setInterval(function () {
 let pressure;
 let humidity;
 let temperature;
+let pm;
 /***
  *
  *
@@ -494,7 +495,11 @@ function pollutionChart(pm10, pm25, time, date) {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
 
-    new Chart(document.getElementById('myChartPollution'), {
+    if (pm !== undefined) {
+        pm.destroy();
+    }
+
+    pm = new Chart(document.getElementById('myChartPollution'), {
         type: 'bar',
         data: {
             labels: time,
